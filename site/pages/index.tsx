@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
@@ -6,7 +6,7 @@ import { Transaction } from '@meshsdk/core';
 import { useSearchParams } from "next/navigation";
 
 const Home: NextPage = () => {
-  const [inputValue, setInputValue] = useState('');
+  const [adaAmount, setInputValue] = useState('');
   const { connected, wallet } = useWallet();
   const [assets, setAssets] = useState<null | any>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,11 +16,12 @@ const Home: NextPage = () => {
   const to_addres = searchParams.get("to");
   const amount_in_lovelace = searchParams.get("a");
 
-  function get_tx_info() {
-    if (to_addres != null && amount_in_lovelace != null) {
-      return (to_addres, amount_in_lovelace);
-    }
-    return ('', '')
+  const pay_mode = to_addres != null
+
+  function ada_to_lovelace(x: string): string {
+    const ada: number = parseInt(x, 10);
+    const lovelace: number = ada * 1000000;
+    return lovelace.toString();
   }
 
   async function getAssets() {
@@ -42,6 +43,31 @@ const Home: NextPage = () => {
     setInputValue(event.target.value); // Update state with the current value
   };
 
+  function create_link(addr: string, lovelace: string): string {
+    return ("http://localhost:3000/?to=" + addr + "&a=" + lovelace);
+  }
+
+  const [link, setLink] = useState<string | null>(null);
+
+  // Use useEffect to call the async function when the component mounts or adaAmount changes
+  useEffect(() => {
+    // Call the async function and store the result in state
+    const fetchLink = async () => {
+      if (connected) {
+        const generatedLink = await generate_link(adaAmount);
+        setLink(generatedLink); // Update state with the generated link
+      }
+    };
+
+    fetchLink();
+  }, [adaAmount]); // Add adaAmount as a dependency to re-trigger if adaAmount changes
+
+
+  async function generate_link(): string {
+    let addr = await get_address();
+    return create_link(addr, ada_to_lovelace(adaAmount));
+  }
+
   async function send_ada(addr: string, amount: string) {
     const tx = new Transaction({ initiator: wallet })
       .sendLovelace(
@@ -58,25 +84,32 @@ const Home: NextPage = () => {
     <div>
       <h1>Create payment request</h1>
       <CardanoWallet />
-      {connected && (
+      {connected && !pay_mode && (
         <>
-          <h1>{to_addres}</h1>
-          <h1>{amount_in_lovelace}</h1>
           <h1>enter ada amount</h1>
           <input
             type="text"
             id="my-text-field"
-            value={inputValue}
+            value={adaAmount}
             onChange={handleInputChange}
             placeholder="Type something..."
           />
+          <h3>
+            {link}
+          </h3>
+        </>
+      )
+      }
+      {connected && pay_mode && (
+        <>
+
           <button
             type="button"
             onClick={() => {
               send_ada(to_addres, amount_in_lovelace)
             }}
           >
-            send 2 ada to saas
+            send {adaAmount} ada to addres
           </button>
           <h1>Get Wallet Assets</h1>
           {assets ? (
