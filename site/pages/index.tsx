@@ -60,9 +60,7 @@ const Home: NextPage = () => {
 
       fetchAddress();
     }
-  }, [connected]); // Empty dependency array to run only once on mount
-
-  // Another useEffect to log when 'address' state updates
+  }, [connected]);
 
   return (
     <div>
@@ -87,7 +85,7 @@ const Home: NextPage = () => {
               send_ada(to_addres, amount_in_lovelace)
             }}
           >
-            send {adaAmount} ada to addres
+            send ada to addres
           </button>
         </>
       )

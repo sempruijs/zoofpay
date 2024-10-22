@@ -38,17 +38,16 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
 
     return (
         <>
-            <h1>enter ada amount</h1>
             <input
                 type="text"
                 id="my-text-field"
                 value={adaAmount}
                 onChange={handleInputChange}
-                placeholder="Type something..."
+                placeholder="Enter ada amount"
             />
-            <h3>
+            <p>
                 {link}
-            </h3>
+            </p>
         </>
     );
 };
