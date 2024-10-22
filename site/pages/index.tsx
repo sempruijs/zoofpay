@@ -4,9 +4,10 @@ import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
 import { Transaction } from '@meshsdk/core';
 import { useSearchParams } from "next/navigation";
+import LinkBuilder from './linkBuilder';
+import { get } from "http";
 
 const Home: NextPage = () => {
-  const [adaAmount, setInputValue] = useState('');
   const { connected, wallet } = useWallet();
   const [assets, setAssets] = useState<null | any>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,11 +21,7 @@ const Home: NextPage = () => {
 
   const [link, setLink] = useState<string | null>(null);
 
-  function ada_to_lovelace(x: string): string {
-    const ada: number = parseInt(x, 10);
-    const lovelace: number = ada * 1000000;
-    return lovelace.toString();
-  }
+
 
   async function get_address(): Promise<string> {
     let addresses = await wallet.getUnusedAddresses();
@@ -36,25 +33,6 @@ const Home: NextPage = () => {
     setInputValue(event.target.value); // Update state with the current value
   };
 
-  function create_link(addr: string, lovelace: string): string {
-    return ("http://localhost:3000/?to=" + addr + "&a=" + lovelace);
-  }
-
-  // Use useEffect to call the async function when the component mounts or adaAmount changes
-  useEffect(() => {
-    // Call the async function and store the result in state
-    const fetchLink = async () => {
-      if (connected) {
-        const addr = await get_address();
-        const lovelace = ada_to_lovelace(adaAmount);
-        const link = create_link(addr, lovelace);
-        setLink(link);
-      }
-    };
-
-    fetchLink();
-  }, [adaAmount]); // Add adaAmount as a dependency to re-trigger if adaAmount changes
-
   async function send_ada(addr: string, amount: string) {
     const tx = new Transaction({ initiator: wallet })
       .sendLovelace(
@@ -65,7 +43,26 @@ const Home: NextPage = () => {
     const unsignedTx = await tx.build();
     const signedTx = await wallet.signTx(unsignedTx);
     const txHash = await wallet.submitTx(signedTx);
+
   }
+
+  const [address, setAddress] = useState<string | null>(null);
+
+  // Fetch the address when the component mounts
+  useEffect(() => {
+    if (connected) {
+      const fetchAddress = async () => {
+        const addr = await get_address();
+        console.log(addr);
+        setAddress(addr); // Set the address to state
+        console.log(address)
+      };
+
+      fetchAddress();
+    }
+  }, [connected]); // Empty dependency array to run only once on mount
+
+  // Another useEffect to log when 'address' state updates
 
   return (
     <div>
@@ -73,23 +70,17 @@ const Home: NextPage = () => {
       <CardanoWallet />
       {connected && !pay_mode && (
         <>
-          <h1>enter ada amount</h1>
-          <input
-            type="text"
-            id="my-text-field"
-            value={adaAmount}
-            onChange={handleInputChange}
-            placeholder="Type something..."
-          />
-          <h3>
-            {link}
-          </h3>
+          {address ? (
+            <LinkBuilder addr={address} />
+          ) : (
+            <h1>fetching address</h1>
+          )}
+
         </>
       )
       }
       {connected && pay_mode && (
         <>
-
           <button
             type="button"
             onClick={() => {
