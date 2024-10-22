@@ -54,9 +54,9 @@ const Home: NextPage = () => {
     // Call the async function and store the result in state
     const fetchLink = async () => {
       if (connected) {
-        // const generatedLink = await generate_link(adaAmount);
         const addr = await get_address();
-        const link = create_link(addr, adaAmount);
+        const lovelace = ada_to_lovelace(adaAmount);
+        const link = create_link(addr, lovelace);
         setLink(link);
       }
     };
