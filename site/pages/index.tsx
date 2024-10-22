@@ -66,6 +66,9 @@ const Home: NextPage = () => {
     <div>
       <h1>Create payment request</h1>
       <CardanoWallet />
+      {!connected && (
+        <p>This will fetch your cardano recieve addres for your payment request.</p>
+      )}
       {connected && !pay_mode && (
         <>
           {address ? (

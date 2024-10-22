@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 type LinkBuilderProps = {
     addr: string; // Define a type for props that includes addr as a string
@@ -18,22 +18,29 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
         return ("http://localhost:3000/?to=" + addr + "&a=" + lovelace);
     }
 
-    useEffect(() => {
-        // Call the async function and store the result in state
-        const fetchLink = async () => {
-            // if (connected) {
-            // const addr = await get_address();
-            const lovelace = ada_to_lovelace(adaAmount);
-            const link = create_link(addr, lovelace);
-            setLink(link);
-            // }
-        };
-
-        fetchLink();
-    }, [adaAmount]); // Add adaAmount as a dependency to re-trigger if adaAmount changes
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value); // Update state with the current value
+        setLink(null); // Hide the link when the text field changes
+    };
+
+    const handleGenerateLink = () => {
+        if (adaAmount.trim() !== '') { // Check if adaAmount is not empty
+            const lovelace = ada_to_lovelace(adaAmount);
+            const generatedLink = create_link(addr, lovelace);
+            setLink(generatedLink); // Set the generated link to state
+        }
+    };
+
+    const handleCopyToClipboard = () => {
+        if (link) {
+            navigator.clipboard.writeText(link) // Use the Clipboard API to copy the link
+                .then(() => {
+                    console.log("link copied.");
+                })
+                .catch(err => {
+                    console.error("Failed to copy: ", err);
+                });
+        }
     };
 
     return (
@@ -45,9 +52,15 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
                 onChange={handleInputChange}
                 placeholder="Enter ada amount"
             />
-            <p>
-                {link}
-            </p>
+            {adaAmount.trim() !== '' && ( // Show button only if adaAmount is not empty
+                <button onClick={handleGenerateLink}>Generate Link</button>
+            )}
+            {link && (
+                <div>
+                    <p>{link}</p>
+                    <button onClick={handleCopyToClipboard}>Copy to Clipboard</button> {/* Copy to clipboard button */}
+                </div>
+            )}
         </>
     );
 };
