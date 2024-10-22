@@ -26,15 +26,6 @@ const Home: NextPage = () => {
     return lovelace.toString();
   }
 
-  async function getAssets() {
-    if (wallet) {
-      setLoading(true);
-      const _assets = await wallet.getAssets();
-      setAssets(_assets);
-      setLoading(false);
-    }
-  }
-
   async function get_address(): Promise<string> {
     let addresses = await wallet.getUnusedAddresses();
     console.log(addresses[0])
@@ -107,26 +98,6 @@ const Home: NextPage = () => {
           >
             send {adaAmount} ada to addres
           </button>
-          <h1>Get Wallet Assets</h1>
-          {assets ? (
-            <pre>
-              <code className="language-js">
-                {JSON.stringify(assets, null, 2)}
-              </code>
-            </pre>
-          ) : (
-            <button
-              type="button"
-              onClick={() => getAssets()}
-              disabled={loading}
-              style={{
-                margin: "8px",
-                backgroundColor: loading ? "orange" : "grey",
-              }}
-            >
-              Get Wallet Assets
-            </button>
-          )}
         </>
       )
       }
