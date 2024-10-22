@@ -5,12 +5,10 @@ import { CardanoWallet } from '@meshsdk/react';
 import { Transaction } from '@meshsdk/core';
 import { useSearchParams } from "next/navigation";
 import LinkBuilder from './linkBuilder';
-import { get } from "http";
+// import { get } from "http";
 
 const Home: NextPage = () => {
   const { connected, wallet } = useWallet();
-  const [assets, setAssets] = useState<null | any>(null);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const searchParams = useSearchParams();
 
@@ -19,19 +17,11 @@ const Home: NextPage = () => {
 
   const pay_mode = to_addres != null
 
-  const [link, setLink] = useState<string | null>(null);
-
-
-
   async function get_address(): Promise<string> {
-    let addresses = await wallet.getUnusedAddresses();
+    const addresses = await wallet.getUnusedAddresses();
     console.log(addresses[0])
     return addresses[0]
   }
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value); // Update state with the current value
-  };
 
   async function send_ada(addr: string, amount: string) {
     const tx = new Transaction({ initiator: wallet })
@@ -43,7 +33,7 @@ const Home: NextPage = () => {
     const unsignedTx = await tx.build();
     const signedTx = await wallet.signTx(unsignedTx);
     const txHash = await wallet.submitTx(signedTx);
-
+    console.log(txHash)
   }
 
   const [address, setAddress] = useState<string | null>(null);
@@ -85,7 +75,9 @@ const Home: NextPage = () => {
           <button
             type="button"
             onClick={() => {
-              send_ada(to_addres, amount_in_lovelace)
+              if (amount_in_lovelace != null) {
+                send_ada(to_addres, amount_in_lovelace)
+              }
             }}
           >
             send ada to addres

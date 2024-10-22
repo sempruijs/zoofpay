@@ -5,7 +5,7 @@ type LinkBuilderProps = {
 };
 
 const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
-    const [adaAmount, setInputValue] = useState('');
+    const [adaAmount, setAdaAmount] = useState('');
     const [link, setLink] = useState<string | null>(null);
 
     function ada_to_lovelace(x: string): string {
@@ -19,7 +19,7 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value); // Update state with the current value
+        setAdaAmount(event.target.value); // Update state with the current value
         setLink(null); // Hide the link when the text field changes
     };
 
