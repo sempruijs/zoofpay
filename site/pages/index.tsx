@@ -18,6 +18,8 @@ const Home: NextPage = () => {
 
   const pay_mode = to_addres != null
 
+  const [link, setLink] = useState<string | null>(null);
+
   function ada_to_lovelace(x: string): string {
     const ada: number = parseInt(x, 10);
     const lovelace: number = ada * 1000000;
@@ -47,26 +49,20 @@ const Home: NextPage = () => {
     return ("http://localhost:3000/?to=" + addr + "&a=" + lovelace);
   }
 
-  const [link, setLink] = useState<string | null>(null);
-
   // Use useEffect to call the async function when the component mounts or adaAmount changes
   useEffect(() => {
     // Call the async function and store the result in state
     const fetchLink = async () => {
       if (connected) {
-        const generatedLink = await generate_link(adaAmount);
-        setLink(generatedLink); // Update state with the generated link
+        // const generatedLink = await generate_link(adaAmount);
+        const addr = await get_address();
+        const link = create_link(addr, adaAmount);
+        setLink(link);
       }
     };
 
     fetchLink();
   }, [adaAmount]); // Add adaAmount as a dependency to re-trigger if adaAmount changes
-
-
-  async function generate_link(): string {
-    let addr = await get_address();
-    return create_link(addr, ada_to_lovelace(adaAmount));
-  }
 
   async function send_ada(addr: string, amount: string) {
     const tx = new Transaction({ initiator: wallet })
