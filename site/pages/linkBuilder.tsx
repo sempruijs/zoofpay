@@ -15,7 +15,7 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
     }
 
     function create_link(addr: string, lovelace: string): string {
-        return ("http://localhost:3000/?to=" + addr + "&a=" + lovelace);
+        return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace);
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
