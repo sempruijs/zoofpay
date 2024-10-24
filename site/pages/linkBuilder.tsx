@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
 
-const LinkBuilder = ({ addr }) => {
+const LinkBuilder = () => {
     const { connected, wallet } = useWallet();
 
     const [adaAmount, setAdaAmount] = useState('');
