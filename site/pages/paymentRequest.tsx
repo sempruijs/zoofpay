@@ -12,6 +12,8 @@ interface PaymentRequestProps {
 const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lovelace }) => {
     const { connected, wallet } = useWallet();
 
+    const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
+
     // amount is in lovelace
     async function send_ada(addr: string, amount: string) {
         const tx = new Transaction({ initiator: wallet })
@@ -26,18 +28,30 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         console.log(txHash)
     }
 
+    function lovelace_to_ada(x: string): string {
+        const lovelace: number = parseInt(x, 10);
+        const ada: number = lovelace / 1000000;
+        return ada.toString();
+    }
+
     return (
         <>
-            <h1>Connect to pay</h1>
+            <h1>You will pay {amount_in_ada} ada</h1>
+            <h3>Connect to pay</h3>
             <CardanoWallet />
-            <button
-                type="button"
-                onClick={() => {
-                    send_ada(to_addres, amount_in_lovelace)
-                }}
-            >
-                send ada to addres
-            </button>
+            {connected && (
+                <>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            send_ada(to_addres, amount_in_lovelace)
+                        }}
+                    >
+                        send {amount_in_ada} ada to addres
+                    </button>
+                </>
+            )}
+
         </>
     );
 };

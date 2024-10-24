@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   const to_addres = searchParams.get("to");
   const amount_in_lovelace = searchParams.get("a");
 
-  const pay_mode = to_addres != null;
+  const pay_mode = to_addres != null && amount_in_lovelace != null;
 
 
 
