@@ -1,12 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useWallet } from '@meshsdk/react';
+import { CardanoWallet } from '@meshsdk/react';
 
-type LinkBuilderProps = {
-    addr: string; // Define a type for props that includes addr as a string
-};
+const LinkBuilder = ({ addr }) => {
+    const { connected, wallet } = useWallet();
 
-const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
     const [adaAmount, setAdaAmount] = useState('');
     const [link, setLink] = useState<string | null>(null);
+
+    // Fetch the address when the component mounts
+    useEffect(() => {
+        if (connected) {
+            const fetchAddress = async () => {
+                const addr = await get_address();
+                console.log(addr);
+                setAddress(addr); // Set the address to state
+                console.log(address)
+            };
+
+            fetchAddress();
+        }
+    }, [connected]);
+
+    async function get_address(): Promise<string> {
+        const addresses = await wallet.getUnusedAddresses();
+        console.log(addresses[0])
+        return addresses[0]
+    }
 
     function ada_to_lovelace(x: string): string {
         const ada: number = parseInt(x, 10);
@@ -26,7 +46,7 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
     const handleGenerateLink = () => {
         if (adaAmount.trim() !== '') { // Check if adaAmount is not empty
             const lovelace = ada_to_lovelace(adaAmount);
-            const generatedLink = create_link(addr, lovelace);
+            const generatedLink = create_link(address, lovelace);
             setLink(generatedLink); // Set the generated link to state
         }
     };
@@ -43,23 +63,35 @@ const LinkBuilder: React.FC<LinkBuilderProps> = ({ addr }) => {
         }
     };
 
+    const [address, setAddress] = useState<string | null>(null);
+
     return (
         <>
-            <input
-                type="text"
-                id="my-text-field"
-                value={adaAmount}
-                onChange={handleInputChange}
-                placeholder="Enter ada amount"
-            />
-            {adaAmount.trim() !== '' && ( // Show button only if adaAmount is not empty
-                <button onClick={handleGenerateLink}>Generate Link</button>
-            )}
-            {link && (
-                <div>
-                    <p>{link}</p>
-                    <button onClick={handleCopyToClipboard}>Copy to Clipboard</button> {/* Copy to clipboard button */}
-                </div>
+            <h1>generate link</h1>
+            <CardanoWallet />
+            {connected && (
+                <>
+                    <input
+                        type="text"
+                        id="my-text-field"
+                        value={adaAmount}
+                        onChange={handleInputChange}
+                        placeholder="Enter ada amount"
+                    />
+                    {
+                        adaAmount.trim() !== '' && ( // Show button only if adaAmount is not empty
+                            <button onClick={handleGenerateLink}>Generate Link</button>
+                        )
+                    }
+                    {
+                        link && (
+                            <div>
+                                <p>{link}</p>
+                                <button onClick={handleCopyToClipboard}>Copy to Clipboard</button> {/* Copy to clipboard button */}
+                            </div>
+                        )
+                    }
+                </>
             )}
         </>
     );
