@@ -3,6 +3,7 @@ import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
 import { NextPage } from "next";
 import { Transaction } from '@meshsdk/core';
+import ThankYou from './thankYou';
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
@@ -26,9 +27,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         setDonate(event.target.checked);
     };
 
-    function txHashToCardanoScan(txHash: string): string {
-        return "https://cardanoscan.io/transaction/" + txHash;
-    }
+
 
     const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
 
@@ -51,7 +50,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         const unsignedTx = await tx.build();
         const signedTx = await wallet.signTx(unsignedTx);
         const txHash = await wallet.submitTx(signedTx);
-        setTxHash(txHashToCardanoScan(txHash))
+        setTxHash(txHash)
         setState(StateOptions.ThankYou)
     }
 
@@ -97,13 +96,9 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 );
             case StateOptions.ThankYou:
                 return (
-                    <div>
-                        <h1>Thank You!</h1>
-                        <p>
-                            View transaction on:
-                            <a href={txHash}>cardanoscan</a>
-                        </p>
-                    </div>
+                    <>
+                        <ThankYou txHash={txHash} />
+                    </>
                 );
             default:
                 return null;
