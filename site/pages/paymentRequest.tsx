@@ -20,10 +20,15 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     const { connected, wallet } = useWallet();
 
     const [donate, setDonate] = useState(false);
+    const [txHash, setTxHash] = useState("");
 
     const handleCheckboxChange = (event) => {
         setDonate(event.target.checked);
     };
+
+    function txHashToCardanoScan(txHash: string): string {
+        return "https://cardanoscan.io/transaction/" + txHash;
+    }
 
     const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
 
@@ -46,7 +51,8 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         const unsignedTx = await tx.build();
         const signedTx = await wallet.signTx(unsignedTx);
         const txHash = await wallet.submitTx(signedTx);
-        console.log(txHash)
+        setTxHash(txHashToCardanoScan(txHash))
+        setState(StateOptions.ThankYou)
     }
 
     function lovelace_to_ada(x: string): string {
@@ -87,14 +93,16 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         >
                             pay now
                         </button>
-                        <button onClick={() => setState(StateOptions.ThankYou)}>Next: Thank You</button>
                     </div>
                 );
             case StateOptions.ThankYou:
                 return (
                     <div>
                         <h1>Thank You!</h1>
-                        <button onClick={() => setState(StateOptions.ConnectWallet)}>Restart</button>
+                        <p>
+                            View transaction on:
+                            <a href={txHash}>cardanoscan</a>
+                        </p>
                     </div>
                 );
             default:
