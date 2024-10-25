@@ -7,7 +7,7 @@ import ThankYou from './thankYou';
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
-    SendAda = "SendAda",
+    PayNow = "PayNow",
     ThankYou = "ThankYou"
 }
 interface PaymentRequestProps {
@@ -68,11 +68,11 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         <h1>1. Connect wallet</h1>
                         <CardanoWallet />
                         {connected && (
-                            <button onClick={() => setState(StateOptions.SendAda)}>Next</button>
+                            <button onClick={() => setState(StateOptions.PayNow)}>Next</button>
                         )}
                     </div>
                 );
-            case StateOptions.SendAda:
+            case StateOptions.PayNow:
                 return (
                     <div>
                         <h1>Send ada</h1>
@@ -92,6 +92,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         >
                             pay now
                         </button>
+                        <button onClick={() => setState(StateOptions.ConnectWallet)}>Previous</button>
                     </div>
                 );
             case StateOptions.ThankYou:
