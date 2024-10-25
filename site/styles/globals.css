@@ -31,3 +31,56 @@ body {
   display: grid;
   justify-items: center;
 }
+
+.center-horizontal-vertical {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  /* Makes the container full viewport height */
+}
+
+.next-button {
+  width: 66.66vw;
+  /* Sets button width to 2/3 of the viewport width */
+  max-width: 800px;
+  /* Optional: Limit max width for larger screens */
+  padding: 12px 24px;
+  /* Adjusts padding for a larger button size */
+  background-color: #009dff;
+  /* Example background color */
+  color: white;
+  /* Text color */
+  border: none;
+  /* Removes default border */
+  border-radius: 9999px;
+  /* Full rounding for capsule shape */
+  font-size: 1.2em;
+  /* Increases text size */
+  text-align: center;
+  /* Centers text within the button */
+  cursor: pointer;
+  /* Pointer cursor for hover */
+}
+
+.previous-button {
+  width: 66.66vw;
+  /* Sets button width to 2/3 of the viewport width */
+  max-width: 800px;
+  /* Optional: Limit max width for larger screens */
+  padding: 12px 24px;
+  /* Adjusts padding for a larger button size */
+  background-color: #848484;
+  /* Example background color */
+  color: white;
+  /* Text color */
+  border: none;
+  /* Removes default border */
+  border-radius: 9999px;
+  /* Full rounding for capsule shape */
+  font-size: 1.2em;
+  /* Increases text size */
+  text-align: center;
+  /* Centers text within the button */
+  cursor: pointer;
+  /* Pointer cursor for hover */
+}
