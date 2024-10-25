@@ -89,6 +89,8 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 return (
                     <div>
                         <QRCodeView to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+                        <button onClick={() => setState(StateOptions.ThankYou)}>Next</button>
+                        <button onClick={() => setState(StateOptions.ConnectWallet)}>Previous</button>
                     </div>
                 );
             case StateOptions.PayNow:
