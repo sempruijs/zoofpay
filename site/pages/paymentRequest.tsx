@@ -4,7 +4,7 @@ import { CardanoWallet } from '@meshsdk/react';
 import { NextPage } from "next";
 import { Transaction } from '@meshsdk/core';
 import ThankYou from './thankYou';
-import QRCode from "./qrcode";
+import QRCodeView from "./qrcode";
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
@@ -88,7 +88,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
             case StateOptions.QRCode:
                 return (
                     <div>
-                        <QRCode to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+                        <QRCodeView to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
                     </div>
                 );
             case StateOptions.PayNow:

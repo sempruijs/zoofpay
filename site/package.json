@@ -12,8 +12,10 @@
     "@meshsdk/core": "^1.7.9",
     "@meshsdk/react": "^1.7.9",
     "next": "14.2.15",
+    "qrcode.react": "^4.1.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-qr-code": "^2.0.15"
   },
   "devDependencies": {
     "@types/node": "20.16.14",
