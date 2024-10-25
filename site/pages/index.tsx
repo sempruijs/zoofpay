@@ -23,9 +23,12 @@ const Home: NextPage = () => {
       )}
       {pay_mode && (
         <>
-          <PaymentRequest to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+          <div className="center-horizontal">
+            <PaymentRequest to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+          </div>
         </>
-      )}
+      )
+      }
     </>
   );
 };
