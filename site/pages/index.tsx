@@ -1,16 +1,10 @@
-import { useState, useEffect } from "react";
 import type { NextPage } from "next";
-import { useWallet } from '@meshsdk/react';
-import { CardanoWallet } from '@meshsdk/react';
-import { Transaction } from '@meshsdk/core';
 import { useSearchParams } from "next/navigation";
 import LinkBuilder from './linkBuilder';
 import PaymentRequest from './paymentRequest';
 // import { get } from "http";
 
 const Home: NextPage = () => {
-  const { connected, wallet } = useWallet();
-
   const searchParams = useSearchParams();
 
   const to_addres = searchParams.get("to");
@@ -18,13 +12,13 @@ const Home: NextPage = () => {
 
   const pay_mode = to_addres != null && amount_in_lovelace != null;
 
-
-
   return (
     <>
       {!pay_mode && (
         <>
-          <LinkBuilder />
+          <div className="center-horizontal">
+            <LinkBuilder />
+          </div>
         </>
       )}
       {pay_mode && (

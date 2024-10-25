@@ -67,10 +67,12 @@ const LinkBuilder = () => {
 
     return (
         <>
-            <h1>generate link</h1>
+            <h1>Create payment request</h1>
+            <h3>1. Connect wallet</h3>
             <CardanoWallet />
             {connected && (
                 <>
+                    <h3>2. Enter ada amount</h3>
                     <input
                         type="text"
                         id="my-text-field"
@@ -85,10 +87,12 @@ const LinkBuilder = () => {
                     }
                     {
                         link && (
-                            <div>
-                                <p>{link}</p>
-                                <button onClick={handleCopyToClipboard}>Copy to Clipboard</button> {/* Copy to clipboard button */}
-                            </div>
+                            <>
+                                <h3>3. Share payment request</h3>
+                                <div>
+                                    <button onClick={handleCopyToClipboard}>Copy link</button> {/* Copy to clipboard button */}
+                                </div>
+                            </>
                         )
                     }
                 </>
