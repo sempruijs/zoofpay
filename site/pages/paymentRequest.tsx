@@ -4,12 +4,19 @@ import { CardanoWallet } from '@meshsdk/react';
 import { NextPage } from "next";
 import { Transaction } from '@meshsdk/core';
 
+enum StateOptions {
+    ConnectWallet = "ConnectWallet",
+    SendAda = "SendAda",
+    ThankYou = "ThankYou"
+}
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
 }
 
 const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lovelace }) => {
+    const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
+
     const { connected, wallet } = useWallet();
 
     const [donate, setDonate] = useState(false);
@@ -48,33 +55,56 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         return ada.toString();
     }
 
+    const renderView = () => {
+        switch (state) {
+            case StateOptions.ConnectWallet:
+                return (
+                    <div>
+                        <h1>1. Connect wallet</h1>
+                        <CardanoWallet />
+                        {connected && (
+                            <button onClick={() => setState(StateOptions.SendAda)}>Next</button>
+                        )}
+                    </div>
+                );
+            case StateOptions.SendAda:
+                return (
+                    <div>
+                        <h1>Send ada</h1>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={donate}
+                                onChange={handleCheckboxChange}
+                            />
+                            Donate 2 ada to zoofpay ❤️
+                        </label>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                send_ada(to_addres, amount_in_lovelace, donate)
+                            }}
+                        >
+                            pay now
+                        </button>
+                        <button onClick={() => setState(StateOptions.ThankYou)}>Next: Thank You</button>
+                    </div>
+                );
+            case StateOptions.ThankYou:
+                return (
+                    <div>
+                        <h1>Thank You!</h1>
+                        <button onClick={() => setState(StateOptions.ConnectWallet)}>Restart</button>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <>
-            <h1>You will pay {amount_in_ada} ada</h1>
-            <h3>1. Connect wallet</h3>
-            <CardanoWallet />
-            {connected && (
-                <>
-                    <h3>2. Send ada</h3>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={donate}
-                            onChange={handleCheckboxChange}
-                        />
-                        Donate 2 ada to zoofpay ❤️
-                    </label>
-                    <button
-                        type="button"
-                        onClick={() => {
-                            send_ada(to_addres, amount_in_lovelace, donate)
-                        }}
-                    >
-                        pay now
-                    </button>
-                </>
-            )}
-
+            {renderView()}
         </>
     );
 };
