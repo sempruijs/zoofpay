@@ -68,28 +68,30 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             <h1 className="big-title">Connect wallet</h1>
                             <CardanoWallet />
                         </div>
-                        {connected && (
-                            <button className="next-color big-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
-                        )}
-                        {!connected && (
-                            <div>
-
+                        <div className="next-previous-container">
+                            {connected && (
+                                <button className="next-color big-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
+                            )}
+                            {!connected && (
                                 <div>
-                                    <p>
-                                        Don't have a wallet yet?
-                                        {/* todo make wallet support page. */}
-                                        <a href="https://pizzagezond.nl">We can help.</a>
-                                    </p>
-                                </div>
-                                <button
-                                    className="previous-color big-button"
-                                    onClick={() => setState(StateOptions.QRCode)}
-                                >
-                                    Or use qrcode instead.
 
-                                </button>
-                            </div>
-                        )}
+                                    <div>
+                                        <p>
+                                            Don't have a wallet yet?
+                                            {/* todo make wallet support page. */}
+                                            <a href="https://pizzagezond.nl">We can help.</a>
+                                        </p>
+                                    </div>
+                                    <button
+                                        className="previous-color big-button"
+                                        onClick={() => setState(StateOptions.QRCode)}
+                                    >
+                                        Or use qrcode instead.
+
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 );
             case StateOptions.QRCode:
@@ -128,25 +130,23 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                 />
                                 Donate 2 ada to zoofpay ❤️
                             </label>
-                            <div>
 
 
-                                <button
-                                    className="next-color big-button"
-                                    type="button"
-                                    onClick={() => {
-                                        send_ada(to_addres, amount_in_lovelace, donate)
-                                    }}
-                                >
-                                    pay now
-                                </button>
-                                <button
-                                    className="previous-color big-button"
-                                    onClick={() => setState(StateOptions.ConnectWallet)}
-                                >
-                                    Previous
-                                </button>
-                            </div>
+                            <button
+                                className="next-color big-button"
+                                type="button"
+                                onClick={() => {
+                                    send_ada(to_addres, amount_in_lovelace, donate)
+                                }}
+                            >
+                                pay now
+                            </button>
+                            <button
+                                className="previous-color big-button"
+                                onClick={() => setState(StateOptions.ConnectWallet)}
+                            >
+                                Previous
+                            </button>
                         </div>
                     </div>
                 );
