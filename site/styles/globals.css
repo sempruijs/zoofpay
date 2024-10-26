@@ -15,6 +15,7 @@
 }
 
 body {
+  font-size: 22pt;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -98,12 +99,13 @@ label {
   display: flex;
   align-items: center;
   /* Aligns checkbox and text */
-  gap: 10px;
+  gap: 20pt;
   /* Space between checkbox and text */
   cursor: pointer;
   /* Changes cursor to pointer for accessibility */
   color: #333;
   /* Optional: Sets label text color */
+  margin: 30pt;
 }
 
 input[type="checkbox"] {
@@ -116,4 +118,20 @@ input[type="checkbox"] {
   /* Pointer cursor for easier interaction */
   transform: scale(2);
   /* Makes checkbox even larger */
+}
+
+
+a:link,
+a:visited {
+  color: #075db3;
+  /* DodgerBlue or any blue shade you prefer */
+  text-decoration: none;
+  /* Removes underline */
+}
+
+a:hover {
+  color: #104E8B;
+  /* Darker blue for hover effect */
+  text-decoration: underline;
+  /* Adds underline on hover */
 }
