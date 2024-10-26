@@ -67,8 +67,10 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
             case StateOptions.ConnectWallet:
                 return (
                     <div className="center-horizontal-vertical">
-                        <h1>1. Connect wallet</h1>
-                        <CardanoWallet />
+                        <div className="center">
+                            <h1 className="big-title">Connect wallet</h1>
+                            <CardanoWallet />
+                        </div>
                         {connected && (
                             <button className="next-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
                         )}
@@ -76,9 +78,11 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             <div>
 
                                 <div>
-                                    <p>Don't have a wallet yet?</p>
-                                    {/* todo make wallet support page. */}
-                                    <a href="https://pizzagezond.nl">We can help.</a>
+                                    <p>
+                                        Don't have a wallet yet?
+                                        {/* todo make wallet support page. */}
+                                        <a href="https://pizzagezond.nl">We can help.</a>
+                                    </p>
                                 </div>
                                 <button
                                     className="previous-button"
@@ -106,7 +110,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             onClick={() => setState(StateOptions.ConnectWallet)}
                         >
                             Previous
-
                         </button>
                     </div>
                 );
