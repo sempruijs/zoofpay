@@ -114,7 +114,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 );
             case StateOptions.PayNow:
                 return (
-                    <div className="center-horizontal-vertical">
+                    <div className="center">
                         <h1 className="big-title">Send ada</h1>
                         <TransactionSummery
                             to_addres={to_addres}

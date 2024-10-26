@@ -28,18 +28,6 @@ body {
   }
 }
 
-.center-horizontal {
-  display: grid;
-  justify-items: center;
-}
-
-.center-horizontal-vertical {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  /* Makes the container full viewport height */
-}
-
 .big-button {
   width: 66.66vw;
   max-width: 800px;
@@ -94,7 +82,7 @@ body {
 }
 
 label {
-  font-size: 2em;
+  font-size: 1em;
   /* Makes the label text larger */
   display: flex;
   align-items: center;
@@ -134,4 +122,8 @@ a:hover {
   /* Darker blue for hover effect */
   text-decoration: underline;
   /* Adds underline on hover */
+}
+
+.center-text {
+  text-align: center;
 }

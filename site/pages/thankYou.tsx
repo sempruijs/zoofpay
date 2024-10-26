@@ -13,8 +13,7 @@ const ThankYou: NextPage<ThankYouProps> = ({ to_addres, amount_in_lovelace }) =>
 
     return (
         <>
-            <h1>thank you</h1>
-            <div>
+            <div className="center">
                 <h1>Thank You!</h1>
                 <p>
                     View transaction on:
