@@ -42,11 +42,11 @@ body {
 }
 
 .next-color {
-  background-color: #009dff;
+  background-color: #7220ff;
 }
 
 .previous-color {
-  background-color: #5f5f5f;
+  background-color: #8f8f8f;
 }
 
 .big-title {
@@ -65,20 +65,15 @@ body {
 }
 
 .next-previous-container {
-  flex-direction: column;
+  margin-top: 30pt;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  /* Centers elements horizontally */
   align-items: center;
-  /* Centers elements within the div */
-  position: fixed;
-  /* Pins the container to the screen */
   bottom: 0;
-  /* Positions the container at the bottom */
   width: 100%;
   /* Full width to allow centering */
   padding: 20px;
-  /* Optional padding */
 }
 
 label {
@@ -101,7 +96,6 @@ input[type="checkbox"] {
   /* Larger checkbox */
   height: 25px;
   accent-color: #ff49c2;
-  /* Optional: Sets checkbox color for supported browsers */
   cursor: pointer;
   /* Pointer cursor for easier interaction */
   transform: scale(2);

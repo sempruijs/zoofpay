@@ -74,8 +74,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             )}
                             {!connected && (
                                 <div>
-
-                                    <div>
+                                    <div className="next-previous-button">
                                         <p>
                                             Don't have a wallet yet?
                                             {/* todo make wallet support page. */}
@@ -118,7 +117,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
             case StateOptions.PayNow:
                 return (
                     <div className="center">
-                        <h1 className="big-title">Send ada</h1>
+                        <h1 className="big-title">You will pay</h1>
                         <TransactionSummery
                             to_addres={to_addres}
                             amount_in_lovelace={amount_in_lovelace}
