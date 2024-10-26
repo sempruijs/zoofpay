@@ -99,3 +99,10 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.stick-to-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100vh;
+}

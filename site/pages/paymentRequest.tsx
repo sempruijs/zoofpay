@@ -5,6 +5,7 @@ import { NextPage } from "next";
 import { Transaction } from '@meshsdk/core';
 import ThankYou from './thankYou';
 import QRCodeView from "./qrcode";
+import TransactionSummery from "./transaction-summery";
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
@@ -28,9 +29,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     const handleCheckboxChange = (event) => {
         setDonate(event.target.checked);
     };
-
-
-
     const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
 
     // amount is in lovelace
@@ -61,7 +59,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         const ada: number = lovelace / 1000000;
         return ada.toString();
     }
-
     const renderView = () => {
         switch (state) {
             case StateOptions.ConnectWallet:
@@ -115,9 +112,14 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 );
             case StateOptions.PayNow:
                 return (
-                    <div>
-                        <h1>2. Send ada</h1>
-                        <div className="center-horizontal-vertical">
+                    <div className="center">
+                        <h1 className="big-title">Send ada</h1>
+                        <TransactionSummery
+                            to_addres={to_addres}
+                            amount_in_lovelace={amount_in_lovelace}
+                            donate={donate}
+                        />
+                        <div className="stick-to-bottom">
                             <label>
                                 <input
                                     type="checkbox"
@@ -126,22 +128,26 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                 />
                                 Donate 2 ada to zoofpay ❤️
                             </label>
-                            <button
-                                className="next-button"
-                                type="button"
-                                onClick={() => {
-                                    send_ada(to_addres, amount_in_lovelace, donate)
-                                }}
-                            >
-                                pay now
-                            </button>
+                            <div>
+
+
+                                <button
+                                    className="next-button"
+                                    type="button"
+                                    onClick={() => {
+                                        send_ada(to_addres, amount_in_lovelace, donate)
+                                    }}
+                                >
+                                    pay now
+                                </button>
+                                <button
+                                    className="previous-button"
+                                    onClick={() => setState(StateOptions.ConnectWallet)}
+                                >
+                                    Previous
+                                </button>
+                            </div>
                         </div>
-                        <button
-                            className="previous-button"
-                            onClick={() => setState(StateOptions.ConnectWallet)}
-                        >
-                            Previous
-                        </button>
                     </div>
                 );
             case StateOptions.ThankYou:
