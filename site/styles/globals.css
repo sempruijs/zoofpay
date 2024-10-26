@@ -95,7 +95,7 @@ input[type="checkbox"] {
   width: 25px;
   /* Larger checkbox */
   height: 25px;
-  accent-color: #ff49c2;
+  accent-color: #7220ff;
   cursor: pointer;
   /* Pointer cursor for easier interaction */
   transform: scale(2);
