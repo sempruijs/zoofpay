@@ -69,7 +69,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             <CardanoWallet />
                         </div>
                         {connected && (
-                            <button className="next-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
+                            <button className="next-color big-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
                         )}
                         {!connected && (
                             <div>
@@ -82,7 +82,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                     </p>
                                 </div>
                                 <button
-                                    className="previous-button"
+                                    className="previous-color big-button"
                                     onClick={() => setState(StateOptions.QRCode)}
                                 >
                                     Or use qrcode instead.
@@ -97,13 +97,13 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                     <div>
                         <QRCodeView to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
                         <button
-                            className="next-button"
+                            className="next-color big-button"
                             onClick={() => setState(StateOptions.ThankYou)}
                         >
                             Next
                         </button>
                         <button
-                            className="previous-button"
+                            className="previous-color big-button"
                             onClick={() => setState(StateOptions.ConnectWallet)}
                         >
                             Previous
@@ -112,14 +112,14 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 );
             case StateOptions.PayNow:
                 return (
-                    <div className="center">
+                    <div className="center-horizontal-vertical">
                         <h1 className="big-title">Send ada</h1>
                         <TransactionSummery
                             to_addres={to_addres}
                             amount_in_lovelace={amount_in_lovelace}
                             donate={donate}
                         />
-                        <div className="stick-to-bottom">
+                        <div className="next-previous-container">
                             <label>
                                 <input
                                     type="checkbox"
@@ -132,7 +132,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
 
 
                                 <button
-                                    className="next-button"
+                                    className="next-color big-button"
                                     type="button"
                                     onClick={() => {
                                         send_ada(to_addres, amount_in_lovelace, donate)
@@ -141,7 +141,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                     pay now
                                 </button>
                                 <button
-                                    className="previous-button"
+                                    className="previous-color big-button"
                                     onClick={() => setState(StateOptions.ConnectWallet)}
                                 >
                                     Previous
