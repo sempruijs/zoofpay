@@ -86,7 +86,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                         className="previous-color big-button"
                                         onClick={() => setState(StateOptions.QRCode)}
                                     >
-                                        Or use qrcode instead.
+                                        Continue without a wallet.
 
                                     </button>
                                 </div>

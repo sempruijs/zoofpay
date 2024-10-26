@@ -27,7 +27,7 @@ const QRCodeView: NextPage<QRCodeProps> = ({ to_addres, amount_in_lovelace }) =>
 
     return (
         <div className="center">
-            <h1>Send {amount_in_ada} ada to:</h1>
+            <h1 className="big-title">Send {amount_in_ada} ada to:</h1>
             <QRCode value={to_addres} size={200} />
             <button onClick={handleCopyToClipboard}>Copy address</button> {/* Copy to clipboard button */}
         </div>
