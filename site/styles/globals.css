@@ -90,5 +90,30 @@ body {
   /* Full width to allow centering */
   padding: 20px;
   /* Optional padding */
-  background-color: #f0f0f0;
+}
+
+label {
+  font-size: 2em;
+  /* Makes the label text larger */
+  display: flex;
+  align-items: center;
+  /* Aligns checkbox and text */
+  gap: 10px;
+  /* Space between checkbox and text */
+  cursor: pointer;
+  /* Changes cursor to pointer for accessibility */
+  color: #333;
+  /* Optional: Sets label text color */
+}
+
+input[type="checkbox"] {
+  width: 25px;
+  /* Larger checkbox */
+  height: 25px;
+  accent-color: #ff49c2;
+  /* Optional: Sets checkbox color for supported browsers */
+  cursor: pointer;
+  /* Pointer cursor for easier interaction */
+  transform: scale(2);
+  /* Makes checkbox even larger */
 }
