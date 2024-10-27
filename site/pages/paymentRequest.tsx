@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
 import { NextPage } from "next";
@@ -29,7 +29,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDonate(event.target.checked);
     };
-    const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
 
     // amount is in lovelace
     async function send_ada(addr: string, amount: string, donate: boolean) {
@@ -54,11 +53,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         setState(StateOptions.ThankYou)
     }
 
-    function lovelace_to_ada(x: string): string {
-        const lovelace: number = parseInt(x, 10);
-        const ada: number = lovelace / 1000000;
-        return ada.toString();
-    }
     const renderView = () => {
         switch (state) {
             case StateOptions.ConnectWallet:
@@ -76,7 +70,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                 <div>
                                     <div className="next-previous-button">
                                         <p>
-                                            Don't have a wallet yet?
+                                            Don&apos;t have a wallet yet?
                                             {/* todo make wallet support page. */}
                                             <a href="https://pizzagezond.nl">We can help.</a>
                                         </p>
