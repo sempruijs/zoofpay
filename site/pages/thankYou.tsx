@@ -4,12 +4,12 @@ interface ThankYouProps {
     txHash: string;
 }
 
-const ThankYou: NextPage<ThankYouProps> = ({ to_addres, amount_in_lovelace }) => {
+const ThankYou: NextPage<ThankYouProps> = ({ txHash }) => {
     function txHashToCardanoScan(txHash: string): string {
         return "https://cardanoscan.io/transaction/" + txHash;
     }
 
-    const cardanoscanLink = txHashToCardanoScan(to_addres);
+    const cardanoscanLink = txHashToCardanoScan(txHash);
 
     return (
         <>

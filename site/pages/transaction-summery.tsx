@@ -1,21 +1,21 @@
 import { NextPage } from "next";
 
 interface TransactionSummeryProps {
-    to_addres: string;
+    // to_addres: string;
     amount_in_lovelace: string;
-    donate: boolean;
+    // donate: boolean;
 }
 
-const TransactionSummery: NextPage<TransactionSummeryProps> = ({ to_addres, amount_in_lovelace, donate }) => {
-    function shorten_addr(addr: string): string {
-        if (addr != null && addr != undefined) {
-            const start = addr.slice(0, 8);     // First 8 characters
-            const end = addr.slice(-6);         // Last 6 characters
-            return `${start}.....${end}`;
-        } else {
-            return '';
-        }
-    }
+const TransactionSummery: NextPage<TransactionSummeryProps> = ({ amount_in_lovelace }) => {
+    // function shorten_addr(addr: string): string {
+    //     if (addr != null && addr != undefined) {
+    //         const start = addr.slice(0, 8);     // First 8 characters
+    //         const end = addr.slice(-6);         // Last 6 characters
+    //         return `${start}.....${end}`;
+    //     } else {
+    //         return '';
+    //     }
+    // }
 
     function lovelace_to_ada(x: string): string {
         const lovelace: number = parseInt(x, 10);
@@ -23,7 +23,7 @@ const TransactionSummery: NextPage<TransactionSummeryProps> = ({ to_addres, amou
         return ada.toString();
     }
 
-    const short_addr = shorten_addr('addr1qyvt4enyyra4ss3q7qugzwf60r8lxggj8tvdd356pj5ez93024gfv5ckw0h2vg0t64ww3aep2gljy3nyyjrgs2ua0e4smx5sxa');
+    // const short_addr = shorten_addr('addr1qyvt4enyyra4ss3q7qugzwf60r8lxggj8tvdd356pj5ez93024gfv5ckw0h2vg0t64ww3aep2gljy3nyyjrgs2ua0e4smx5sxa');
     const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
 
     return (

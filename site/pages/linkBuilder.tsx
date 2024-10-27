@@ -46,7 +46,7 @@ const LinkBuilder = () => {
     const handleGenerateLink = () => {
         if (adaAmount.trim() !== '') { // Check if adaAmount is not empty
             const lovelace = ada_to_lovelace(adaAmount);
-            const generatedLink = create_link(address, lovelace);
+            const generatedLink = create_link(address ?? "", lovelace);
             setLink(generatedLink); // Set the generated link to state
         }
     };

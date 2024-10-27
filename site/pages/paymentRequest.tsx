@@ -26,7 +26,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     const [donate, setDonate] = useState(false);
     const [txHash, setTxHash] = useState("");
 
-    const handleCheckboxChange = (event) => {
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDonate(event.target.checked);
     };
     const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
@@ -119,9 +119,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                     <div className="center">
                         <h1 className="big-title">You will pay</h1>
                         <TransactionSummery
-                            to_addres={to_addres}
                             amount_in_lovelace={amount_in_lovelace}
-                            donate={donate}
                         />
                         <div className="next-previous-container">
                             <label>
