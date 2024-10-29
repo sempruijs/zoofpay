@@ -80,21 +80,24 @@ const LinkBuilder = () => {
             case StateOptions.ConnectWallet:
                 return (
                     <>
-                        <h1>Create payment request</h1>
-                        <h3>1. Connect wallet</h3>
+                        <h1 className="big-title">Connect wallet</h1>
                         <CardanoWallet />
-                        <button
-                            className="next-color big-button"
-                            onClick={() => setState(StateOptions.EnterAdaAmount)}
-                        >
-                            Next
-                        </button>
-                        <button
-                            className="previous-color big-button"
-                            onClick={() => setState(StateOptions.ConnectWallet)}
-                        >
-                            Previous
-                        </button>
+                        {connected && (
+                            <button
+                                className="next-color big-button"
+                                onClick={() => setState(StateOptions.EnterAdaAmount)}
+                            >
+                                Next
+                            </button>
+                        )}
+                        {!connected && (
+                            <button
+                                className="previous-color big-button"
+                                onClick={() => setState(StateOptions.ConnectWallet)}
+                            >
+                                Previous
+                            </button>
+                        )}
                     </>
                 )
             case StateOptions.EnterAdaAmount:
@@ -140,24 +143,6 @@ const LinkBuilder = () => {
     return (
         <>
             {renderView()}
-
-            {connected && (
-                <>
-
-                    {
-                        adaAmount.trim() !== '' && ( // Show button only if adaAmount is not empty
-                            <button onClick={handleGenerateLink}>Generate Link</button>
-                        )
-                    }
-                    {
-                        link && (
-                            <>
-
-                            </>
-                        )
-                    }
-                </>
-            )}
         </>
     );
 };
