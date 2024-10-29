@@ -49,29 +49,13 @@ const LinkBuilder = () => {
     }
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAdaAmount(event.target.value); // Update state with the current value
-        handleGenerateLink()
-        // setLink(null); // Hide the link when the text field changes
-    };
+        const newAdaAmount = event.target.value;
+        setAdaAmount(newAdaAmount); // Set the state for future updates
+        console.log(newAdaAmount);   // Log the current input value
 
-    const handleGenerateLink = () => {
-        if (adaAmount.trim() !== '') { // Check if adaAmount is not empty
-            const lovelace = ada_to_lovelace(adaAmount);
-            const generatedLink = create_link(address ?? "", lovelace);
-            setLink(generatedLink); // Set the generated link to state
-        }
-    };
-
-    const handleCopyToClipboard = () => {
-        if (link) {
-            navigator.clipboard.writeText(link) // Use the Clipboard API to copy the link
-                .then(() => {
-                    console.log("link copied.");
-                })
-                .catch(err => {
-                    console.error("Failed to copy: ", err);
-                });
-        }
+        let lovelace = ada_to_lovelace(newAdaAmount); // Use newAdaAmount directly
+        let link = create_link(address ?? '', lovelace);
+        setLink(link);
     };
 
     const [address, setAddress] = useState<string | null>(null);
@@ -129,11 +113,7 @@ const LinkBuilder = () => {
             case StateOptions.ShareLink:
                 return (
                     <>
-                        <ShareLink url="ppizagezond" />
-                        <h3>Share payment request</h3>
-                        <div>
-                            <button onClick={handleCopyToClipboard}>Copy link</button> {/* Copy to clipboard button */}
-                        </div>
+                        <ShareLink url={link} />
                     </>
                 );
             case StateOptions.EnterRecieveAddres:
