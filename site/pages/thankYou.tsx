@@ -15,10 +15,14 @@ const ThankYou: NextPage<ThankYouProps> = ({ txHash }) => {
         <>
             <div className="center">
                 <h1 className="big-title">Thank You!</h1>
-                <p>
-                    View transaction on:
-                    <a href={cardanoscanLink}>cardanoscan</a>
-                </p>
+                {txHash ? (
+                    <p>
+                        View transaction on:
+                        <a href={cardanoscanLink}>cardanoscan</a>
+                    </p>
+                ) : (
+                    <></>
+                )}
             </div>
         </>
     );
