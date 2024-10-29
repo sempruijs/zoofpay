@@ -6,7 +6,8 @@ import ShareLink from "./shareLink";
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
     EnterAdaAmount = "EnterAdaAmount",
-    ShareLink = "ShareLink"
+    ShareLink = "ShareLink",
+    EnterRecieveAddres = "EnterRecieveAddres"
 }
 
 const LinkBuilder = () => {
@@ -93,9 +94,9 @@ const LinkBuilder = () => {
                         {!connected && (
                             <button
                                 className="previous-color big-button"
-                                onClick={() => setState(StateOptions.ConnectWallet)}
+                                onClick={() => setState(StateOptions.EnterRecieveAddres)}
                             >
-                                Previous
+                                Continue without a wallet
                             </button>
                         )}
                     </>
@@ -135,6 +136,25 @@ const LinkBuilder = () => {
                         </div>
                     </>
                 );
+            case StateOptions.EnterRecieveAddres:
+                return (
+                    <>
+                        <h1 className="big-title">Enter recieve address</h1>
+                        <p>This will be the address where you will recieve your assets.</p>
+                        <button
+                            className="next-color big-button"
+                            onClick={() => setState(StateOptions.EnterAdaAmount)}
+                        >
+                            Next
+                        </button>
+                        <button
+                            className="previous-color big-button"
+                            onClick={() => setState(StateOptions.ConnectWallet)}
+                        >
+                            Previous
+                        </button>
+                    </>
+                )
             default:
                 return null
         }
