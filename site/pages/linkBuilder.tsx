@@ -50,9 +50,7 @@ const LinkBuilder = () => {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAdaAmount = event.target.value;
-        setAdaAmount(newAdaAmount); // Set the state for future updates
-        console.log(newAdaAmount);   // Log the current input value
-
+        setAdaAmount(newAdaAmount);
         let lovelace = ada_to_lovelace(newAdaAmount); // Use newAdaAmount directly
         let link = create_link(address ?? '', lovelace);
         setLink(link);
@@ -88,20 +86,27 @@ const LinkBuilder = () => {
             case StateOptions.EnterAdaAmount:
                 return (
                     <>
-                        <h3>Enter ada amount</h3>
-                        <input
-                            type="text"
-                            id="my-text-field"
-                            value={adaAmount}
-                            onChange={handleInputChange}
-                            placeholder="Enter ada amount"
-                        />
-                        <button
-                            className="next-color big-button"
-                            onClick={() => setState(StateOptions.ShareLink)}
-                        >
-                            Next
-                        </button>
+                        <h1 className="big-title">Enter ada amount</h1>
+                        <div>
+
+                            <input
+                                type="text"
+                                id="my-text-field"
+                                value={adaAmount}
+                                onChange={handleInputChange}
+                                placeholder="Enter ada amount"
+                            />
+                            <span aria-label="ada">₳</span>
+                        </div>
+                        {adaAmount !== '' && (
+
+                            <button
+                                className="next-color big-button"
+                                onClick={() => setState(StateOptions.ShareLink)}
+                            >
+                                Next
+                            </button>
+                        )}
                         <button
                             className="previous-color big-button"
                             onClick={() => setState(StateOptions.ConnectWallet)}

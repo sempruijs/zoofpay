@@ -19,10 +19,15 @@ const ShareLink: NextPage<ShareLinkProps> = ({ url }) => {
 
     return (
         <>
-            <h1>{url}</h1>
-            <h3>Share payment request</h3>
+            <h1 className="big-title">Share payment request</h1>
             <div>
-                <button onClick={handleCopyToClipboard}>Copy link</button> {/* Copy to clipboard button */}
+                <p>{url}</p>
+                <button
+                    className="big-button next-color"
+                    onClick={handleCopyToClipboard}
+                >
+                    Copy link
+                </button> {/* Copy to clipboard button */}
             </div>
         </>
     )
