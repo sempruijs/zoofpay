@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
 import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
+import ShareLink from "./shareLink";
+
+enum StateOptions {
+    ConnectWallet = "ConnectWallet",
+    EnterAdaAmount = "EnterAdaAmount",
+    ShareLink = "ShareLink"
+}
 
 const LinkBuilder = () => {
+    const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
+
     const { connected, wallet } = useWallet();
 
     const [adaAmount, setAdaAmount] = useState('');
@@ -40,7 +49,8 @@ const LinkBuilder = () => {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAdaAmount(event.target.value); // Update state with the current value
-        setLink(null); // Hide the link when the text field changes
+        handleGenerateLink()
+        // setLink(null); // Hide the link when the text field changes
     };
 
     const handleGenerateLink = () => {
@@ -65,21 +75,75 @@ const LinkBuilder = () => {
 
     const [address, setAddress] = useState<string | null>(null);
 
+    const renderView = () => {
+        switch (state) {
+            case StateOptions.ConnectWallet:
+                return (
+                    <>
+                        <h1>Create payment request</h1>
+                        <h3>1. Connect wallet</h3>
+                        <CardanoWallet />
+                        <button
+                            className="next-color big-button"
+                            onClick={() => setState(StateOptions.EnterAdaAmount)}
+                        >
+                            Next
+                        </button>
+                        <button
+                            className="previous-color big-button"
+                            onClick={() => setState(StateOptions.ConnectWallet)}
+                        >
+                            Previous
+                        </button>
+                    </>
+                )
+            case StateOptions.EnterAdaAmount:
+                return (
+                    <>
+                        <h3>Enter ada amount</h3>
+                        <input
+                            type="text"
+                            id="my-text-field"
+                            value={adaAmount}
+                            onChange={handleInputChange}
+                            placeholder="Enter ada amount"
+                        />
+                        <button
+                            className="next-color big-button"
+                            onClick={() => setState(StateOptions.ShareLink)}
+                        >
+                            Next
+                        </button>
+                        <button
+                            className="previous-color big-button"
+                            onClick={() => setState(StateOptions.ConnectWallet)}
+                        >
+                            Previous
+                        </button>
+                    </>
+                );
+            case StateOptions.ShareLink:
+                return (
+                    <>
+                        <ShareLink url="ppizagezond" />
+                        <h3>Share payment request</h3>
+                        <div>
+                            <button onClick={handleCopyToClipboard}>Copy link</button> {/* Copy to clipboard button */}
+                        </div>
+                    </>
+                );
+            default:
+                return null
+        }
+    };
+
     return (
         <>
-            <h1>Create payment request</h1>
-            <h3>1. Connect wallet</h3>
-            <CardanoWallet />
+            {renderView()}
+
             {connected && (
                 <>
-                    <h3>2. Enter ada amount</h3>
-                    <input
-                        type="text"
-                        id="my-text-field"
-                        value={adaAmount}
-                        onChange={handleInputChange}
-                        placeholder="Enter ada amount"
-                    />
+
                     {
                         adaAmount.trim() !== '' && ( // Show button only if adaAmount is not empty
                             <button onClick={handleGenerateLink}>Generate Link</button>
@@ -88,10 +152,7 @@ const LinkBuilder = () => {
                     {
                         link && (
                             <>
-                                <h3>3. Share payment request</h3>
-                                <div>
-                                    <button onClick={handleCopyToClipboard}>Copy link</button> {/* Copy to clipboard button */}
-                                </div>
+
                             </>
                         )
                     }
