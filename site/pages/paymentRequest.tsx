@@ -7,6 +7,7 @@ import ThankYou from './thankYou';
 import QRCodeView from "./qrcode";
 import TransactionSummery from "./transaction-summery";
 import NoWalletQuestion from "./noWalletQuestion";
+import DonateToZoofpay from "./donateToZoofpay";
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
@@ -113,16 +114,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             amount_in_lovelace={amount_in_lovelace}
                         />
                         <div className="next-previous-container">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={donate}
-                                    onChange={handleCheckboxChange}
-                                />
-                                Donate 2 ada to zoofpay ❤️
-                            </label>
-
-
+                            <DonateToZoofpay donate={donate} setDonate={setDonate} />
                             <button
                                 className="next-color big-button"
                                 type="button"
