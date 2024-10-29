@@ -6,6 +6,7 @@ import { Transaction } from '@meshsdk/core';
 import ThankYou from './thankYou';
 import QRCodeView from "./qrcode";
 import TransactionSummery from "./transaction-summery";
+import NoWalletQuestion from "./noWalletQuestion";
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
@@ -69,11 +70,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             {!connected && (
                                 <div>
                                     <div className="next-previous-button">
-                                        <p>
-                                            Don&apos;t have a wallet yet?
-                                            {/* todo make wallet support page. */}
-                                            <a href="https://pizzagezond.nl">We can help.</a>
-                                        </p>
+                                        <NoWalletQuestion />
                                     </div>
                                     <button
                                         className="previous-color big-button"
