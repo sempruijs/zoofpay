@@ -4,24 +4,25 @@ import { StateOptions } from "./types";
 interface NavigatorButtons {
     setState: React.Dispatch<React.SetStateAction<StateOptions>>;
     showNext: boolean;
-
+    previous: StateOptions;
+    next: StateOptions;
 }
 
-const NavigatorButtons: NextPage<NavigatorButtons> = ({ setState, showNext }) => {
+const NavigatorButtons: NextPage<NavigatorButtons> = ({ setState, showNext, previous, next }) => {
     return (
         <>
             {showNext && (
 
                 <button
                     className="next-color big-button"
-                    onClick={() => setState(StateOptions.ShareLink)}
+                    onClick={() => setState(next)}
                 >
                     Next
                 </button>
             )}
             <button
                 className="previous-color big-button"
-                onClick={() => setState(StateOptions.ConnectWallet)}
+                onClick={() => setState(previous)}
             >
                 Previous
             </button>

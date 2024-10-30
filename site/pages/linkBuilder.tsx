@@ -75,7 +75,12 @@ const LinkBuilder = () => {
                 return (
                     <>
                         <EnterAdaAmount lovelaceAmount={lovelaceAmount} setLovelaceAmount={setLovelaceAmount} />
-                        <NavigatorButtons setState={setState} showNext={lovelaceAmount !== ''} />
+                        <NavigatorButtons
+                            setState={setState}
+                            showNext={lovelaceAmount !== ''}
+                            previous={StateOptions.ConnectWallet}
+                            next={StateOptions.ShareLink}
+                        />
                     </>
                 )
             case StateOptions.ShareLink:
