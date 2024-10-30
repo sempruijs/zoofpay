@@ -28,9 +28,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     const [donate, setDonate] = useState(false);
     const [txHash, setTxHash] = useState("");
 
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDonate(event.target.checked);
-    };
 
     // amount is in lovelace
     async function send_ada(addr: string, amount: string, donate: boolean) {
