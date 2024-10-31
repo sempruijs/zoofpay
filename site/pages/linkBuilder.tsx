@@ -6,7 +6,7 @@ import NoWalletQuestion from "./noWalletQuestion";
 import EnterAdaAmount from "./enterAdaAmount";
 import { StateOptions } from "./types";
 import NavigatorButtons from "./navigatorButtons";
-import { create } from "domain";
+import EnterRecieveAddress from "./enterRecieveAddress";
 
 const LinkBuilder = () => {
     const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
@@ -15,7 +15,6 @@ const LinkBuilder = () => {
 
     // const [adaAmount, setAdaAmount] = useState('');
     const [lovelaceAmount, setLovelaceAmount] = useState('');
-    const [link, setLink] = useState<string | null>(null);
 
     // Fetch the address when the component mounts
     useEffect(() => {
@@ -41,7 +40,7 @@ const LinkBuilder = () => {
         return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace);
     }
 
-    const [address, setAddress] = useState<string | null>(null);
+    const [address, setAddress] = useState<string>('');
 
     const renderView = () => {
         switch (state) {
@@ -92,12 +91,10 @@ const LinkBuilder = () => {
             case StateOptions.EnterRecieveAddres:
                 return (
                     <>
-                        <h1 className="big-title">Enter recieve address</h1>
-                        <p>This will be the address where you will recieve your assets.</p>
-
+                        <EnterRecieveAddress address={address} setAddress={setAddress} />
                         <NavigatorButtons
                             setState={setState}
-                            showNext={true}
+                            showNext={address !== ''}
                             previous={StateOptions.ConnectWallet}
                             next={StateOptions.EnterAdaAmount}
                         />
