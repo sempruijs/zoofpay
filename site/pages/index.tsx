@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
-import LinkBuilder from './linkBuilder';
 import PaymentRequest from './paymentRequest';
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const searchParams = useSearchParams();
@@ -15,9 +15,9 @@ const Home: NextPage = () => {
     <>
       {!pay_mode && (
         <>
-          <div className="center-horizontal">
-            <LinkBuilder />
-          </div>
+          <h1>zoofpay</h1>
+          <p>Easily create payment request for cardano.</p>
+          <Link href="/new">Create payment request</Link>
         </>
       )}
       {pay_mode && (
