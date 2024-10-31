@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import LinkBuilder from './linkBuilder';
 import PaymentRequest from './paymentRequest';
-import Header from './header';
 
 const Home: NextPage = () => {
   const searchParams = useSearchParams();
@@ -14,7 +13,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Header />
       {!pay_mode && (
         <>
           <div className="center-horizontal">
