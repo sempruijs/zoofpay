@@ -106,9 +106,9 @@ const LinkBuilder = () => {
     };
 
     return (
-        <>
+        <div className="center">
             {renderView()}
-        </>
+        </div>
     );
 };
 

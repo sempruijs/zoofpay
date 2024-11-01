@@ -15,9 +15,15 @@ const Home: NextPage = () => {
     <>
       {!pay_mode && (
         <>
-          <h1>zoofpay</h1>
-          <p>Easily create payment request for cardano.</p>
-          <Link href="/new">Create payment request</Link>
+          <div className="center zoofpay-welcome-container">
+            <h1 className="zoofpay-title">zoofpay</h1>
+            <p className="zoofpay-subtitle">Easily create payment request for cardano.</p>
+            <Link href="/new">
+              <p className="create-link-button">
+                Create payment request
+              </p>
+            </Link>
+          </div>
           <h1>What is zoofpay?</h1>
           <h1>Why zoofpay?</h1>
           <h3>Easier</h3>
