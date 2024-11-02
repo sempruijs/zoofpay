@@ -167,3 +167,33 @@ a:hover {
   background-color: darkblue;
   /* Slightly darker on hover */
 }
+
+.github-logo {
+  cursor: pointer;
+
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 1rem;
+  background-color: #f8f8f8;
+}
+
+/* Center the title */
+.nav-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* GitHub logo on the right side */
+.github-logo {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}

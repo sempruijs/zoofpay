@@ -1,13 +1,17 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 const Header: NextPage = () => {
     return (
-        <nav className="center-text">
+        <nav>
             <Link href="/">
-                <p>
+                <p className="nav-title">
                     zoofpay
                 </p>
+            </Link>
+            <Link href="https://github.com/sempruijs/zoofpay" aria-label="GitHub repository" target="_blank">
+                <Image src="github-mark.png" alt="github repository" width={40} height={40} className="github-logo" />
             </Link>
         </nav>
     );
