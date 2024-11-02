@@ -84,17 +84,29 @@ const Home: NextPage = () => {
           </div>
           <div
             style={{
-              backgroundColor: 'purple'
+              display: 'grid',
+              gridTemplateColumns: '35% 65%',
+              gridTemplateRows: '100%',
+              alignItems: 'center',
+              justifyItems: 'center'
             }}
           >
-            <h3>Easier</h3>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste magni ab dolorem. Ducimus iste velit itaque adipisci similique dolores. Voluptas, excepturi! Ullam, esse quaerat ea consequatur est vel provident dolore!</p>
+            <div></div>
+            <div
+              style={{
+                padding: '5%'
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: '5vw',
+                  fontWeight: 'bold'
+                }}
+              >Easier</h3>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste magni ab dolorem. Ducimus iste velit itaque adipisci similique dolores. Voluptas, excepturi! Ullam, esse quaerat ea consequatur est vel provident dolore!</p>
+            </div>
           </div>
-          <div
-            style={{
-              backgroundColor: 'yellow'
-            }}
-          >
+          <div>
             <h3>Safer</h3>
           </div>
           <h3>Faster</h3>
