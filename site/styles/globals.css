@@ -122,26 +122,6 @@ a:hover {
   text-align: center;
 }
 
-.zoofpay-welcome-container {
-  text-align: center;
-  height: 80vh;
-  /* 80% of the viewport height */
-  min-height: 500px;
-  /* Set the minimum height */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* Centers content vertically */
-  align-items: center
-}
-
-.zoofpay-title {
-  font-size: 10vw;
-  /* Large text */
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
 .zoofpay-subtitle {
   font-size: 2.5vw;
   /* Slightly smaller than the heading */

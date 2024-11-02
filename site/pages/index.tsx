@@ -14,25 +14,71 @@ const Home: NextPage = () => {
   return (
     <>
       {!pay_mode && (
-        <>
-          <div className="center zoofpay-welcome-container">
-            <h1 className="zoofpay-title">zoofpay</h1>
-            <p className="zoofpay-subtitle">Easily create payment request for cardano.</p>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '100vw',
+          gridTemplateRows: '80vh 60vh 60vh 50vh 50vh 50vh 50vh'
+        }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '100vw',
+              gridTemplateRows: '60% 40%',
+              textAlign: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <div>
+              <h1 style={{
+                fontSize: '10vw',
+                fontWeight: 'bolder'
+              }}
+              >
+                zoofpay
+              </h1>
+              <p>Easily create payment request for cardano.</p>
+            </div>
             <Link href="/new">
               <p className="create-link-button">
                 Create payment request
               </p>
             </Link>
           </div>
-          <h1>What is zoofpay?</h1>
-          <h1>Why zoofpay?</h1>
-          <h3>Easier</h3>
-          <h3>Safer</h3>
+          <div
+            style={{
+              backgroundColor: 'orange'
+            }}
+          >
+            <h1>What is zoofpay?</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor veniam eveniet repellat incidunt id nesciunt quo libero magnam praesentium, eum autem tenetur ut repudiandae sunt vero? Hic itaque numquam quas.</p>
+          </div>
+          <div
+            style={{
+              backgroundColor: 'green'
+            }}
+          >
+            <h1>Why zoofpay?</h1>
+          </div>
+          <div
+            style={{
+              backgroundColor: 'purple'
+            }}
+          >
+            <h3>Easier</h3>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste magni ab dolorem. Ducimus iste velit itaque adipisci similique dolores. Voluptas, excepturi! Ullam, esse quaerat ea consequatur est vel provident dolore!</p>
+          </div>
+          <div
+            style={{
+              backgroundColor: 'yellow'
+            }}
+          >
+            <h3>Safer</h3>
+          </div>
           <h3>Faster</h3>
           <h3>Transparent</h3>
           <h3>0% fees</h3>
           <h3>Accessible</h3>
-        </>
+        </div>
       )}
       {pay_mode && (
         <>
