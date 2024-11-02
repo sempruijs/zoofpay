@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         <div style={{
           display: 'grid',
           gridTemplateColumns: '100vw',
-          gridTemplateRows: '80vh 60vh 60vh 50vh 50vh 50vh 50vh'
+          gridTemplateRows: '80vh 60vh 40vh 50vh 50vh 50vh 50vh'
         }}>
           <div
             style={{
@@ -36,7 +36,12 @@ const Home: NextPage = () => {
               >
                 zoofpay
               </h1>
-              <p>Easily create payment request for cardano.</p>
+              <p style={{
+                fontSize: '3vw'
+              }}
+              >
+                Easily create payment request for cardano.
+              </p>
             </div>
             <Link href="/new">
               <p className="create-link-button">
@@ -46,18 +51,36 @@ const Home: NextPage = () => {
           </div>
           <div
             style={{
-              backgroundColor: 'orange'
+              display: 'grid',
+              gridTemplateColumns: '60% 40%',
+              gridTemplateRows: '100%',
+              alignItems: 'center',
+              padding: '5%'
             }}
           >
-            <h1>What is zoofpay?</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor veniam eveniet repellat incidunt id nesciunt quo libero magnam praesentium, eum autem tenetur ut repudiandae sunt vero? Hic itaque numquam quas.</p>
+            <div>
+              <h1
+                style={{
+                  fontSize: '5vw',
+                  fontWeight: 'bold'
+                }}
+              >
+                What is zoofpay?
+              </h1>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor veniam eveniet repellat incidunt id nesciunt quo libero magnam praesentium, eum autem tenetur ut repudiandae sunt vero? Hic itaque numquam quas.</p>
+            </div>
           </div>
           <div
             style={{
-              backgroundColor: 'green'
+              display: 'grid',
+              alignItems: 'center',
+              justifyItems: 'center'
             }}
           >
-            <h1>Why zoofpay?</h1>
+            <h1 style={{
+              fontSize: '6vw',
+              fontWeight: 'bolder'
+            }}>Why zoofpay?</h1>
           </div>
           <div
             style={{
@@ -78,15 +101,16 @@ const Home: NextPage = () => {
           <h3>Transparent</h3>
           <h3>0% fees</h3>
           <h3>Accessible</h3>
-        </div>
+        </div >
       )}
-      {pay_mode && (
-        <>
-          <div className="center-horizontal">
-            <PaymentRequest to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
-          </div>
-        </>
-      )
+      {
+        pay_mode && (
+          <>
+            <div className="center-horizontal">
+              <PaymentRequest to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+            </div>
+          </>
+        )
       }
     </>
   );
