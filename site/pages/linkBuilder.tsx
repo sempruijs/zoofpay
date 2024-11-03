@@ -46,7 +46,15 @@ const LinkBuilder = () => {
         switch (state) {
             case StateOptions.ConnectWallet:
                 return (
-                    <>
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '25% 40% 35%',
+                            justifyItems: 'center'
+                        }}
+                    >
                         <h1 className="big-title">Connect wallet</h1>
                         <CardanoWallet />
                         {connected && (
@@ -61,14 +69,14 @@ const LinkBuilder = () => {
                             <div>
                                 <NoWalletQuestion />
                                 <button
-                                    className="previous-color big-button"
+                                    className="big-button previous-color"
                                     onClick={() => setState(StateOptions.EnterRecieveAddres)}
                                 >
                                     Continue without a wallet
                                 </button>
                             </div>
                         )}
-                    </>
+                    </div>
                 )
             case StateOptions.EnterAdaAmount:
                 return (

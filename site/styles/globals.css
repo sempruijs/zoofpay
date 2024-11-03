@@ -31,6 +31,7 @@ body {
 .big-button {
   width: 66.66vw;
   max-width: 800px;
+  height: 100px;
   padding: 12px 24px;
   color: white;
   border: none;
