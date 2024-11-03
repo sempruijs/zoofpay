@@ -18,18 +18,23 @@ const ShareLink: NextPage<ShareLinkProps> = ({ url }) => {
     };
 
     return (
-        <>
+        <div
+            style={{
+                display: 'grid',
+                height: '90vh',
+                gridTemplateColumns: '100%',
+                gridTemplateRows: '50% 50%',
+                justifyItems: 'center'
+            }}
+        >
             <h1 className="big-title">Share payment request</h1>
-            <div>
-                <p>{url}</p>
-                <button
-                    className="big-button next-color"
-                    onClick={handleCopyToClipboard}
-                >
-                    Copy link
-                </button> {/* Copy to clipboard button */}
-            </div>
-        </>
+            <button
+                className="big-button next-color"
+                onClick={handleCopyToClipboard}
+            >
+                Copy link
+            </button> {/* Copy to clipboard button */}
+        </div>
     )
 };
 

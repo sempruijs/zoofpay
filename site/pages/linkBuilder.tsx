@@ -80,7 +80,15 @@ const LinkBuilder = () => {
                 )
             case StateOptions.EnterAdaAmount:
                 return (
-                    <>
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '25% 25% 35%',
+                            justifyItems: 'center'
+                        }}
+                    >
                         <EnterAdaAmount lovelaceAmount={lovelaceAmount} setLovelaceAmount={setLovelaceAmount} />
                         <NavigatorButtons
                             setState={setState}
@@ -88,7 +96,7 @@ const LinkBuilder = () => {
                             previous={StateOptions.ConnectWallet}
                             next={StateOptions.ShareLink}
                         />
-                    </>
+                    </div>
                 )
             case StateOptions.ShareLink:
                 return (
@@ -98,7 +106,16 @@ const LinkBuilder = () => {
                 );
             case StateOptions.EnterRecieveAddres:
                 return (
-                    <>
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '70% 30%',
+                            justifyItems: 'center',
+                            textAlign: 'center',
+                        }}
+                    >
                         <EnterRecieveAddress address={address} setAddress={setAddress} />
                         <NavigatorButtons
                             setState={setState}
@@ -106,7 +123,7 @@ const LinkBuilder = () => {
                             previous={StateOptions.ConnectWallet}
                             next={StateOptions.EnterAdaAmount}
                         />
-                    </>
+                    </div>
                 )
             default:
                 return null

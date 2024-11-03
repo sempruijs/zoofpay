@@ -39,7 +39,7 @@ body {
   font-size: 1.2em;
   text-align: center;
   cursor: pointer;
-  margin: 12px;
+  /* margin: 12px; */
 }
 
 .next-color {
@@ -63,18 +63,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.next-previous-container {
-  margin-top: 30pt;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  bottom: 0;
-  width: 100%;
-  /* Full width to allow centering */
-  padding: 20px;
 }
 
 label {
