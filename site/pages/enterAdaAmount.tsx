@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useState } from "react";
 
 interface DonateToZoofpayProps {
     lovelaceAmount: string;
@@ -6,6 +7,9 @@ interface DonateToZoofpayProps {
 }
 
 const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLovelaceAmount }) => {
+    const [textFieldWidth, setTextfieldWidth] = useState("");
+
+
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAdaAmount = event.target.value;
         let lovelace = ada_to_lovelace(newAdaAmount); // Use newAdaAmount directly
@@ -40,12 +44,27 @@ const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLov
             <div>
                 <input
                     type="text"
-                    id="my-text-field"
                     value={lovelace_to_ada(lovelaceAmount)}
                     onChange={handleInputChange}
-                    placeholder="Enter ada amount"
+                    placeholder="0"
+                    className="ada-amount-textfield"
+                    style={{
+                        width: `${lovelace_to_ada(lovelaceAmount).length}ch`,
+                        minWidth: '40pt',
+                        height: '80pt',
+                        fontSize: '5vw',
+                        textAlign: 'center',
+                        outline: 'none',
+                        border: 'none'
+                    }}
                 />
-                <span aria-label="ada">₳</span>
+                <span
+                    aria-label="ada"
+                    style={{
+                        margin: '1vw',
+                        fontSize: '5vw'
+                    }}
+                >₳</span>
             </div>
         </>
     );
