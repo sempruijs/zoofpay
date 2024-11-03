@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
 import ShareLink from "./shareLink";
 import NoWalletQuestion from "./noWalletQuestion";
 import EnterAdaAmount from "./enterAdaAmount";
-import { StateOptions } from "./types";
+import { StateOptions } from "../types";
 import NavigatorButtons from "./navigatorButtons";
 import EnterRecieveAddress from "./enterRecieveAddress";
 
@@ -15,6 +15,13 @@ const LinkBuilder = () => {
 
     // const [adaAmount, setAdaAmount] = useState('');
     const [lovelaceAmount, setLovelaceAmount] = useState('');
+    const [address, setAddress] = useState<string>('');
+
+    const get_address = useCallback(async () => {
+        const addresses = await wallet.getUnusedAddresses();
+        console.log(addresses[0])
+        return addresses[0]
+    }, [wallet])
 
     // Fetch the address when the component mounts
     useEffect(() => {
@@ -28,19 +35,12 @@ const LinkBuilder = () => {
 
             fetchAddress();
         }
-    }, [connected]);
-
-    async function get_address(): Promise<string> {
-        const addresses = await wallet.getUnusedAddresses();
-        console.log(addresses[0])
-        return addresses[0]
-    }
+    }, [address, get_address, connected]);
 
     function create_link(addr: string, lovelace: string): string {
         return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace);
     }
 
-    const [address, setAddress] = useState<string>('');
 
     const renderView = () => {
         switch (state) {

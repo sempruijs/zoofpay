@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { StateOptions } from "./types";
+import { StateOptions } from "../types";
 
 interface NavigatorButtons {
     setState: React.Dispatch<React.SetStateAction<StateOptions>>;

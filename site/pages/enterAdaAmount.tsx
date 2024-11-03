@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import { useState } from "react";
 
 interface DonateToZoofpayProps {
     lovelaceAmount: string;
@@ -7,15 +6,10 @@ interface DonateToZoofpayProps {
 }
 
 const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLovelaceAmount }) => {
-    const [textFieldWidth, setTextfieldWidth] = useState("");
-
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAdaAmount = event.target.value;
-        let lovelace = ada_to_lovelace(newAdaAmount); // Use newAdaAmount directly
+        const lovelace = ada_to_lovelace(newAdaAmount); // Use newAdaAmount directly
         setLovelaceAmount(lovelace);
-        // let link = create_link(address ?? '', lovelace);
-        // setLink(link);
     };
 
     function ada_to_lovelace(x: string): string {
