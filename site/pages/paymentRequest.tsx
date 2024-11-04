@@ -84,12 +84,29 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 );
             case StateOptions.PayNow:
                 return (
-                    <div className="center">
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '15% 40% 45%',
+                            justifyItems: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
                         <h1 className="big-title">You will pay</h1>
                         <TransactionSummery
                             amount_in_lovelace={amount_in_lovelace}
                         />
-                        <div className="next-previous-container">
+                        <div
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: '100vw',
+                                gridTemplateRows: '20% 40% 40%',
+                                justifyItems: 'center',
+                                alignItems: 'center'
+                            }}
+                        >
                             <DonateToZoofpay donate={donate} setDonate={setDonate} />
                             <button
                                 className="next-color big-button"
