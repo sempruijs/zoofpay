@@ -19,10 +19,7 @@ const NavigatorButtons: NextPage<NavigatorButtons> = ({ setState, showNext, prev
         }}>
             <button
                 disabled={!showNext}
-                className="big-button"
-                style={{
-                    backgroundColor: showNext ? '#7220ff' : '#dfdfdf'
-                }}
+                className={showNext ? "big-button next-color" : "big-button disabled-color"}
                 onClick={() => setState(next)}
             >
                 Next
