@@ -12,11 +12,15 @@ const Feature: NextPage<FeatureProps> = ({ title, content, right }) => {
             style={{
                 display: 'grid',
                 gridTemplateColumns: right ? '35% 65%' : '65% 35%',
-                gridTemplateRows: '100%',
+                gridTemplateRows: '50% 50%',
+                width: '100vw',
+                height: '50vh',
                 alignItems: 'center',
-                justifyItems: 'center'
             }}
         >
+            {right && (
+                <div></div>
+            )}
             <div
                 style={{
                     padding: '5%'
