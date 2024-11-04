@@ -7,6 +7,7 @@ import EnterAdaAmount from "./enterAdaAmount";
 import { StateOptions } from "../types";
 import NavigatorButtons from "./navigatorButtons";
 import EnterRecieveAddress from "./enterRecieveAddress";
+import ConnectWallet from "./connectWallet";
 
 const LinkBuilder = () => {
     const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
@@ -51,31 +52,17 @@ const LinkBuilder = () => {
                             display: 'grid',
                             height: '90vh',
                             gridTemplateColumns: '100vw',
-                            gridTemplateRows: '25% 40% 35%',
+                            gridTemplateRows: '50% 50%',
                             justifyItems: 'center'
                         }}
                     >
-                        <h1 className="big-title">Connect wallet</h1>
-                        <CardanoWallet />
-                        {connected && (
-                            <button
-                                className="next-color big-button"
-                                onClick={() => setState(StateOptions.EnterAdaAmount)}
-                            >
-                                Next
-                            </button>
-                        )}
-                        {!connected && (
-                            <div>
-                                <NoWalletQuestion />
-                                <button
-                                    className="big-button previous-color"
-                                    onClick={() => setState(StateOptions.EnterRecieveAddres)}
-                                >
-                                    Continue without a wallet
-                                </button>
-                            </div>
-                        )}
+                        <ConnectWallet connected={connected} wallet={wallet} />
+                        <NavigatorButtons
+                            setState={setState}
+                            showNext={connected}
+                            previous={StateOptions.EnterRecieveAddres}
+                            next={StateOptions.EnterAdaAmount}
+                        />
                     </div>
                 )
             case StateOptions.EnterAdaAmount:

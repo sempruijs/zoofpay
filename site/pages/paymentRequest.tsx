@@ -8,6 +8,7 @@ import QRCodeView from "./qrcode";
 import TransactionSummery from "./transaction-summery";
 import NoWalletQuestion from "./noWalletQuestion";
 import DonateToZoofpay from "./donateToZoofpay";
+import NavigatorButtons from "./navigatorButtons";
 
 enum StateOptions {
     ConnectWallet = "ConnectWallet",
@@ -92,7 +93,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                     <div>
                         <QRCodeView to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
                         <div className="next-previous-container">
-
                             <button
                                 className="next-color big-button"
                                 onClick={() => setState(StateOptions.ThankYou)}
