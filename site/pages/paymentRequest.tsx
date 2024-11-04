@@ -28,7 +28,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     const [donate, setDonate] = useState(false);
     const [txHash, setTxHash] = useState("");
 
-
     // amount is in lovelace
     async function send_ada(addr: string, amount: string, donate: boolean) {
         let tx = new Transaction({ initiator: wallet })
@@ -56,11 +55,17 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         switch (state) {
             case StateOptions.ConnectWallet:
                 return (
-                    <div className="center-horizontal-vertical">
-                        <div className="center">
-                            <h1 className="big-title">Connect wallet</h1>
-                            <CardanoWallet />
-                        </div>
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '25% 40% 35%',
+                            justifyItems: 'center'
+                        }}
+                    >
+                        <h1 className="big-title">Connect wallet</h1>
+                        <CardanoWallet />
                         <div className="next-previous-container">
                             {connected && (
                                 <button className="next-color big-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
