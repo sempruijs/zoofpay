@@ -47,23 +47,13 @@ const LinkBuilder = () => {
         switch (state) {
             case StateOptions.ConnectWallet:
                 return (
-                    <div
-                        style={{
-                            display: 'grid',
-                            height: '90vh',
-                            gridTemplateColumns: '100vw',
-                            gridTemplateRows: '50% 50%',
-                            justifyItems: 'center'
-                        }}
-                    >
-                        <ConnectWallet connected={connected} wallet={wallet} />
-                        <NavigatorButtons
-                            setState={setState}
-                            showNext={connected}
-                            previous={StateOptions.EnterRecieveAddres}
-                            next={StateOptions.EnterAdaAmount}
-                        />
-                    </div>
+                    <ConnectWallet
+                        connected={connected}
+                        wallet={wallet}
+                        setState={setState}
+                        next={StateOptions.EnterAdaAmount}
+                        noWallet={StateOptions.EnterRecieveAddres}
+                    />
                 )
             case StateOptions.EnterAdaAmount:
                 return (
