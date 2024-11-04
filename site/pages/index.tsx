@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import PaymentRequest from './paymentRequest';
-import Link from "next/link";
 import Feature from "./feature";
 import Welcome from "./welcome";
 
