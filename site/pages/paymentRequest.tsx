@@ -10,6 +10,8 @@ import NoWalletQuestion from "./noWalletQuestion";
 import DonateToZoofpay from "./donateToZoofpay";
 import NavigatorButtons from "./navigatorButtons";
 import { StateOptions } from "../types";
+import ConnectWallet from "./connectWallet";
+import { ST } from "next/dist/shared/lib/utils";
 
 interface PaymentRequestProps {
     to_addres: string;
@@ -51,37 +53,13 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         switch (state) {
             case StateOptions.ConnectWallet:
                 return (
-                    <div
-                        style={{
-                            display: 'grid',
-                            height: '90vh',
-                            gridTemplateColumns: '100vw',
-                            gridTemplateRows: '25% 40% 35%',
-                            justifyItems: 'center'
-                        }}
-                    >
-                        <h1 className="big-title">Connect wallet</h1>
-                        <CardanoWallet />
-                        <div className="next-previous-container">
-                            {connected && (
-                                <button className="next-color big-button" onClick={() => setState(StateOptions.PayNow)}>Next</button>
-                            )}
-                            {!connected && (
-                                <div>
-                                    <div className="next-previous-button">
-                                        <NoWalletQuestion />
-                                    </div>
-                                    <button
-                                        className="previous-color big-button"
-                                        onClick={() => setState(StateOptions.QRCode)}
-                                    >
-                                        Continue without a wallet.
-
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    <ConnectWallet
+                        connected={connected}
+                        wallet={wallet}
+                        setState={setState}
+                        next={StateOptions.PayNow}
+                        noWallet={StateOptions.QRCode}
+                    />
                 );
             case StateOptions.QRCode:
                 return (
