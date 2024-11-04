@@ -9,13 +9,8 @@ import TransactionSummery from "./transaction-summery";
 import NoWalletQuestion from "./noWalletQuestion";
 import DonateToZoofpay from "./donateToZoofpay";
 import NavigatorButtons from "./navigatorButtons";
+import { StateOptions } from "../types";
 
-enum StateOptions {
-    ConnectWallet = "ConnectWallet",
-    PayNow = "PayNow",
-    ThankYou = "ThankYou",
-    QRCode = "QRCode"
-}
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
