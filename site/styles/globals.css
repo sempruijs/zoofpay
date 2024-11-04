@@ -5,12 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --github-logo-path: url("/github-mark.png")
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --github-logo-path: url("/github-mark-white.png");
   }
 }
 
@@ -140,6 +142,7 @@ a:hover {
 
 .github-logo {
   cursor: pointer;
+  content: var(--github-logo-path);
 
 }
 
@@ -149,14 +152,14 @@ nav {
   justify-content: center;
   position: relative;
   padding: 1rem;
-  background-color: #f8f8f8;
+  background-color: var(--background);
 }
 
 /* Center the title */
 .nav-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
+  color: var(--foreground);
   margin: 0;
 }
 

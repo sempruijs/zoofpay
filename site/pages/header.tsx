@@ -11,7 +11,7 @@ const Header: NextPage = () => {
                 </p>
             </Link>
             <Link href="https://github.com/sempruijs/zoofpay" aria-label="GitHub repository" target="_blank">
-                <Image src="github-mark.png" alt="github repository" width={40} height={40} className="github-logo" />
+                <Image alt="github repository" width={40} height={40} className="github-logo" />
             </Link>
         </nav>
     );
