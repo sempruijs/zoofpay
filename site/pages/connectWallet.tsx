@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { useWallet } from '@meshsdk/react';
 import { CardanoWallet } from '@meshsdk/react';
 import { NextPage } from "next";
-import { BrowserWallet, Transaction } from '@meshsdk/core';
+import { BrowserWallet } from '@meshsdk/core';
 import { StateOptions } from "../types";
 import NoWalletQuestion from "./noWalletQuestion";
 
@@ -16,7 +14,6 @@ interface ConnectWalletProps {
 
 const ConnectWallet: NextPage<ConnectWalletProps> = (
     { connected,
-        wallet,
         setState,
         next,
         noWallet

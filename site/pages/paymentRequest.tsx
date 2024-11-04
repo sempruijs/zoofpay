@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { useWallet } from '@meshsdk/react';
-import { CardanoWallet } from '@meshsdk/react';
 import { NextPage } from "next";
 import { Transaction } from '@meshsdk/core';
 import ThankYou from './thankYou';
 import QRCodeView from "./qrcode";
 import TransactionSummery from "./transaction-summery";
-import NoWalletQuestion from "./noWalletQuestion";
 import DonateToZoofpay from "./donateToZoofpay";
 import NavigatorButtons from "./navigatorButtons";
 import { StateOptions } from "../types";
 import ConnectWallet from "./connectWallet";
-import { ST } from "next/dist/shared/lib/utils";
-
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;

@@ -1,8 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useWallet } from '@meshsdk/react';
-import { CardanoWallet } from '@meshsdk/react';
 import ShareLink from "./shareLink";
-import NoWalletQuestion from "./noWalletQuestion";
 import EnterAdaAmount from "./enterAdaAmount";
 import { StateOptions } from "../types";
 import NavigatorButtons from "./navigatorButtons";
