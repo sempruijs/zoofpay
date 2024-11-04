@@ -63,22 +63,23 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                 );
             case StateOptions.QRCode:
                 return (
-                    <div>
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '20% 50% 30%',
+                            justifyItems: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
                         <QRCodeView to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
-                        <div className="next-previous-container">
-                            <button
-                                className="next-color big-button"
-                                onClick={() => setState(StateOptions.ThankYou)}
-                            >
-                                Next
-                            </button>
-                            <button
-                                className="previous-color big-button"
-                                onClick={() => setState(StateOptions.ConnectWallet)}
-                            >
-                                Previous
-                            </button>
-                        </div>
+                        <NavigatorButtons
+                            setState={setState}
+                            next={StateOptions.ThankYou}
+                            previous={StateOptions.ConnectWallet}
+                            showNext={true}
+                        />
                     </div>
                 );
             case StateOptions.PayNow:
