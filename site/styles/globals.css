@@ -173,3 +173,9 @@ nav {
 input {
   background: var(--background);
 }
+
+.wallet-help-heading-2 {
+  font-size: 3vw;
+  font-weight: bold;
+  margin-top: 30pt;
+}
