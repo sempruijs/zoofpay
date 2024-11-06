@@ -25,7 +25,7 @@ const Welcome: NextPage = () => {
                     fontSize: '3vw'
                 }}
                 >
-                    Easily create payment request for cardano.
+                    Easily create payment requests for Cardano
                 </p>
             </div>
             <Link href="/new">
