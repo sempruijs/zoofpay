@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import PaymentRequest from './paymentRequest';
 import Welcome from "./welcome";
 import WhyZoofpay from "@/whyZoofpay";
+import WhatIsZoofpay from "./whatIsZoofpay";
 
 const Home: NextPage = () => {
   const searchParams = useSearchParams();
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
       {!pay_mode && (
         <>
           <Welcome />
+          <WhatIsZoofpay />
           <WhyZoofpay />
         </>
       )}
