@@ -12,10 +12,12 @@ const Home: NextPage = () => {
   const amount_in_lovelace = searchParams.get("a");
 
   const pay_mode = to_addres != null && amount_in_lovelace != null;
+  const open_pay_mode = to_addres != null && amount_in_lovelace == null;
+  const welcome = to_addres == null && amount_in_lovelace == null;
 
   return (
     <>
-      {!pay_mode && (
+      {welcome && (
         <>
           <Welcome />
           <WhatIsZoofpay />
@@ -27,6 +29,15 @@ const Home: NextPage = () => {
           <>
             <div className="center-horizontal">
               <PaymentRequest to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+            </div>
+          </>
+        )
+      }
+      {
+        open_pay_mode && (
+          <>
+            <div className="center-horizontal">
+              <PaymentRequest to_addres={to_addres} amount_in_lovelace="" />
             </div>
           </>
         )

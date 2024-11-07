@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import Feature from "./pages/feature";
 
 const WhatIsZoofpay: NextPage = () => {
     return (

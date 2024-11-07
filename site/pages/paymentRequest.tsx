@@ -9,6 +9,7 @@ import DonateToZoofpay from "./donateToZoofpay";
 import NavigatorButtons from "./navigatorButtons";
 import { StateOptions } from "../types";
 import ConnectWallet from "./connectWallet";
+import EnterAdaAmount from "./enterAdaAmount";
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
@@ -16,8 +17,10 @@ interface PaymentRequestProps {
 
 const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lovelace }) => {
     const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
+    const open_request = amount_in_lovelace == "";
 
     const { connected, wallet } = useWallet();
+    const [lovelaceAmount, setLovelaceAmount] = useState('');
 
     const [donate, setDonate] = useState(false);
     const [txHash, setTxHash] = useState("");
@@ -49,13 +52,28 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
         switch (state) {
             case StateOptions.ConnectWallet:
                 return (
-                    <ConnectWallet
-                        connected={connected}
-                        wallet={wallet}
-                        setState={setState}
-                        next={StateOptions.PayNow}
-                        noWallet={StateOptions.QRCode}
-                    />
+                    <>
+                        {open_request && (
+                            <>
+                                <ConnectWallet
+                                    connected={connected}
+                                    wallet={wallet}
+                                    setState={setState}
+                                    next={StateOptions.EnterAdaAmount}
+                                    noWallet={StateOptions.QRCode}
+                                />
+                            </>
+                        )}
+                        {!open_request && (
+                            <ConnectWallet
+                                connected={connected}
+                                wallet={wallet}
+                                setState={setState}
+                                next={StateOptions.PayNow}
+                                noWallet={StateOptions.QRCode}
+                            />
+                        )}
+                    </>
                 );
             case StateOptions.QRCode:
                 return (
@@ -92,7 +110,9 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                     >
                         <h1 className="big-title">You will pay</h1>
                         <TransactionSummery
-                            amount_in_lovelace={amount_in_lovelace}
+                            amount_in_lovelace={
+                                (open_request ? amount_in_lovelace : lovelaceAmount)
+                            }
                         />
                         <div
                             style={{
@@ -108,7 +128,8 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                 className="next-color big-button"
                                 type="button"
                                 onClick={() => {
-                                    send_ada(to_addres, amount_in_lovelace, donate)
+                                    const lovelace = open_request ? lovelaceAmount : amount_in_lovelace;
+                                    send_ada(to_addres, lovelace, donate)
                                 }}
                             >
                                 pay now
@@ -128,6 +149,26 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         <ThankYou txHash={txHash} />
                     </>
                 );
+            case StateOptions.EnterAdaAmount:
+                return (
+                    <div
+                        style={{
+                            display: 'grid',
+                            height: '90vh',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '25% 25% 35%',
+                            justifyItems: 'center'
+                        }}
+                    >
+                        <EnterAdaAmount lovelaceAmount={lovelaceAmount} setLovelaceAmount={setLovelaceAmount} />
+                        <NavigatorButtons
+                            setState={setState}
+                            showNext={lovelaceAmount !== ''}
+                            previous={StateOptions.ConnectWallet}
+                            next={StateOptions.PayNow}
+                        />
+                    </div>
+                )
             default:
                 return null;
         }

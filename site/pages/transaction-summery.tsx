@@ -7,16 +7,6 @@ interface TransactionSummeryProps {
 }
 
 const TransactionSummery: NextPage<TransactionSummeryProps> = ({ amount_in_lovelace }) => {
-    // function shorten_addr(addr: string): string {
-    //     if (addr != null && addr != undefined) {
-    //         const start = addr.slice(0, 8);     // First 8 characters
-    //         const end = addr.slice(-6);         // Last 6 characters
-    //         return `${start}.....${end}`;
-    //     } else {
-    //         return '';
-    //     }
-    // }
-
     function lovelace_to_ada(x: string): string {
         const lovelace: number = parseInt(x, 10);
         const ada: number = lovelace / 1000000;
