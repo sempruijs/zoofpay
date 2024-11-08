@@ -17,7 +17,7 @@ const LinkBuilder = () => {
     const [address, setAddress] = useState<string>('');
 
     const get_address = useCallback(async () => {
-        const addresses = await wallet.getUnusedAddresses();
+        const addresses = await wallet.getChangeAddress();
         console.log(addresses[0])
         return addresses[0]
     }, [wallet])
@@ -64,7 +64,11 @@ const LinkBuilder = () => {
                             justifyItems: 'center'
                         }}
                     >
-                        <EnterAdaAmount lovelaceAmount={lovelaceAmount} setLovelaceAmount={setLovelaceAmount} />
+                        <EnterAdaAmount
+                            lovelaceAmount={lovelaceAmount}
+                            setLovelaceAmount={setLovelaceAmount}
+                            pay_mode={false}
+                        />
                         <NavigatorButtons
                             setState={setState}
                             showNext={lovelaceAmount !== ''}

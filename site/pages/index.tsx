@@ -28,7 +28,10 @@ const Home: NextPage = () => {
         pay_mode && (
           <>
             <div className="center-horizontal">
-              <PaymentRequest to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+              <PaymentRequest
+                to_addres={to_addres}
+                amount_in_lovelace={amount_in_lovelace}
+              />
             </div>
           </>
         )
