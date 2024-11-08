@@ -167,7 +167,6 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         <EnterAdaAmount
                             lovelaceAmount={lovelaceAmount}
                             setLovelaceAmount={setLovelaceAmount}
-                            pay_mode={true}
                         />
                         <NavigatorButtons
                             setState={setState}

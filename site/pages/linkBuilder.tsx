@@ -71,7 +71,6 @@ const LinkBuilder = () => {
                         <EnterAdaAmount
                             lovelaceAmount={lovelaceAmount}
                             setLovelaceAmount={setLovelaceAmount}
-                            pay_mode={false}
                         />
                         <div
                             style={{

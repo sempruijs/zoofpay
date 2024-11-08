@@ -3,17 +3,12 @@ import { NextPage } from "next";
 interface EnterAdaAmountProps {
     lovelaceAmount: string;
     setLovelaceAmount: React.Dispatch<React.SetStateAction<string>>;
-    pay_mode: Boolean;
 }
 
 const EnterAdaAmount: NextPage<EnterAdaAmountProps> = (
     {
         lovelaceAmount,
         setLovelaceAmount,
-        pay_mode,
-        setState,
-        next,
-        previous
     }) => {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

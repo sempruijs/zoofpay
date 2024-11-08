@@ -3,7 +3,7 @@ import { NextPage } from "next";
 interface CheckboxProps {
     state: boolean;
     setState: React.Dispatch<React.SetStateAction<boolean>>;
-    content: String;
+    content: string;
 }
 
 const Checkbox: NextPage<CheckboxProps> = ({ state, setState, content }) => {
