@@ -6,9 +6,11 @@ import { StateOptions } from "../types";
 import NavigatorButtons from "./navigatorButtons";
 import EnterRecieveAddress from "./enterRecieveAddress";
 import ConnectWallet from "./connectWallet";
+import Checkbox from "./checkbox";
 
 const LinkBuilder = () => {
     const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
+    const [openRequest, setOpenRequest] = useState(false);
 
     const { connected, wallet } = useWallet();
 
@@ -17,9 +19,8 @@ const LinkBuilder = () => {
     const [address, setAddress] = useState<string>('');
 
     const get_address = useCallback(async () => {
-        const addresses = await wallet.getChangeAddress();
-        console.log(addresses[0])
-        return addresses[0]
+        const address = await wallet.getChangeAddress();
+        return address;
     }, [wallet])
 
     // Fetch the address when the component mounts
@@ -36,7 +37,10 @@ const LinkBuilder = () => {
         }
     }, [address, get_address, connected]);
 
-    function create_link(addr: string, lovelace: string): string {
+    function create_link(addr: string, lovelace: string, open: boolean): string {
+        if (open) {
+            return ("https://zoofpay.com/?to=" + addr);
+        }
         return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace);
     }
 
@@ -69,18 +73,25 @@ const LinkBuilder = () => {
                             setLovelaceAmount={setLovelaceAmount}
                             pay_mode={false}
                         />
-                        <NavigatorButtons
-                            setState={setState}
-                            showNext={lovelaceAmount !== ''}
-                            previous={StateOptions.ConnectWallet}
-                            next={StateOptions.ShareLink}
-                        />
+                        <div>
+                            <Checkbox
+                                state={openRequest}
+                                setState={setOpenRequest}
+                                content="Let people decide how much they want to give"
+                            />
+                            <NavigatorButtons
+                                setState={setState}
+                                showNext={lovelaceAmount !== '' || openRequest}
+                                previous={StateOptions.ConnectWallet}
+                                next={StateOptions.ShareLink}
+                            />
+                        </div>
                     </div>
                 )
             case StateOptions.ShareLink:
                 return (
                     <>
-                        <ShareLink url={create_link(address, lovelaceAmount)} />
+                        <ShareLink url={create_link(address, lovelaceAmount, openRequest)} />
                     </>
                 );
             case StateOptions.EnterRecieveAddres:

@@ -1,12 +1,21 @@
 import { NextPage } from "next";
 
-interface DonateToZoofpayProps {
+interface EnterAdaAmountProps {
     lovelaceAmount: string;
     setLovelaceAmount: React.Dispatch<React.SetStateAction<string>>;
     pay_mode: Boolean;
 }
 
-const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLovelaceAmount, pay_mode }) => {
+const EnterAdaAmount: NextPage<EnterAdaAmountProps> = (
+    {
+        lovelaceAmount,
+        setLovelaceAmount,
+        pay_mode,
+        setState,
+        next,
+        previous
+    }) => {
+
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAdaAmount = event.target.value;
         const lovelace = ada_to_lovelace(newAdaAmount); // Use newAdaAmount directly
@@ -61,11 +70,6 @@ const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLov
                     }}
                 >₳</span>
             </div>
-            {!pay_mode && (
-                <>
-                    <h2>Let people decide how much they want to give</h2>
-                </>
-            )}
         </>
     );
 };
