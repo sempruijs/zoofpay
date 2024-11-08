@@ -36,9 +36,6 @@ const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLov
     return (
         <>
             <h1 className="big-title">Enter ada amount</h1>
-            {pay_mode && (
-                <h1>dit is een test</h1>
-            )}
             <div>
                 <input
                     type="text"
@@ -64,6 +61,11 @@ const EnterAdaAmount: NextPage<DonateToZoofpayProps> = ({ lovelaceAmount, setLov
                     }}
                 >₳</span>
             </div>
+            {!pay_mode && (
+                <>
+                    <h2>Let people decide how much they want to give</h2>
+                </>
+            )}
         </>
     );
 };

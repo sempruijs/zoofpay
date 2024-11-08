@@ -5,11 +5,11 @@ import { Transaction } from '@meshsdk/core';
 import ThankYou from './thankYou';
 import QRCodeView from "./qrcode";
 import TransactionSummery from "./transaction-summery";
-import DonateToZoofpay from "./donateToZoofpay";
 import NavigatorButtons from "./navigatorButtons";
 import { StateOptions } from "../types";
 import ConnectWallet from "./connectWallet";
 import EnterAdaAmount from "./enterAdaAmount";
+import Checkbox from "./checkbox";
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
@@ -123,7 +123,11 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                                 alignItems: 'center'
                             }}
                         >
-                            <DonateToZoofpay donate={donate} setDonate={setDonate} />
+                            <Checkbox
+                                state={donate}
+                                setState={setDonate}
+                                content="Donate 2 ada to zoofpay ❤️"
+                            />
                             <button
                                 className="next-color big-button"
                                 type="button"
