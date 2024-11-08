@@ -111,7 +111,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         <h1 className="big-title">You will pay</h1>
                         <TransactionSummery
                             amount_in_lovelace={
-                                (open_request ? amount_in_lovelace : lovelaceAmount)
+                                (open_request ? lovelaceAmount : amount_in_lovelace)
                             }
                         />
                         <div
