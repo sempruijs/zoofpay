@@ -73,7 +73,16 @@ const LinkBuilder = () => {
                             setLovelaceAmount={setLovelaceAmount}
                             pay_mode={false}
                         />
-                        <div>
+                        <div
+                            style={{
+                                display: 'grid',
+                                gridTemplateColumns: '100vw',
+                                gridTemplateRows: '20% 80%',
+                                height: '240pt',
+                                justifyItems: 'center',
+                                alignItems: 'center'
+                            }}
+                        >
                             <Checkbox
                                 state={openRequest}
                                 setState={setOpenRequest}
