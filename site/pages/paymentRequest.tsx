@@ -29,7 +29,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
     async function send_ada(addr: string, amount: string, donate: boolean) {
         let tx = new Transaction({ initiator: wallet })
             .sendLovelace(
-                "addr1q8ja7ny7rf8ty6gs3d298kyw4cwl8yaets0pg9tm944kjatsu6zkeupreealc2urfwyct3le8se8adqmt0q52fg5653sy0a4dq",
+                addr,
                 amount
             );
 
