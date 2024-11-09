@@ -31,18 +31,9 @@ const Home: NextPage = () => {
             <div className="center-horizontal">
               <PaymentRequest
                 to_addres={to_addres}
-                amount_in_lovelace={amount_in_lovelace}
-                description="hallo"
+                amount_in_lovelace={open_pay_mode ? "" : amount_in_lovelace}
+                description={description === null ? "" : description}
               />
-            </div>
-          </>
-        )
-      }
-      {
-        open_pay_mode && (
-          <>
-            <div className="center-horizontal">
-              <PaymentRequest to_addres={to_addres} amount_in_lovelace="" />
             </div>
           </>
         )

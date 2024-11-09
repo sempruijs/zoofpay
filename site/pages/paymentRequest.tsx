@@ -191,9 +191,9 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                         }}
                     >
                         <Description
-                            description={description}
+                            description={description === null ? "" : description}
                             lovelace={amount_in_lovelace}
-                            handle="kerstboom"
+                            handle=""
                         />
                         <div>
                             <button

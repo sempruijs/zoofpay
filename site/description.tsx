@@ -26,19 +26,22 @@ const Description: NextPage<DescriptionProps> = ({ handle, description, lovelace
                 }}
             >
                 <b>
-
-                    ${handle}
+                    {
+                        handle === "" ? "Someone" : ("$" + handle)
+                    }
                 </b>
                 <div>
                     wants <b>
                         {lovelace_to_ada(lovelace)} ₳
                     </b>
                 </div>
-                <div>
-                    for <b>
-                        {description}
-                    </b>
-                </div>
+                {description !== "" && (
+                    <div>
+                        for <b>
+                            {description}
+                        </b>
+                    </div>
+                )}
             </p>
         </>
     )
