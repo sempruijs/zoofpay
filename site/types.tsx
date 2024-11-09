@@ -6,5 +6,6 @@ export enum StateOptions {
     PayNow = "PayNow",
     ThankYou = "ThankYou",
     QRCode = "QRCode",
-    Description = "Description"
+    Description = "Description",
+    EnterDescription = "Enter Description"
 }

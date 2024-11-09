@@ -7,6 +7,7 @@ import NavigatorButtons from "./navigatorButtons";
 import EnterRecieveAddress from "./enterRecieveAddress";
 import ConnectWallet from "./connectWallet";
 import Checkbox from "./checkbox";
+import EnterDescription from "@/EnterDescription";
 
 const LinkBuilder = () => {
     const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
@@ -17,6 +18,7 @@ const LinkBuilder = () => {
     // const [adaAmount, setAdaAmount] = useState('');
     const [lovelaceAmount, setLovelaceAmount] = useState('');
     const [address, setAddress] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
 
     const get_address = useCallback(async () => {
         const address = await wallet.getChangeAddress();
@@ -53,7 +55,7 @@ const LinkBuilder = () => {
                         connected={connected}
                         wallet={wallet}
                         setState={setState}
-                        next={StateOptions.EnterAdaAmount}
+                        next={StateOptions.EnterDescription}
                         noWallet={StateOptions.EnterRecieveAddres}
                     />
                 )
@@ -120,6 +122,31 @@ const LinkBuilder = () => {
                             showNext={address !== ''}
                             previous={StateOptions.ConnectWallet}
                             next={StateOptions.EnterAdaAmount}
+                        />
+                    </div>
+                )
+            case StateOptions.EnterDescription:
+                return (
+                    <div
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '65% 35%',
+                            height: '100vh',
+                            justifyItems: 'center',
+                            alignItems: 'center'
+
+                        }}
+                    >
+                        <EnterDescription
+                            description={description}
+                            setDescription={setDescription}
+                        />
+                        <NavigatorButtons
+                            setState={setState}
+                            next={StateOptions.EnterAdaAmount}
+                            previous={StateOptions.ConnectWallet}
+                            showNext={true}
                         />
                     </div>
                 )
