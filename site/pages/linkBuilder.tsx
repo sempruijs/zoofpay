@@ -39,13 +39,12 @@ const LinkBuilder = () => {
         }
     }, [address, get_address, connected]);
 
-    function create_link(addr: string, lovelace: string, open: boolean): string {
+    function create_link(addr: string, lovelace: string, open: boolean, description: string): string {
         if (open) {
-            return ("https://zoofpay.com/?to=" + addr);
+            return ("https://zoofpay.com/?to=" + addr + "&d=" + description);
         }
-        return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace);
+        return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace + "&d=" + description);
     }
-
 
     const renderView = () => {
         switch (state) {
@@ -101,7 +100,9 @@ const LinkBuilder = () => {
             case StateOptions.ShareLink:
                 return (
                     <>
-                        <ShareLink url={create_link(address, lovelaceAmount, openRequest)} />
+                        <ShareLink
+                            url={create_link(address, lovelaceAmount, openRequest, description)}
+                        />
                     </>
                 );
             case StateOptions.EnterRecieveAddres:
@@ -131,7 +132,7 @@ const LinkBuilder = () => {
                         style={{
                             display: 'grid',
                             gridTemplateColumns: '100vw',
-                            gridTemplateRows: '65% 35%',
+                            gridTemplateRows: '65q% 35%',
                             height: '100vh',
                             justifyItems: 'center',
                             alignItems: 'center'
