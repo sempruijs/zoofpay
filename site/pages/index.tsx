@@ -10,6 +10,7 @@ const Home: NextPage = () => {
 
   const to_addres = searchParams.get("to");
   const amount_in_lovelace = searchParams.get("a");
+  const description = searchParams.get("d");
 
   const pay_mode = to_addres != null && amount_in_lovelace != null;
   const open_pay_mode = to_addres != null && amount_in_lovelace == null;
@@ -31,6 +32,7 @@ const Home: NextPage = () => {
               <PaymentRequest
                 to_addres={to_addres}
                 amount_in_lovelace={amount_in_lovelace}
+                description="hallo"
               />
             </div>
           </>

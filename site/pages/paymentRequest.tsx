@@ -10,13 +10,15 @@ import { StateOptions } from "../types";
 import ConnectWallet from "./connectWallet";
 import EnterAdaAmount from "./enterAdaAmount";
 import Checkbox from "./checkbox";
+import Description from "@/description";
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
+    description: string;
 }
 
-const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lovelace }) => {
-    const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
+const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lovelace, description }) => {
+    const [state, setState] = useState<StateOptions>(StateOptions.Description);
     const open_request = amount_in_lovelace == "";
 
     const { connected, wallet } = useWallet();
@@ -174,6 +176,32 @@ const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lo
                             previous={StateOptions.ConnectWallet}
                             next={StateOptions.PayNow}
                         />
+                    </div>
+                )
+            case StateOptions.Description:
+                return (
+                    <div
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: '100vw',
+                            gridTemplateRows: '15% 55% 30%',
+                            height: '90vh',
+                            justifyItems: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Description
+                            description={description}
+                            lovelace={amount_in_lovelace}
+                            handle="kerstboom"
+                        />
+                        <div>
+                            <button
+                                className="next-color big-button"
+                                onClick={() => setState(StateOptions.ConnectWallet)}>
+                                Next
+                            </button>
+                        </div>
                     </div>
                 )
             default:
