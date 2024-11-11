@@ -7,7 +7,7 @@ interface EnterDescriptionProps {
 
 const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDescription }) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDescription(event.target.value);
+        setDescription(encodeURIComponent(event.target.value));
     };
 
     return (
@@ -15,7 +15,7 @@ const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDes
             <h1 className="big-title">Enter optional description</h1>
             <input
                 type="text"
-                value={description}
+                value={decodeURIComponent(description)}
                 onChange={handleInputChange}
                 placeholder="description"
             />
