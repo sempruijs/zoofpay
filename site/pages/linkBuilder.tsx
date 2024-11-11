@@ -132,11 +132,10 @@ const LinkBuilder = () => {
                         style={{
                             display: 'grid',
                             gridTemplateColumns: '100vw',
-                            gridTemplateRows: '65q% 35%',
+                            gridTemplateRows: '15% 55% 30%',
                             height: '100vh',
                             justifyItems: 'center',
                             alignItems: 'center'
-
                         }}
                     >
                         <EnterDescription

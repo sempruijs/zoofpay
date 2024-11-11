@@ -10,16 +10,44 @@ const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDes
         setDescription(encodeURIComponent(event.target.value));
     };
 
+    function getRandomSubject(): string {
+        const subjects = [
+            "pizza 🍕",
+            "vacation 🏖️",
+            "ice cream 🍦",
+            "lunch 🍔",
+            "movie tickets 🎟️",
+            "concert 🎸",
+            "coffee ☕",
+            "groceries 🛒",
+            "gas ⛽",
+            "gym 🏋️",
+            "birthday gift 🎂",
+            "snacks 🍿"
+        ];
+        const randomIndex = Math.floor(Math.random() * subjects.length);
+        return subjects[randomIndex];
+    }
+
     return (
-        <div>
+        <>
             <h1 className="big-title">Enter optional description</h1>
             <input
                 type="text"
                 value={decodeURIComponent(description)}
                 onChange={handleInputChange}
-                placeholder="description"
+                placeholder={getRandomSubject()}
+                style={{
+                    width: `${description.length}ch`,
+                    minWidth: '10ch',
+                    height: '80pt',
+                    fontSize: '5vw',
+                    textAlign: 'center',
+                    outline: 'none',
+                    border: 'none'
+                }}
             />
-        </div>
+        </>
     );
 
 
