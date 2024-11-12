@@ -32,7 +32,7 @@ const Description: NextPage<DescriptionProps> = ({ handle, description, lovelace
                 </b>
                 <div>
                     wants <b>
-                        {lovelace_to_ada(lovelace)} ₳
+                        {lovelace !== '' ? lovelace_to_ada(lovelace) : '?'} ₳
                     </b>
                 </div>
                 {description !== "" && (
