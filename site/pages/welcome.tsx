@@ -15,8 +15,9 @@ const Welcome: NextPage = () => {
         >
             <div>
                 <h1 style={{
-                    fontSize: '10vw',
-                    fontWeight: 'bolder'
+                    fontSize: 'Clamp(8vw, 15vw, 25vh)',
+                    fontWeight: 'bolder',
+                    overflow: 'hidden'
                 }}
                 >
                     zoofpay

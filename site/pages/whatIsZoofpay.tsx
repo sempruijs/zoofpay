@@ -5,18 +5,18 @@ const WhatIsZoofpay: NextPage = () => {
         <div
             style={{
                 width: '100vw',
-                height: '80vh',
+                // height: '80vh',
                 display: 'grid',
                 gridTemplateColumns: '100%',
                 gridTemplateRows: '100%',
                 alignItems: 'center',
-                padding: '50pt'
+                padding: '50pt',
             }}
         >
             <div>
                 <h1
                     style={{
-                        fontSize: '5vw',
+                        fontSize: '30pt',
                         fontWeight: 'bold'
                     }}
                 >

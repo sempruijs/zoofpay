@@ -14,8 +14,9 @@ const Feature: NextPage<FeatureProps> = ({ title, content, right }) => {
                 gridTemplateColumns: right ? '35% 65%' : '65% 35%',
                 gridTemplateRows: '50% 50%',
                 width: '100vw',
-                height: '50vh',
+                // height: '50vh',
                 alignItems: 'center',
+                margin: '30pt'
             }}
         >
             {right && (
@@ -28,7 +29,7 @@ const Feature: NextPage<FeatureProps> = ({ title, content, right }) => {
             >
                 <h3
                     style={{
-                        fontSize: '5vw',
+                        fontSize: '30pt',
                         fontWeight: 'bold'
                     }}
                 >{title}</h3>
