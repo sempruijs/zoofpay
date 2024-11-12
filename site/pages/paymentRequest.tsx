@@ -15,14 +15,20 @@ interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
     description: string;
+    open_request: boolean;
 }
 
-const PaymentRequest: NextPage<PaymentRequestProps> = ({ to_addres, amount_in_lovelace, description }) => {
+const PaymentRequest: NextPage<PaymentRequestProps> = (
+    {
+        to_addres,
+        amount_in_lovelace,
+        description,
+        open_request,
+    }) => {
     const [state, setState] = useState<StateOptions>(StateOptions.Description);
-    const open_request = amount_in_lovelace == "";
 
     const { connected, wallet } = useWallet();
-    const [lovelaceAmount, setLovelaceAmount] = useState('');
+    const [lovelaceAmount, setLovelaceAmount] = useState(amount_in_lovelace);
 
     const [donate, setDonate] = useState(false);
     const [txHash, setTxHash] = useState("");
