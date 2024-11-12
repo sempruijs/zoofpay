@@ -40,10 +40,18 @@ const LinkBuilder = () => {
     }, [address, get_address, connected]);
 
     function create_link(addr: string, lovelace: string, open: boolean, description: string): string {
-        if (open) {
-            return ("https://zoofpay.com/?to=" + addr + "&d=" + description);
-        }
-        return ("https://zoofpay.com/?to=" + addr + "&a=" + lovelace + "&d=" + description);
+        // base
+        const url = "https://zoofpay.com/?";
+        // to address
+        const to = "to=" + addr;
+        // description
+        const d = "&d=" + description;
+        // amount in lovelace
+        const a = "&a=" + lovelace;
+        // mode, open or closed
+        const m = open ? "&m=o" : "&m=c";
+
+        return (url + to + d + a + m);
     }
 
     const renderView = () => {
