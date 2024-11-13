@@ -51,7 +51,7 @@ const EnterAdaAmount: NextPage<EnterAdaAmountProps> = (
                         width: `${lovelace_to_ada(lovelaceAmount).length}ch`,
                         minWidth: '40pt',
                         height: '80pt',
-                        fontSize: '5vw',
+                        fontSize: '40pt',
                         textAlign: 'center',
                         outline: 'none',
                         border: 'none'
@@ -61,7 +61,7 @@ const EnterAdaAmount: NextPage<EnterAdaAmountProps> = (
                     aria-label="ada"
                     style={{
                         margin: '1vw',
-                        fontSize: '5vw'
+                        fontSize: '40pt'
                     }}
                 >₳</span>
             </div>

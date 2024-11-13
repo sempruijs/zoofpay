@@ -44,7 +44,7 @@ body {
   color: white;
   border: none;
   border-radius: 9999px;
-  font-size: 1.2em;
+  font-size: 20pt;
   text-align: center;
   cursor: pointer;
   /* margin: 12px; */
@@ -62,9 +62,9 @@ body {
   font-weight: 900;
   line-height: 1.2;
   color: var(--foreground);
-  ;
   margin: 0.5em 0;
   font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
+  text-align: center;
 }
 
 .center {

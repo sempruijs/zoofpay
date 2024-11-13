@@ -31,7 +31,11 @@ const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDes
 
     return (
         <>
-            <h1 className="big-title">Enter optional description</h1>
+            <h1
+                className="big-title"
+            >
+                Enter optional description
+            </h1>
             <input
                 type="text"
                 value={decodeURIComponent(description)}
@@ -41,7 +45,7 @@ const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDes
                     width: `${description.length}ch`,
                     minWidth: '10ch',
                     height: '80pt',
-                    fontSize: '5vw',
+                    fontSize: '30pt',
                     textAlign: 'center',
                     outline: 'none',
                     border: 'none'

@@ -6,7 +6,7 @@ const NoWalletQuestion: NextPage = () => {
         <p
             style={{
                 marginBottom: '10pt',
-                textAlign: 'center'
+                textAlign: 'center',
             }}
         >
             Don&apos;t have a wallet yet?
