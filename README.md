@@ -51,6 +51,11 @@ Apapche 2.0
 
 ## Disclaimer
 
-This is not financial advice. I'm not responsable for any asset losses. Do your own research.
+Zoofpay is a platform designed to facilitate payment link creation and sharing. Zoofpay does not provide financial advice or guidance. Users are solely responsible for their financial decisions and any transactions made through the platform.
+
+Zoofpay is not liable for any losses, damages, or disputes arising from the use of this service, including but not limited to failed transactions, incorrect payments, or misuse of the platform.
+
+Always conduct your own due diligence and consult a qualified financial advisor if needed. By using Zoofpay, you agree to these terms.
+
 
 
