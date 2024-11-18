@@ -33,6 +33,14 @@ const PaymentRequest: NextPage<PaymentRequestProps> = (
     const [donate, setDonate] = useState(false);
     const [txHash, setTxHash] = useState("");
 
+    function calculate_amount(x: string, donate: boolean): string {
+        if (donate) {
+            const amount = Number(x) + 2000000; // Convert to number, add 2000000
+            return amount.toString(); // Convert back to string and return
+        }
+        return x; // Return the input string if donate is false
+    }
+
     // amount is in lovelace
     async function send_ada(addr: string, amount: string, donate: boolean) {
         let tx = new Transaction({ initiator: wallet })
@@ -119,7 +127,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = (
                         <h1 className="big-title">You will pay</h1>
                         <TransactionSummery
                             amount_in_lovelace={
-                                (open_request ? lovelaceAmount : amount_in_lovelace)
+                                calculate_amount((open_request ? lovelaceAmount : amount_in_lovelace), donate)
                             }
                         />
                         <div
