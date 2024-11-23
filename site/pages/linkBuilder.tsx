@@ -10,7 +10,7 @@ import Checkbox from "./checkbox";
 import EnterDescription from "@/EnterDescription";
 
 const LinkBuilder = () => {
-    const [state, setState] = useState<StateOptions>(StateOptions.ConnectWallet);
+    const [state, setState] = useState<StateOptions>(StateOptions.EnterRecieveAddres);
     const [openRequest, setOpenRequest] = useState(false);
 
     const { connected, wallet } = useWallet();
@@ -56,16 +56,6 @@ const LinkBuilder = () => {
 
     const renderView = () => {
         switch (state) {
-            case StateOptions.ConnectWallet:
-                return (
-                    <ConnectWallet
-                        connected={connected}
-                        wallet={wallet}
-                        setState={setState}
-                        next={StateOptions.EnterDescription}
-                        noWallet={StateOptions.EnterRecieveAddres}
-                    />
-                )
             case StateOptions.EnterAdaAmount:
                 return (
                     <div
@@ -130,7 +120,7 @@ const LinkBuilder = () => {
                             setState={setState}
                             showNext={address !== ''}
                             previous={StateOptions.ConnectWallet}
-                            next={StateOptions.EnterAdaAmount}
+                            next={StateOptions.EnterDescription}
                         />
                     </div>
                 )

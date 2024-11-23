@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@meshsdk/core": "^1.7.14",
-    "@meshsdk/react": "^1.7.12",
+    "@meshsdk/core": "^1.7.19",
+    "@meshsdk/react": "^1.7.19",
     "next": "14.2.15",
     "qrcode.react": "^4.1.0",
     "react": "^18",

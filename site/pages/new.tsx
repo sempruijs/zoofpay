@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import LinkBuilder from "./linkBuilder";
+import EnterRecieveAddress from "./enterRecieveAddress";
 
 const New: NextPage = () => {
     return (
