@@ -115,12 +115,12 @@ const LinkBuilder = () => {
                             textAlign: 'center',
                         }}
                     >
-                        <EnterRecieveAddress address={address} setAddress={setAddress} />
-                        <NavigatorButtons
+                        <EnterRecieveAddress
+                            address={address}
+                            setAddress={setAddress}
                             setState={setState}
-                            showNext={address !== ''}
-                            previous={StateOptions.ConnectWallet}
-                            next={StateOptions.EnterDescription}
+                            wallet={wallet}
+                            connected={connected}
                         />
                     </div>
                 )

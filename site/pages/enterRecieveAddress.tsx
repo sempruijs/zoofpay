@@ -1,14 +1,24 @@
 import { NextPage } from "next";
 import { BrowserWallet } from "@meshsdk/core";
 import { CardanoWallet } from '@meshsdk/react';
+import NavigatorButtons from "./navigatorButtons";
+import { StateOptions } from "../types";
 
 interface EnterRecieveAddressProps {
     wallet: BrowserWallet;
     address: string;
     setAddress: React.Dispatch<React.SetStateAction<string>>;
+    setState: React.Dispatch<React.SetStateAction<StateOptions>>;
+    connected: boolean,
 }
 
-const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = ({ address, setAddress }) => {
+const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
+    {
+        address,
+        setAddress,
+        setState,
+        connected
+    }) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAddress(event.target.value);
     };
@@ -29,15 +39,25 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = ({ address, setA
             <h3>Automatically</h3>
             <p>You do not have to copy paste your address with a supported cardano wallet.</p>
             <CardanoWallet />
-            <h3>Manually</h3>
-            <p>Usefull for cardano wallets that are not integrated with your browser.</p>
-            <input
-                type="text"
-                value={address}
-                onChange={handleInputChange}
-                placeholder="Enter or paste address"
+            {!connected && (
+                <>
+                    <h3>Manually</h3>
+                    <p>Usefull for cardano wallets that are not integrated with your browser.</p>
+                    <input
+                        type="text"
+                        value={address}
+                        onChange={handleInputChange}
+                        placeholder="Enter or paste address"
+                    />
+                    <button onClick={handlePasteClick}>Paste</button>
+                </>
+            )}
+            <NavigatorButtons
+                setState={setState}
+                showNext={address !== ''}
+                previous={StateOptions.ConnectWallet}
+                next={StateOptions.EnterDescription}
             />
-            <button onClick={handlePasteClick}>Paste</button>
         </div>
     );
 };
