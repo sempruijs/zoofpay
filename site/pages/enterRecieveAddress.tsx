@@ -53,11 +53,6 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
                     <button onClick={handlePasteClick}>Paste</button>
                 </>
             )}
-            <NextButton
-                setState={setState}
-                showNext={address !== ''}
-                next={StateOptions.EnterDescription}
-            />
         </div>
     );
 };

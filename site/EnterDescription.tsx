@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import NextButton from "./pages/nextButton";
 
 interface EnterDescriptionProps {
     description: string;

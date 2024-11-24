@@ -3,11 +3,10 @@ import { useWallet } from '@meshsdk/react';
 import ShareLink from "./shareLink";
 import EnterAdaAmount from "./enterAdaAmount";
 import { StateOptions } from "../types";
-import NavigatorButtons from "./navigatorButtons";
 import EnterRecieveAddress from "./enterRecieveAddress";
-import ConnectWallet from "./connectWallet";
 import Checkbox from "./checkbox";
 import EnterDescription from "@/EnterDescription";
+import NextButton from "./nextButton";
 
 const LinkBuilder = () => {
     const [state, setState] = useState<StateOptions>(StateOptions.EnterRecieveAddres);
@@ -86,10 +85,9 @@ const LinkBuilder = () => {
                                 setState={setOpenRequest}
                                 content="Let people decide how much they want to give"
                             />
-                            <NavigatorButtons
+                            <NextButton
                                 setState={setState}
                                 showNext={lovelaceAmount !== '' || openRequest}
-                                previous={StateOptions.ConnectWallet}
                                 next={StateOptions.ShareLink}
                             />
                         </div>
@@ -122,6 +120,11 @@ const LinkBuilder = () => {
                             wallet={wallet}
                             connected={connected}
                         />
+                        <NextButton
+                            setState={setState}
+                            showNext={address !== ''}
+                            next={StateOptions.EnterDescription}
+                        />
                     </div>
                 )
             case StateOptions.EnterDescription:
@@ -140,10 +143,9 @@ const LinkBuilder = () => {
                             description={description}
                             setDescription={setDescription}
                         />
-                        <NavigatorButtons
+                        <NextButton
                             setState={setState}
                             next={StateOptions.EnterAdaAmount}
-                            previous={StateOptions.ConnectWallet}
                             showNext={true}
                         />
                     </div>
