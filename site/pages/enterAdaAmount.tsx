@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 
+
 interface EnterAdaAmountProps {
     lovelaceAmount: string;
     setLovelaceAmount: React.Dispatch<React.SetStateAction<string>>;

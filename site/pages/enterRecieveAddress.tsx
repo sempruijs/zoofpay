@@ -3,6 +3,7 @@ import { BrowserWallet } from "@meshsdk/core";
 import { CardanoWallet } from '@meshsdk/react';
 import NavigatorButtons from "./navigatorButtons";
 import { StateOptions } from "../types";
+import NextButton from "./nextButton";
 
 interface EnterRecieveAddressProps {
     wallet: BrowserWallet;
@@ -52,10 +53,9 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
                     <button onClick={handlePasteClick}>Paste</button>
                 </>
             )}
-            <NavigatorButtons
+            <NextButton
                 setState={setState}
                 showNext={address !== ''}
-                previous={StateOptions.ConnectWallet}
                 next={StateOptions.EnterDescription}
             />
         </div>
