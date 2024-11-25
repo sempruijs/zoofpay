@@ -11,6 +11,7 @@ import ConnectWallet from "./connectWallet";
 import EnterAdaAmount from "./enterAdaAmount";
 import Checkbox from "./checkbox";
 import Description from "@/description";
+
 interface PaymentRequestProps {
     to_addres: string;
     amount_in_lovelace: string;
@@ -25,7 +26,7 @@ const PaymentRequest: NextPage<PaymentRequestProps> = (
         description,
         open_request,
     }) => {
-    const [state, setState] = useState<StateOptions>(StateOptions.Description);
+    const [state, setState] = useState<StateOptions>(StateOptions.QRCode);
 
     const { connected, wallet } = useWallet();
     const [lovelaceAmount, setLovelaceAmount] = useState(amount_in_lovelace);
@@ -103,7 +104,12 @@ const PaymentRequest: NextPage<PaymentRequestProps> = (
                             alignItems: 'center'
                         }}
                     >
-                        <QRCodeView to_addres={to_addres} amount_in_lovelace={amount_in_lovelace} />
+                        <QRCodeView
+                            to_addres={to_addres}
+                            amount_in_lovelace={amount_in_lovelace}
+                            connected={connected}
+                            wallet={wallet}
+                        />
                         <NavigatorButtons
                             setState={setState}
                             next={StateOptions.ThankYou}
