@@ -1,9 +1,8 @@
 import { NextPage } from "next";
 import { BrowserWallet } from "@meshsdk/core";
 import { CardanoWallet } from '@meshsdk/react';
-import NavigatorButtons from "./navigatorButtons";
-import { StateOptions } from "../types";
 import NextButton from "./nextButton";
+import { StateOptions } from "../types";
 
 interface EnterRecieveAddressProps {
     wallet: BrowserWallet;
@@ -37,9 +36,27 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
     return (
         <div>
             <h1 className="big-title">Enter recieve address</h1>
-            <h3>Automatically</h3>
-            <p>You do not have to copy paste your address with a supported cardano wallet.</p>
-            <CardanoWallet />
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: '100vw',
+                    gridTemplateRows: '300px 300px 300px',
+                    justifyItems: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <h3
+                    style={{
+                        fontSize: '30pt',
+                        fontWeight: 'bold'
+                    }}
+                >
+                    With browser wallet
+                </h3>
+                <p>You do not have to copy paste your address with a supported cardano wallet.</p>
+                <CardanoWallet />
+
+            </div>
             {!connected && (
                 <>
                     <h3>Manually</h3>
@@ -53,6 +70,11 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
                     <button onClick={handlePasteClick}>Paste</button>
                 </>
             )}
+            <NextButton
+                setState={setState}
+                showNext={address !== ''}
+                next={StateOptions.EnterDescription}
+            />
         </div>
     );
 };

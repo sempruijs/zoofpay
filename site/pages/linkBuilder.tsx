@@ -74,7 +74,7 @@ const LinkBuilder = () => {
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: '100vw',
-                                gridTemplateRows: '20% 80%',
+                                gridTemplateRows: '300px 300px 300px',
                                 height: '240pt',
                                 justifyItems: 'center',
                                 alignItems: 'center'
@@ -103,29 +103,13 @@ const LinkBuilder = () => {
                 );
             case StateOptions.EnterRecieveAddres:
                 return (
-                    <div
-                        style={{
-                            display: 'grid',
-                            height: '90vh',
-                            gridTemplateColumns: '100vw',
-                            gridTemplateRows: '70% 30%',
-                            justifyItems: 'center',
-                            textAlign: 'center',
-                        }}
-                    >
-                        <EnterRecieveAddress
-                            address={address}
-                            setAddress={setAddress}
-                            setState={setState}
-                            wallet={wallet}
-                            connected={connected}
-                        />
-                        <NextButton
-                            setState={setState}
-                            showNext={address !== ''}
-                            next={StateOptions.EnterDescription}
-                        />
-                    </div>
+                    <EnterRecieveAddress
+                        address={address}
+                        setAddress={setAddress}
+                        setState={setState}
+                        wallet={wallet}
+                        connected={connected}
+                    />
                 )
             case StateOptions.EnterDescription:
                 return (

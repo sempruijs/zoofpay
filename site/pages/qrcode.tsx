@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import QRCode from 'react-qr-code';
 import { BrowserWallet } from "@meshsdk/core";
 import { CardanoWallet } from "@meshsdk/react";
-
+import NextButton from "./nextButton";
 
 interface QRCodeProps {
     to_addres: string;
