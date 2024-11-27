@@ -34,13 +34,21 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
     };
 
     return (
-        <div>
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: '100vw',
+                gridTemplateRows: '100px 400px 500px 200px',
+                justifyItems: 'center',
+                alignItems: 'center',
+            }}
+        >
             <h1 className="big-title">Enter recieve address</h1>
             <div
                 style={{
                     display: 'grid',
                     gridTemplateColumns: '100vw',
-                    gridTemplateRows: '300px 300px 300px',
+                    gridTemplate: '20% 20% 60%',
                     justifyItems: 'center',
                     alignItems: 'center'
                 }}
@@ -55,20 +63,36 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
                 </h3>
                 <p>You do not have to copy paste your address with a supported cardano wallet.</p>
                 <CardanoWallet />
-
             </div>
             {!connected && (
-                <>
-                    <h3>Manually</h3>
-                    <p>Usefull for cardano wallets that are not integrated with your browser.</p>
-                    <input
-                        type="text"
-                        value={address}
-                        onChange={handleInputChange}
-                        placeholder="Enter or paste address"
-                    />
-                    <button onClick={handlePasteClick}>Paste</button>
-                </>
+                <div
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: '100vw',
+                        gridTemplate: '20% 20% 60%',
+                        justifyItems: 'center',
+                        alignItems: 'center'
+                    }}
+                >
+                    <h3
+                        style={{
+                            fontSize: '30pt',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        Manually
+                    </h3>
+                    <p>Usefull for cardano wallets that are not integrated with your browser but more vulmerable for adress typo mistakes.</p>
+                    <div>
+                        <input
+                            type="text"
+                            value={address}
+                            onChange={handleInputChange}
+                            placeholder="Enter or paste address"
+                        />
+                        <button onClick={handlePasteClick}>Paste</button>
+                    </div>
+                </div>
             )}
             <NextButton
                 setState={setState}
