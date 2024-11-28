@@ -13,7 +13,6 @@ const TransactionSummery: NextPage<TransactionSummeryProps> = ({ amount_in_lovel
         return ada.toString();
     }
 
-    // const short_addr = shorten_addr('addr1qyvt4enyyra4ss3q7qugzwf60r8lxggj8tvdd356pj5ez93024gfv5ckw0h2vg0t64ww3aep2gljy3nyyjrgs2ua0e4smx5sxa');
     const amount_in_ada = lovelace_to_ada(amount_in_lovelace);
 
     return (
