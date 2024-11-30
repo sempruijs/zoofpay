@@ -97,7 +97,7 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
             <NextButton
                 setState={setState}
                 showNext={address !== ''}
-                next={StateOptions.EnterDescription}
+                next={connected ? StateOptions.EnterDescription : StateOptions.ComfirmAddress}
                 text="Next"
             />
         </div>

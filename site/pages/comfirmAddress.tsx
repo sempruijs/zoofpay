@@ -1,5 +1,6 @@
 import { NextPage } from "next";
 import { StateOptions } from "../types";
+import NextButton from "./nextButton";
 
 interface ComfirmAddressProps {
     address: string;
@@ -16,13 +17,19 @@ const ComfirmAddress: NextPage<ComfirmAddressProps> = (
         if (address.length <= 10) {
             return address;
         }
-        return `${address.slice(0, 5)}...${address.slice(-5)}`;
+        return `${address.slice(0, 10)}.....${address.slice(-10)}`;
     }
 
     return (
         <>
             <h1>Is this your address?</h1>
             <p>{short_addr(address)}</p>
+            <NextButton
+                setState={setState}
+                showNext={true}
+                next={StateOptions.EnterDescription}
+                text="yes"
+            />
         </>
     )
 }

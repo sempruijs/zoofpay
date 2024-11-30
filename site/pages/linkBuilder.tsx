@@ -7,6 +7,7 @@ import EnterRecieveAddress from "./enterRecieveAddress";
 import Checkbox from "./checkbox";
 import EnterDescription from "@/EnterDescription";
 import NextButton from "./nextButton";
+import ComfirmAddress from "./comfirmAddress";
 
 const LinkBuilder = () => {
     const [state, setState] = useState<StateOptions>(StateOptions.EnterRecieveAddres);
@@ -115,6 +116,15 @@ const LinkBuilder = () => {
                             showNext={true}
                         />
                     </div>
+                )
+            case StateOptions.ComfirmAddress:
+                return (
+                    <>
+                        <ComfirmAddress
+                            address={address}
+                            setState={setState}
+                        />
+                    </>
                 )
             default:
                 return null
