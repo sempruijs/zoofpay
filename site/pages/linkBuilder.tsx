@@ -69,28 +69,10 @@ const LinkBuilder = () => {
                         <EnterAdaAmount
                             lovelaceAmount={lovelaceAmount}
                             setLovelaceAmount={setLovelaceAmount}
+                            setState={setState}
+                            setOpenRequest={setOpenRequest}
+                            openRequest={openRequest}
                         />
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: '100vw',
-                                gridTemplateRows: '300px 300px 300px',
-                                height: '240pt',
-                                justifyItems: 'center',
-                                alignItems: 'center'
-                            }}
-                        >
-                            <Checkbox
-                                state={openRequest}
-                                setState={setOpenRequest}
-                                content="Let people decide how much they want to give"
-                            />
-                            <NextButton
-                                setState={setState}
-                                showNext={lovelaceAmount !== '' || openRequest}
-                                next={StateOptions.ShareLink}
-                            />
-                        </div>
                     </div>
                 )
             case StateOptions.ShareLink:

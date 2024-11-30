@@ -5,13 +5,15 @@ interface NextButtonProps {
     setState: React.Dispatch<React.SetStateAction<StateOptions>>;
     showNext: boolean;
     next: StateOptions;
+    text: String;
 }
 
 const NextButton: NextPage<NextButtonProps> = (
     {
         setState,
         showNext,
-        next
+        next,
+        text
     }) => {
     return (
         <div style={{
@@ -26,7 +28,7 @@ const NextButton: NextPage<NextButtonProps> = (
                 className={showNext ? "big-button next-color" : "big-button disabled-color"}
                 onClick={() => setState(next)}
             >
-                Next
+                {text}
             </button>
         </div>
     )

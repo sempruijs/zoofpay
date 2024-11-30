@@ -1,12 +1,15 @@
 import { NextPage } from "next";
-import NextButton from "./pages/nextButton";
+import { NextPage } from "next";
+import { StateOptions } from "../types";
 
 interface EnterDescriptionProps {
     description: string;
     setDescription: React.Dispatch<React.SetStateAction<string>>;
+    setState: React.Dispatch<React.SetStateAction<StateOptions>>;
+
 }
 
-const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDescription }) => {
+const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDescription, setState }) => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(encodeURIComponent(event.target.value));
     };
@@ -54,9 +57,6 @@ const EnterDescription: NextPage<EnterDescriptionProps> = ({ description, setDes
             />
         </>
     );
-
-
 };
-
 
 export default EnterDescription;

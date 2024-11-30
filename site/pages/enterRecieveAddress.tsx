@@ -98,6 +98,7 @@ const EnterRecieveAddress: NextPage<EnterRecieveAddressProps> = (
                 setState={setState}
                 showNext={address !== ''}
                 next={StateOptions.EnterDescription}
+                text="Next"
             />
         </div>
     );

@@ -1,15 +1,23 @@
 import { NextPage } from "next";
-
+import NextButton from "./nextButton";
+import Checkbox from "./checkbox";
+import { StateOptions } from "@/types";
 
 interface EnterAdaAmountProps {
     lovelaceAmount: string;
     setLovelaceAmount: React.Dispatch<React.SetStateAction<string>>;
+    setOpenRequest: React.Dispatch<React.SetStateAction<boolean>>;
+    openRequest: boolean
+    setState: React.Dispatch<React.SetStateAction<StateOptions>>;
 }
 
 const EnterAdaAmount: NextPage<EnterAdaAmountProps> = (
     {
         lovelaceAmount,
         setLovelaceAmount,
+        setOpenRequest,
+        openRequest,
+        setState
     }) => {
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +73,28 @@ const EnterAdaAmount: NextPage<EnterAdaAmountProps> = (
                         fontSize: '40pt'
                     }}
                 >₳</span>
+            </div>
+            <div
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: '100vw',
+                    gridTemplateRows: '300px 300px 300px',
+                    height: '240pt',
+                    justifyItems: 'center',
+                    alignItems: 'center'
+                }}
+            >
+                <Checkbox
+                    state={openRequest}
+                    setState={setOpenRequest}
+                    content="Let people decide how much they want to give"
+                />
+                <NextButton
+                    setState={setState}
+                    showNext={lovelaceAmount !== '' || openRequest}
+                    next={StateOptions.ShareLink}
+                    text="next"
+                />
             </div>
         </>
     );
