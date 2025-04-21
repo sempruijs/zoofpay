@@ -1,40 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Svelte Effect Nix Template
 
-## Getting Started
+This is a Nix-powered [Svelte](https://svelte.dev) template with [Effect](https://effect.website) integration. It builds an app fully reproducibly, including tests.
 
-First, run the development server:
+To quickly get started with this template, run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+mkdir project
+cd project
+nix flake init -t github:cor/svelte-effect-nix-template
+git init
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Building and Running
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Building the App
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To build the app, run:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+nix build
+```
 
-## Learn More
+This will:
 
-To learn more about Next.js, take a look at the following resources:
+1. Install all dependencies
+2. Run the tests using Vitest
+3. Build the application
+4. Output the result to `./result`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Previewing the App
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To preview the built app in a browser, run:
 
-## Deploy on Vercel
+```bash
+nix run
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This will:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Build the app if it hasn't been built already
+2. Start a local server using miniserve
+3. Serve the app on http://localhost:8080
+
+The preview server uses SPA mode, so client-side routing will work correctly.
+
+## Development
+
+### Development Server
+
+To start the development server with hot reloading:
+
+```bash
+nix run .#dev
+```
+
+This will install dependencies and start the Svelte development server.
+
+### Development Shell
+
+To enter a development shell with all necessary tools:
+
+```bash
+nix develop
+```
+
+This provides:
+
+- Node.js and npm
+- TypeScript language server
+- Svelte language server
+- Tailwind CSS language server
+- Other development tools
+
+### Formatting Code
+
+Format all code in the project with:
+
+```bash
+nix fmt
+```
+
+This uses:
+
+- Prettier to format TypeScript, JavaScript, JSON, Markdown, Svelte, HTML, and CSS files according to the project's configuration in `.prettierrc`
+- nixpkgs-fmt to format Nix files

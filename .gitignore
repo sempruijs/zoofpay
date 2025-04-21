@@ -1,4 +1,6 @@
 .direnv
 result
 site/out
+site/node_modules
+site/.svelte-kit
 .DS_Store
