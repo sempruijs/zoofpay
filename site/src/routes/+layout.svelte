@@ -1,7 +1,11 @@
 <script lang="ts">
-	import '@meshsdk/svelte/styles.css';
 	import '../app.css';
+	import '@meshsdk/svelte/styles.css';
+	import Header from '$lib/Header.svelte';
 	let { children } = $props();
 </script>
 
-{@render children()}
+<div>
+	<Header />
+	{@render children()}
+</div>
