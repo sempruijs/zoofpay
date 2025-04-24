@@ -6,6 +6,6 @@
 </script>
 
 <div>
-	<Header />
+	<!-- <Header /> -->
 	{@render children()}
 </div>
