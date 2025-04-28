@@ -1,33 +1,17 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import { defineConfig } from 'vite';
-import { svelteTesting } from '@testing-library/svelte/vite';
-import tailwindcss from '@tailwindcss/vite';
-
-
-import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vite";
+import wasm from "vite-plugin-wasm";
+import topLevelAwait from "vite-plugin-top-level-await";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit()],
-	define: {
-		global: 'globalThis'
-	},
-	optimizeDeps: {
-		esbuildOptions: {
-			define: {
-				global: 'globalThis'
-			},
-			plugins: [
-				NodeGlobalsPolyfillPlugin({
-					buffer: true,
-					process: true
-				})
-			]
-		}
-	},
-	build: {
-		rollupOptions: {
-			plugins: [rollupNodePolyFill()]
-		}
-	}
+  plugins: [
+    sveltekit(),
+    wasm(),
+    topLevelAwait(),
+    nodePolyfills({
+      globals: { Buffer: true, global: true },
+      protocolImports: true,
+    }),
+  ],
 });
