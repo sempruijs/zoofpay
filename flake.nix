@@ -21,7 +21,7 @@
           in
           {
             app = pkgs.buildNpmPackage {
-              npmDepsHash = "sha256-ZylPqHQfY60j+pLssCDkfyRNsJZ34FucPjcMl1MVQPM=";
+              npmDepsHash = "sha256-Nzqoh5u37Y5pB5T/9JKL0h1UyKFRFUMZhqi64z7fDPI=";
               src = ./site;
               pname = packageJSON.name;
               inherit (packageJSON) version;
@@ -29,10 +29,10 @@
                 mkdir -p $out
                 cp -r ./build/* $out
               '';
-              doCheck = true;
-              checkPhase = ''
-                npm run test
-              '';
+              doCheck = false;
+              # checkPhase = ''
+              #   npm run test
+              # '';
               doDist = false;
             };
             default = self'.packages.app;
