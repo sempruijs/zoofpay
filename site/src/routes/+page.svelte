@@ -1,79 +1,55 @@
 <script lang="ts">
-    import { CardanoWallet, BrowserWalletState } from "@meshsdk/svelte";
+    import { Effect } from 'effect';
+    import LearnMore from '$lib/components/LearnMore.svelte';
+    import { provideWallet } from '$lib/wallet';
+    import type { Utxo } from "$lib/types";
+    import ConnectWallet from "$lib/components/ConnectWallet.svelte";
+    import { Option } from "effect";
+    import { getUtxos } from "$lib/wallet/getUtxos";
+    import { connectedWallet } from "../stores/wallet";
+    import Donation from '$lib/components/donation.svelte';
 
     $effect(() => {
-        if (BrowserWalletState.wallet) {
-            BrowserWalletState.wallet.getChangeAddress().then((addr) => {
-                console.log(addr);
-            });
-            BrowserWalletState.wallet.getUtxos().then((utxos) => {
-                console.log(utxos);
-            });
+        if ($connectedWallet) {
+            Effect.runPromise(provideWallet($connectedWallet)(getUtxos()))
+              .then(result => {
+                state.utxos = result;
+                console.log(result);
+              })
+              .catch(err => {
+                  console.log("error fetching utxos");
+                  state.utxos = [];
+              });
         }
+    });
+
+    let state: { utxos: Utxo[], txHash: Option.Option<String> } = $state({
+        utxos: [],
+        txHash: Option.none
     });
 </script>
 
-<div class="mesh-bg-gray-900 mesh-w-full mesh-text-white mesh-text-center">
-    <main
-        class={`mesh-flex mesh-min-h-screen mesh-flex-col mesh-items-center mesh-justify-center mesh-p-24`}
-    >
-        <h1 class="mesh-text-6xl mesh-font-thin mesh-mb-20">
-            <a href="https://meshjs.dev/" class="mesh-text-sky-600">
-                Mesh
-            </a>{" "}
-            SvelteKit
-        </h1>
-
-        <div class="mesh-mb-20">
-            <CardanoWallet isDark={true} />
-
-            {#if BrowserWalletState.connected == true}
-                <p>Browser Wallet {BrowserWalletState.name} is connected!</p>
-            {/if}
+<div class="">
+    <main class="">
+        <div class="bg-black text-center p-20">
+            <h1 class="text-6xl p-5">
+                🎉 Congratulations
+            </h1>
+            <p>You've successfully setup this template</p>
+            <p>Now customise it so that it becomes you're dApp.</p>
         </div>
 
-        <div
-            class="mesh-grid mesh-grid-cols-1 md:mesh-grid-cols-2 lg:mesh-grid-cols-3 mesh-content-center mesh-justify-around"
-        >
-            <a
-                href="https://meshjs.dev/apis"
-                class="mesh-bg-gray-800 mesh-rounded-xl mesh-border mesh-border-white hover:mesh-scale-105 mesh-transition mesh-max-w-96 mesh-p-5 mesh-m-5"
-            >
-                <h2 class="mesh-text-2xl mesh-font-bold mesh-mb-2">
-                    Documentation
-                </h2>
-                <p class="mesh-text-gray-400">
-                    Our documentation provide live demos and code samples; great
-                    educational tool for learning how Cardano works.
-                </p>
-            </a>
-
-            <a
-                href="https://meshjs.dev/guides"
-                class="mesh-bg-gray-800 mesh-rounded-xl mesh-border mesh-border-white hover:mesh-scale-105 mesh-transition mesh-max-w-96 mesh-p-5 mesh-m-5"
-            >
-                <h2 class="mesh-text-2xl mesh-font-bold mesh-mb-2">Guides</h2>
-                <p class="mesh-text-gray-400">
-                    Whether you are launching a new NFT project or ecommerce
-                    store, these guides will help you get started.
-                </p>
-            </a>
-
-            <a
-                href="https://meshjs.dev/svelte"
-                class="mesh-bg-gray-800 mesh-rounded-xl mesh-border mesh-border-white hover:mesh-scale-105 mesh-transition mesh-max-w-96 mesh-p-5 mesh-m-5 md:mesh-mx-auto lg:mesh-mx-5 md:mesh-col-span-2 lg:mesh-col-span-1"
-            >
-                <h2 class="mesh-text-2xl mesh-font-bold mesh-mb-2">
-                    Svelte components
-                </h2>
-                <p class="mesh-text-gray-400">
-                    Useful Svelte UI components, seamlessly integrate them into
-                    your app, and bring the user interface to life.
-                </p>
-            </a>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-10 m-5 pb-40">
+          <div class="bg-gray-700 border-10 border-gray-600 rounded-3xl p-5 grid place-items-center">
+            <ConnectWallet />
+            {#if $connectedWallet}
+                <Donation />
+            {/if}
+          </div>
+          <div class="bg-black p-15">
+              <LearnMore />
+          </div>
         </div>
     </main>
-    <footer
-        class="mesh-p-8 mesh-border-t mesh-border-gray-300 mesh-flex mesh-justify-center"
-    ></footer>
 </div>
+

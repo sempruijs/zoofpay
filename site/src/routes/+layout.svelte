@@ -1,10 +1,8 @@
 <script lang="ts">
 	import '../app.css';
-	import '@meshsdk/svelte/styles.css';
 	let { children } = $props();
-
 </script>
 
+<div class="min-h-screen bg-[#0a2540] text-white">
 {@render children()}
-
-export const prerender = true;
+</div>

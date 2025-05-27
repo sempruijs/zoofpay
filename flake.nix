@@ -1,5 +1,5 @@
 {
-  description = "Svelte Effect Nix Template";
+  description = "My cardano dApp";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -21,7 +21,7 @@
           in
           {
             app = pkgs.buildNpmPackage {
-              npmDepsHash = "sha256-tqp+q62Q3+olssp/fUyEjeBW5DUnUB0mSqFibwxjhMI=";
+              npmDepsHash = "sha256-gmYBvvbLGfnCzVND9JIfwkK+22f/qFB6XHioMreqxBM=";
               NODE_OPTIONS = "--openssl-legacy-provider";
               src = ./site;
               pname = packageJSON.name;
