@@ -21,7 +21,7 @@
 {#if $viewState === CreateLinkStep.ChooseMethod}
   <ChooseMethod {viewState} />
 {:else if $viewState === CreateLinkStep.AutomaticAddress}
-  <AutomaticAddress {viewState} />
+  <AutomaticAddress {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.EnterAmount}
   <EnterAmount {viewState} />
 {:else if $viewState === CreateLinkStep.EnterDescription}
