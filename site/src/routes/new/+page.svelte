@@ -8,29 +8,30 @@
   import EnterAmount from "$lib/createLink/enterAmount.svelte";
   import ManualAddress from "$lib/createLink/manualAddress.svelte";
   import EnterDescription from "$lib/createLink/enterDescription.svelte";
+  import type { PaymentRequest } from "$lib/types";
+  import { writable } from "svelte/store";
 
-  let viewState: CreateLinkStep = CreateLinkStep.ChooseMethod;
-
-  let paymentRequest = PaymentRequest {
-    address = "",
-    amount = "",
-    handle = Option.none()
-  }
+  const viewState = writable<CreateLinkStep>(CreateLinkStep.ChooseMethod);
+  const paymentRequest = writable<PaymentRequest>({
+    address: "",
+    amount: "",
+    handle: Option.none()
+  });  
 </script>
-{#if viewState === CreateLinkStep.ChooseMethod}
-  <ChooseMethod bind:viewState />
-{:else if viewState === CreateLinkStep.AutomaticAddress}
-  <AutomaticAddress bind:viewState bind:paymentRequest/>
-{:else if viewState === CreateLinkStep.EnterAmount}
-  <EnterAmount bind:viewState />
-{:else if viewState === CreateLinkStep.EnterDescription}
-  <EnterDescription bind:viewState />
-{:else if viewState === CreateLinkStep.ShareLink}
-  <ShareLink bind:viewState />
-{:else if viewState === CreateLinkStep.ComfirmAddress}
-  <ComfirmAddress bind:viewState />
-{:else if viewState === CreateLinkStep.ManualAddress}
-  <ManualAddress bind:viewState />
+{#if $viewState === CreateLinkStep.ChooseMethod}
+  <ChooseMethod {viewState} />
+{:else if $viewState === CreateLinkStep.AutomaticAddress}
+  <AutomaticAddress {viewState} />
+{:else if $viewState === CreateLinkStep.EnterAmount}
+  <EnterAmount {viewState} />
+{:else if $viewState === CreateLinkStep.EnterDescription}
+  <EnterDescription {viewState} />
+{:else if $viewState === CreateLinkStep.ShareLink}
+  <ShareLink {viewState} />
+{:else if $viewState === CreateLinkStep.ComfirmAddress}
+  <ComfirmAddress {viewState} />
+{:else if $viewState === CreateLinkStep.ManualAddress}
+  <ManualAddress {viewState} />
 {:else}
-  <h1 class="text-red-500">404 view state not found</h1>
+   <h1 class="text-red-500">404 view state not found</h1>
 {/if}

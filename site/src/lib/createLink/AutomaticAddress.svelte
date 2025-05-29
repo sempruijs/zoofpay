@@ -1,16 +1,16 @@
 <script lang="ts">
   import { connectedWallet } from "../../stores/wallet";
+  import { Option } from "effect";
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
   import { CreateLinkStep } from "./createLink";
-  import type { PaymentRequest } from "$lib/types";}
+  import { type Writable } from "svelte/store";
 
-  export let viewState: CreateLinkStep;
-  export let paymentRequest: PaymentRequest;
+  export let viewState: Writable<CreateLinkStep>;
 </script>
 <h1>connect wallet</h1>
 <ConnectWallet />
 {#if $connectedWallet}
-<button onclick={() => viewState = CreateLinkStep.EnterAmount}>Next</button>
+<button onclick={() => viewState.set(CreateLinkStep.EnterAmount)}>Next</button>
 {/if}
-<button onclick={() => viewState = CreateLinkStep.ChooseMethod}>Previous</button>
+<button onclick={() => viewState.set(CreateLinkStep.ChooseMethod)}>Previous</button>
 
