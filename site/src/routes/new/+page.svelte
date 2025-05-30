@@ -15,7 +15,10 @@
   const paymentRequest = writable<PaymentRequest>({
     address: "",
     amount: "",
-    handle: Option.none()
+    description: Option.none(),
+    handle: Option.none(),
+    cnt: "ada",
+    open: false
   });  
 </script>
 {#if $viewState === CreateLinkStep.ChooseMethod}

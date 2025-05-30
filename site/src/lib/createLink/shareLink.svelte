@@ -8,8 +8,8 @@
     paymentRequest: PaymentRequest;
   }>();
 
-  function copyLink() {
-    const link = paymentRequestToUrl($paymentRequest);
+  function copyLink(pr: PaymentRequest) {
+    const link = paymentRequestToUrl(pr);
     navigator.clipboard.writeText(link).then(() => {
       console.log("Link copied!");
     }).catch(err => {
@@ -18,4 +18,4 @@
   }
 </script>
 <h1>Share link</h1>
-<button onclick={() => copyLink()}>Copy</button>
+<button onclick={() => copyLink($paymentRequest)}>Copy</button>
