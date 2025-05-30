@@ -23,11 +23,11 @@
 {:else if $viewState === CreateLinkStep.AutomaticAddress}
   <AutomaticAddress {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.EnterAmount}
-  <EnterAmount {viewState} />
+  <EnterAmount {viewState} {paymentRequest}/>
 {:else if $viewState === CreateLinkStep.EnterDescription}
-  <EnterDescription {viewState} />
+  <EnterDescription {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.ShareLink}
-  <ShareLink {viewState} />
+  <ShareLink {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.ComfirmAddress}
   <ComfirmAddress {viewState} />
 {:else if $viewState === CreateLinkStep.ManualAddress}

@@ -2,7 +2,10 @@
   import { CreateLinkStep } from "./createLink";
   import { type Writable } from "svelte/store";
 
-  export let viewState: Writable<CreateLinkStep>;
+  const { viewState, paymentRequest } = $props<{
+    viewState: Writable<CreateLinkStep>;
+    paymentRequest: Writable<PaymentRequest>;
+  }>();
 </script>
 <h1>Enter address</h1>
 <button onclick={() => viewState.set(CreateLinkStep.ComfirmAddress)}>next</button>

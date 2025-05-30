@@ -4,7 +4,7 @@
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
   import { CreateLinkStep } from "./createLink";
   import type { Writable } from "svelte/store";
-  import type { PaymentRequest } from "$lib/types";
+  import type { PaymentRequest } from "$lib/paymentRequest";
   import { getAddress } from "$lib/wallet/getAddress";
   import { provideWallet } from "$lib/wallet";
 
