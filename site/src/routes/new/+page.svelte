@@ -32,9 +32,9 @@
 {:else if $viewState === CreateLinkStep.ShareLink}
   <ShareLink {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.ComfirmAddress}
-  <ComfirmAddress {viewState} />
+  <ComfirmAddress {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.ManualAddress}
-  <ManualAddress {viewState} />
+  <ManualAddress {viewState} {paymentRequest} />
 {:else}
    <h1 class="text-red-500">404 view state not found</h1>
 {/if}
