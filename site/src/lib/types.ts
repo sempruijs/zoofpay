@@ -1,4 +1,3 @@
-import { Option } from "effect";
 export type WalletInfo = {
   name: String;
   image: String;
@@ -18,9 +17,3 @@ export type Utxo = {
     }[];
   };
 };
-
-export type PaymentRequest {
-  address: string;
-  amount: string;
-  handle: Option.Option<string>;
-}

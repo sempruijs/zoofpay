@@ -6,7 +6,7 @@
   let description = $state('');
 
   $effect(() => {
-    let parsed: string = address;
+    let parsed: string = description;
     if (parsed != "") {
       (paymentRequest).update(pr => ({
         ...pr,

@@ -2,16 +2,23 @@
   import { CreateLinkStep } from "./createLink";
   import { type Writable } from "svelte/store";
   import { type PaymentRequest } from "$lib/paymentRequest";
+  import { Effect } from "effect";
+  import { parseAdaToLovelace } from "$lib/paymentRequest";
 
   let amount = $state('');
 
   $effect(() => {
-    let parsed: string = amount;
-    paymentRequest.update(pr => ({
-      ...pr,
-      amount: parsed
-    }));
-  })
+    // Run the Effect and handle the result
+    Effect.runPromise(parseAdaToLovelace(amount)).then((lovelace) => {
+      paymentRequest.update((pr) => ({
+        ...pr,
+        amount: lovelace
+      }));
+    }).catch((err) => {
+      console.error("Invalid ADA input:", err.message);
+      // Optionally, set validation state or user feedback here
+    });
+  });
 
   const { viewState, paymentRequest } = $props<{
     viewState: Writable<CreateLinkStep>;
