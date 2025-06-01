@@ -25,15 +25,36 @@ export const parseAdaToLovelace = (ada: string) =>
 
 export function paymentRequestToUrl(pr: PaymentRequest): string {
   const baseUrl = 'https://zoofpay.com/';
-  const params = new URLSearchParams();
 
-  params.set('to', pr.address);
-  params.set('a', pr.amount);
-  if (Option.isSome(pr.description)) {
-    params.set('d', pr.description.value);
-  }
-  const mode = pr.open ? "o" : "c";
-  params.set('m', mode);
+  const jsonSerializable = {
+    ...pr,
+    description: Option.getOrNull(pr.description),
+    handle: Option.getOrNull(pr.handle),
+  };
 
-  return `${baseUrl}?${params.toString()}`;
+  const json = JSON.stringify(jsonSerializable);
+  const base64 = btoa(json); // base64 encode
+
+  return `${baseUrl}?d=${encodeURIComponent(base64)}`;
 }
+
+export const paymentRequestFromBase64 = (data: string) =>
+  Effect.gen(function* (_) {
+    const decoded = atob(decodeURIComponent(data));
+    const parsed = JSON.parse(decoded);
+
+    const paymentRequest: PaymentRequest = {
+      address: parsed.address,
+      amount: parsed.amount as Lovelace,
+      description: parsed.description != null
+        ? Option.some(parsed.description)
+        : Option.none(),
+      open: parsed.open,
+      handle: parsed.handle != null
+        ? Option.some(parsed.handle)
+        : Option.none(),
+      cnt: parsed.cnt,
+    };
+
+    return paymentRequest;
+  })

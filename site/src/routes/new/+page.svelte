@@ -8,7 +8,7 @@
   import EnterAmount from "$lib/createLink/enterAmount.svelte";
   import ManualAddress from "$lib/createLink/manualAddress.svelte";
   import EnterDescription from "$lib/createLink/enterDescription.svelte";
-  import type { PaymentRequest } from "$lib/types";
+  import type { PaymentRequest } from "$lib/paymentRequest";
   import { writable } from "svelte/store";
 
   const viewState = writable<CreateLinkStep>(CreateLinkStep.ChooseMethod);
