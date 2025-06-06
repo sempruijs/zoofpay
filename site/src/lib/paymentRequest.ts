@@ -1,6 +1,7 @@
 import { Effect, Option } from "effect";
 
 export type PaymentRequest = {
+  version: number,
   address: string;
   amount: Lovelace;
   description: Option.Option<string>;
@@ -35,7 +36,7 @@ export function paymentRequestToUrl(pr: PaymentRequest): string {
   const json = JSON.stringify(jsonSerializable);
   const base64 = btoa(json); // base64 encode
 
-  return `${baseUrl}?d=${encodeURIComponent(base64)}`;
+  return `${baseUrl}pay/?pr=${encodeURIComponent(base64)}`;
 }
 
 export const paymentRequestFromBase64 = (data: string) =>
@@ -45,6 +46,7 @@ export const paymentRequestFromBase64 = (data: string) =>
 
     const paymentRequest: PaymentRequest = {
       address: parsed.address,
+      version: parsed.version,
       amount: parsed.amount as Lovelace,
       description: parsed.description != null
         ? Option.some(parsed.description)

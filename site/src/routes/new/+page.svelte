@@ -10,9 +10,11 @@
   import EnterDescription from "$lib/createLink/enterDescription.svelte";
   import type { PaymentRequest } from "$lib/paymentRequest";
   import { writable } from "svelte/store";
+  import { version } from "../../stores/config";
 
   const viewState = writable<CreateLinkStep>(CreateLinkStep.ChooseMethod);
   const paymentRequest = writable<PaymentRequest>({
+    version: version,
     address: "",
     amount: "",
     description: Option.none(),
