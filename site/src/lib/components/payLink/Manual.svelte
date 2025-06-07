@@ -2,6 +2,7 @@
   import type { Writable } from "svelte/store";
   import { PayLinkStep } from "$lib/payLink";
   import { type PaymentRequest } from "$lib/paymentRequest";
+  import QRCode from '@castlenine/svelte-qrcode';
 
   const { viewState, paymentRequest } = $props<{
     viewState: Writable<PayLinkStep>;
@@ -11,5 +12,6 @@
   const addr = paymentRequest.address;
 </script>
 <h1>{addr}</h1>
+<QRCode data={addr} />
 <button onclick={() => viewState.set(PayLinkStep.ThankYou)}>next</button>
 <button onclick={() => viewState.set(PayLinkStep.ChooseMethod)}>previous</button>
