@@ -35,6 +35,16 @@ export type Asset = typeof Asset[keyof typeof Asset];
 export type Quantity = string & { readonly __brand: "Quantity" };
 export type Address = string & { readonly __brand: "Address"};
 
+export const quantityToAda = (quantity: Quantity): string => {
+  const lovelace = parseInt(quantity, 10);
+
+  if (isNaN(lovelace)) {
+    throw new Error(`Invalid quantity: ${quantity}`);
+  }
+
+  return (lovelace / 1_000_000).toString(); // Removes trailing zeros automatically
+};
+
 export const parseAdaToLovelace = (ada: string) =>
   Effect.gen(function* (_) {
     const parsed = parseFloat(ada);

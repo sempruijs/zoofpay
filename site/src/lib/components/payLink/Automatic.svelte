@@ -9,6 +9,7 @@
   import { provideWallet } from "$lib/ts/wallet";
   import { sendAssets } from "$lib/ts/wallet/sendAsset";
   import { type TxHash } from "$lib/ts/wallet/sendAsset"; 
+  import { quantityToAda } from "$lib/ts/paymentRequest";
 
   const { viewState, paymentRequest, txHash } = $props<{
     viewState: Writable<PayLinkStep>;
@@ -36,6 +37,6 @@
 <h1>Automatic</h1>
 <ConnectWallet />
 {#if Option.isSome($connectedWallet)}
-  <button onclick={() => handlePayment(paymentRequest)}>Pay {quantity}</button>
+  <button onclick={() => handlePayment(paymentRequest)}>Pay {quantityToAda(quantity)} ada</button>
 {/if}
 <button onclick={() => viewState.set(PayLinkStep.ChooseMethod)}>previous</button>
