@@ -1,16 +1,31 @@
 <script lang="ts">
+  import { Effect } from "effect";
   import type { Writable } from "svelte/store";
   import { PayLinkStep } from "$lib/payLink";
   import { type PaymentRequest } from "$lib/paymentRequest";
+  import ConnectWallet from "$lib/components/ConnectWallet.svelte";
+  import { connectedWallet } from "../../../stores/wallet";
+  import { provideWallet } from "$lib/wallet";
+    import { sendAssets } from "$lib/wallet/sendAsset";
+
+  function handlePayment(pr: PaymentRequest) {
+    Effect.runPromise(provideWallet($connectedWallet)(sendAssets(pr.amount, "lovelace", pr.address))).then(() => {
+      viewState.set(PayLinkStep.ThankYou)
+    }).catch((e) => {
+      console.error("failed to send assets ", e);
+    })
+  }
 
   const { viewState, paymentRequest } = $props<{
     viewState: Writable<PayLinkStep>;
     paymentRequest: PaymentRequest;
   }>();
 
-  const addr = paymentRequest.address;
+  const amount = paymentRequest.amount;
 </script>
 <h1>Automatic</h1>
-<h1>{addr}</h1>
-<button onclick={() => viewState.set(PayLinkStep.ThankYou)}>next</button>
+<ConnectWallet />
+{#if $connectedWallet}
+<button onclick={() => handlePayment(paymentRequest)}>Pay {amount}</button>
+{/if}
 <button onclick={() => viewState.set(PayLinkStep.ChooseMethod)}>previous</button>
