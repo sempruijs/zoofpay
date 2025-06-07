@@ -1,10 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { Option } from "effect";
   import { BrowserWallet, type Wallet } from "@meshsdk/core";
   import { connectedWallet } from "../../stores/wallet";
 
   let availableWallets: Wallet[] = [];
-  let walletBalance: string | null = null;
+  let walletBalance: Option.Option<string> = Option.none();
   let isDialogOpen = false;
 
   onMount(async () => {
@@ -22,7 +23,7 @@
 
   async function selectWallet(name: string) {
     const wallet: BrowserWallet = await BrowserWallet.enable(name);
-    connectedWallet.set(wallet);
+    connectedWallet.set(Option.some(wallet));
 
     const utxos = await wallet.getUtxos();
     const balanceLovelace = utxos.reduce((acc, utxo) => {
@@ -30,13 +31,13 @@
       return acc + (amount ? BigInt(amount.quantity) : 0n);
     }, 0n);
 
-    walletBalance = `${Number(balanceLovelace) / 1_000_000} ₳`;
+    walletBalance = Option.some(`${Number(balanceLovelace) / 1_000_000} ₳`);
     closeDialog();
   }
 
   function disconnectWallet() {
-    connectedWallet.set(null);
-    walletBalance = null;
+    connectedWallet.set(Option.none());
+    walletBalance = Option.none();
     closeDialog();
   }
 
@@ -52,8 +53,8 @@
   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
   onclick={openDialog}
 >
-  {#if walletBalance}
-    Balance: {walletBalance}
+  {#if Option.isSome(walletBalance)}
+    Balance: {walletBalance.value}
   {:else}
     Connect Wallet
   {/if}
@@ -64,18 +65,20 @@
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
     <div class="bg-black p-6 rounded-xl shadow-lg w-full max-w-md space-y-6 text-white">
       <h2 class="text-xl font-bold">
-        {#if $connectedWallet}
+        {#if Option.isSome($connectedWallet)}
           Connected Wallet
         {:else}
           Select a Wallet
         {/if}
       </h2>
 
-      {#if $connectedWallet}
+      {#if Option.isSome($connectedWallet)}
         <!-- Show wallet info and disconnect button -->
         <div class="space-y-4">
-          <p class="text-sm">Connected to <strong>{$connectedWallet?._walletName}</strong></p>
-          <p class="text-sm">Balance: {walletBalance}</p>
+          <p class="text-sm">Connected to <strong>{$connectedWallet.value._walletName}</strong></p>
+          {#if Option.isSome(walletBalance)}
+            <p class="text-sm">Balance: {walletBalance.value}</p>
+          {/if}
           <div class="flex justify-end space-x-2">
             <button
               class="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"

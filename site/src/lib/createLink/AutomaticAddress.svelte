@@ -1,6 +1,6 @@
 <script lang="ts">
   import { connectedWallet } from "../../stores/wallet";
-  import { Effect } from "effect";
+  import { Effect, Option } from "effect";
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
   import { CreateLinkStep } from "./createLink";
   import type { Writable } from "svelte/store";
@@ -14,8 +14,8 @@
   }>();
 
   $effect(() => {
-    if ($connectedWallet) {
-      Effect.runPromise(provideWallet($connectedWallet)(getAddress()))
+    if (Option.isSome($connectedWallet)) {
+      Effect.runPromise(provideWallet($connectedWallet.value)(getAddress()))
         .then(addr => {
           paymentRequest.update(pr => ({
             ...pr,
@@ -32,7 +32,7 @@
 <h1>connect wallet</h1>
 <ConnectWallet />
 
-{#if $connectedWallet}
+{#if Option.isSome($connectedWallet)}
   <button onclick={() => viewState.set(CreateLinkStep.EnterAmount)}>Next</button>
 {/if}
 <button onclick={() => viewState.set(CreateLinkStep.ChooseMethod)}>Previous</button>
