@@ -1,11 +1,11 @@
 import { Effect } from "effect";
 import { MeshTxBuilder } from "@meshsdk/core";
 import { Wallet } from "$lib/ts/wallet";
-import type { Quantity, Address } from "$lib/paymentRequest"; 
+import type { Asset, Quantity, Address } from "$lib/paymentRequest"; 
 
 export const sendAssets = (
-  amount: Quantity,
-  asset: string,
+  quantity: Quantity,
+  asset: Asset,
   address: Address
 ) =>
   Effect.gen(function* (_) {
@@ -21,7 +21,7 @@ export const sendAssets = (
           txBuilder
             .txOut(
               address,
-              [{ unit: asset, quantity: amount }],
+              [{ unit: asset, quantity: quantity }],
             )
             .changeAddress(changeAddress)
             .selectUtxosFrom(utxos)

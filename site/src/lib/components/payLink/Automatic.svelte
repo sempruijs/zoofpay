@@ -20,7 +20,7 @@
     Option.match($connectedWallet, {
       onNone: () => console.error("Problem while finding connectedWallet"),
       onSome: (wallet) => {
-        Effect.runPromise(provideWallet(wallet)(sendAssets(quantity, "lovelace", pr.address))).then((hash) => {
+        Effect.runPromise(provideWallet(wallet)(sendAssets(quantity, pr.asset, pr.address))).then((hash) => {
           txHash.set(Option.some(hash));
           viewState.set(PayLinkStep.ThankYou)
         }).catch((e) => {
