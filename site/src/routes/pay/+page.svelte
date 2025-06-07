@@ -1,15 +1,15 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { Effect, Option } from 'effect';
-  import  { type PaymentRequest, paymentRequestFromBase64 } from "$lib/paymentRequest";
+  import  { type PaymentRequest, paymentRequestFromBase64 } from "$lib/ts/paymentRequest";
   import { writable } from 'svelte/store';
-  import { PayLinkStep } from '$lib/payLink';
+  import { PayLinkStep } from '$lib/ts/payLink';
   import Summery from '$lib/components/payLink/Summery.svelte';
-  import ChooseMethod from '$lib/createLink/chooseMethod.svelte';
+  import ChooseMethod from '$lib/components/payLink/ChooseMethod.svelte';
   import Manual from '$lib/components/payLink/Manual.svelte';
   import Automatic from '$lib/components/payLink/Automatic.svelte';
   import ThankYou from '$lib/components/payLink/ThankYou.svelte';
-  import { type TxHash } from '$lib/wallet/sendAsset';
+  import { type TxHash } from '$lib/ts/wallet/sendAsset';
 
   let paymentRequest = $state<Option.Option<PaymentRequest>>(Option.none());
   const base64 = Option.fromNullable($page.url.searchParams.get('pr'));

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Option } from "effect";
-  import { type TxHash } from "$lib/wallet/sendAsset";
-  import { type PaymentRequest } from "$lib/paymentRequest";
+  import { type TxHash } from "$lib/ts/wallet/sendAsset";
+  import { type PaymentRequest } from "$lib/ts/paymentRequest";
 
   const { txHash, paymentReqest } = $props<{
     txHash: Option.Option<TxHash>,

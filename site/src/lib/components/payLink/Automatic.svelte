@@ -3,7 +3,7 @@
   import type { Writable } from "svelte/store";
   import { writable } from "svelte/store";
   import { PayLinkStep } from "$lib/ts/payLink";
-  import { type PaymentRequest } from "$lib/ts/paymentRequest";
+  import { type PaymentRequest, type Quantity} from "$lib/ts/paymentRequest";
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
   import { connectedWallet } from "../../../stores/wallet";
   import { provideWallet } from "$lib/ts/wallet";
@@ -20,7 +20,7 @@
     Option.match($connectedWallet, {
       onNone: () => console.error("Problem while finding connectedWallet"),
       onSome: (wallet) => {
-        Effect.runPromise(provideWallet(wallet)(sendAssets(pr.amount, "lovelace", pr.address))).then((hash) => {
+        Effect.runPromise(provideWallet(wallet)(sendAssets(quantity, "lovelace", pr.address))).then((hash) => {
           txHash.set(Option.some(hash));
           viewState.set(PayLinkStep.ThankYou)
         }).catch((e) => {
@@ -30,11 +30,12 @@
     })
   }
 
-  const amount = paymentRequest.amount;
+  //TODO: throw error if payment request is open
+  const quantity = paymentRequest.variant.quantity;
 </script>
 <h1>Automatic</h1>
 <ConnectWallet />
 {#if Option.isSome($connectedWallet)}
-  <button onclick={() => handlePayment(paymentRequest)}>Pay {amount}</button>
+  <button onclick={() => handlePayment(paymentRequest)}>Pay {quantity}</button>
 {/if}
 <button onclick={() => viewState.set(PayLinkStep.ChooseMethod)}>previous</button>

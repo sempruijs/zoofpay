@@ -1,6 +1,6 @@
 import { Effect } from "effect";
 import { MeshTxBuilder } from "@meshsdk/core";
-import { Wallet } from "$lib/wallet";
+import { Wallet } from "$lib/ts/wallet";
 import type { Quantity, Address } from "$lib/paymentRequest"; 
 
 export const sendAssets = (

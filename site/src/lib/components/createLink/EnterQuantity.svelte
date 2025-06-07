@@ -5,18 +5,17 @@
   import { Effect } from "effect";
   import { parseAdaToLovelace } from "$lib/ts/paymentRequest";
 
-  let amountquantity = $state('');
+  let quantity = $state('');
 
   $effect(() => {
     // Run the Effect and handle the result
-    Effect.runPromise(parseAdaToLovelace(amountquantity)).then((quaentity) => {
+    Effect.runPromise(parseAdaToLovelace(quantity)).then((quaentity) => {
       paymentRequest.update((pr: PaymentRequest) => ({
         ...pr,
-        varient: PaymentVariant.closed(quaentity as Quantity)
+        variant: PaymentVariant.closed(quaentity as Quantity)
       }));
     }).catch((err) => {
       console.error("Invalid ADA input:", err.message);
-      // Optionally, set validation state or user feedback here
     });
   });
 
@@ -28,7 +27,7 @@
 <h1>Enter amount</h1>
 <input
   type="text"
-  bind:value={amountquantity}
+  bind:value={quantity}
   placeholder="0"
 />
 <button onclick={() => viewState.set(CreateLinkStep.EnterDescription)}>next</button>

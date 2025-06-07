@@ -14,15 +14,15 @@ export const PaymentVariant = {
     type: "open",
     suggestion,
   }),
-  closed: (amount: Quantity): PaymentVariant => ({
+  closed: (quantity: Quantity): PaymentVariant => ({
     type: "closed",
-    amount,
+    quantity,
   }),
 } as const;
 
 export type PaymentVariant =
   | { type: "open"; suggestion: Option.Option<Quantity> }
-  | { type: "closed"; amount: Quantity };
+  | { type: "closed"; quantity: Quantity };
 
 export const Asset = {
   Lovelace: "lovelace",
@@ -43,7 +43,7 @@ export const parseAdaToLovelace = (ada: string) =>
       yield* _(Effect.fail(new Error(`Invalid ADA amount: "${ada}"`)));
     }
 
-    const lovelace: Lovelace = Math.round(parsed * 1_000_000).toString() as Lovelace;
+    const lovelace = Math.round(parsed * 1_000_000).toString() as Quantity;
     return lovelace;
   })
 
@@ -70,15 +70,10 @@ export const paymentRequestFromBase64 = (data: string) =>
     const paymentRequest: PaymentRequest = {
       address: parsed.address,
       version: parsed.version,
-      amount: parsed.amount as Lovelace,
-      description: parsed.description != null
-        ? Option.some(parsed.description)
-        : Option.none(),
-      open: parsed.open,
-      handle: parsed.handle != null
-        ? Option.some(parsed.handle)
-        : Option.none(),
-      cnt: parsed.cnt,
+      variant: parsed.variant,
+      description: Option.fromNullable(parsed.description),
+      handle: Option.fromNullable(parsed.handle),
+      asset: parsed.asset,
     };
 
     return paymentRequest;
