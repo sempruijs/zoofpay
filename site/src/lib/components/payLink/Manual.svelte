@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-  import { PayLinkStep } from "$lib/payLink";
-  import { type PaymentRequest } from "$lib/paymentRequest";
+  import { PayLinkStep } from "$lib/ts/payLink";
+  import { type PaymentRequest } from "$lib/ts/paymentRequest";
   import QRCode from '@castlenine/svelte-qrcode';
 
   const { viewState, paymentRequest } = $props<{

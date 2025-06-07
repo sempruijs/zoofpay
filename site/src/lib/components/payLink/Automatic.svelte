@@ -2,13 +2,13 @@
   import { Effect, Option } from "effect";
   import type { Writable } from "svelte/store";
   import { writable } from "svelte/store";
-  import { PayLinkStep } from "$lib/payLink";
-  import { type PaymentRequest } from "$lib/paymentRequest";
+  import { PayLinkStep } from "$lib/ts/payLink";
+  import { type PaymentRequest } from "$lib/ts/paymentRequest";
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
   import { connectedWallet } from "../../../stores/wallet";
-  import { provideWallet } from "$lib/wallet";
-  import { sendAssets } from "$lib/wallet/sendAsset";
-  import { type TxHash } from "$lib/wallet/sendAsset"; 
+  import { provideWallet } from "$lib/ts/wallet";
+  import { sendAssets } from "$lib/ts/wallet/sendAsset";
+  import { type TxHash } from "$lib/ts/wallet/sendAsset"; 
 
   const { viewState, paymentRequest, txHash } = $props<{
     viewState: Writable<PayLinkStep>;

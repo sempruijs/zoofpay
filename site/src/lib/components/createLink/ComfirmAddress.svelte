@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { CreateLinkStep } from "./createLink";
+  import { CreateLinkStep } from "$lib/ts/createLink";
   import { type Writable } from "svelte/store";
 
   const { viewState, paymentRequest } = $props<{

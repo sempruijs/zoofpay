@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { connectedWallet } from "../../stores/wallet";
+  import { connectedWallet } from "../../../stores/wallet";
   import { Effect, Option } from "effect";
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
-  import { CreateLinkStep } from "./createLink";
+  import { CreateLinkStep } from "$lib/ts/createLink";
   import type { Writable } from "svelte/store";
-  import type { PaymentRequest } from "$lib/paymentRequest";
-  import { getAddress } from "$lib/wallet/getAddress";
-  import { provideWallet } from "$lib/wallet";
+  import type { PaymentRequest } from "$lib/ts/paymentRequest";
+  import { getAddress } from "$lib/ts/wallet/getAddress";
+  import { provideWallet } from "$lib/ts/wallet";
 
   const { viewState, paymentRequest } = $props<{
     viewState: Writable<CreateLinkStep>;

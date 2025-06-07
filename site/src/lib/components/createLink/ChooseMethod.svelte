@@ -1,6 +1,6 @@
 <script lang="ts">
   import { type Writable } from "svelte/store";
-  import { PayLinkStep } from "$lib/payLink";
+  import { PayLinkStep } from "$lib/ts/payLink";
 
   export let viewState: Writable<PayLinkStep>;
 </script>

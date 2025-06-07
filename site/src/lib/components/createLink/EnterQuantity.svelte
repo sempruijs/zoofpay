@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { CreateLinkStep } from "./createLink";
   import { type Writable } from "svelte/store";
-  import { type PaymentRequest } from "$lib/paymentRequest";
+  import { CreateLinkStep } from "$lib/ts/createLink";
+  import { PaymentVariant, type PaymentRequest, type Quantity } from "$lib/ts/paymentRequest";
   import { Effect } from "effect";
-  import { parseAdaToLovelace } from "$lib/paymentRequest";
+  import { parseAdaToLovelace } from "$lib/ts/paymentRequest";
 
-  let amount = $state('');
+  let amountquantity = $state('');
 
   $effect(() => {
     // Run the Effect and handle the result
-    Effect.runPromise(parseAdaToLovelace(amount)).then((lovelace) => {
-      paymentRequest.update((pr) => ({
+    Effect.runPromise(parseAdaToLovelace(amountquantity)).then((quaentity) => {
+      paymentRequest.update((pr: PaymentRequest) => ({
         ...pr,
-        amount: lovelace
+        varient: PaymentVariant.closed(quaentity as Quantity)
       }));
     }).catch((err) => {
       console.error("Invalid ADA input:", err.message);
@@ -28,7 +28,7 @@
 <h1>Enter amount</h1>
 <input
   type="text"
-  bind:value={amount}
+  bind:value={amountquantity}
   placeholder="0"
 />
 <button onclick={() => viewState.set(CreateLinkStep.EnterDescription)}>next</button>

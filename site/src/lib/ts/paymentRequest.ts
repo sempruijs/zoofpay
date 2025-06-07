@@ -3,15 +3,36 @@ import { Effect, Option } from "effect";
 export type PaymentRequest = {
   version: number,
   address: Address;
-  amount: Amount;
   description: Option.Option<string>;
-  open: boolean;
   handle: Option.Option<string>;
-  cnt: string;
+  asset: Asset;
+  variant: PaymentVariant;
 }
 
+export const PaymentVariant = {
+  open: (suggestion: Option.Option<Quantity>): PaymentVariant => ({
+    type: "open",
+    suggestion,
+  }),
+  closed: (amount: Quantity): PaymentVariant => ({
+    type: "closed",
+    amount,
+  }),
+} as const;
+
+export type PaymentVariant =
+  | { type: "open"; suggestion: Option.Option<Quantity> }
+  | { type: "closed"; amount: Quantity };
+
+export const Asset = {
+  Lovelace: "lovelace",
+  //TODO: support more tokens
+} as const;
+
+export type Asset = typeof Asset[keyof typeof Asset];
+
 // You can read this as bigInt
-export type Amount = string & { readonly __brand: "Amount" };
+export type Quantity = string & { readonly __brand: "Quantity" };
 export type Address = string & { readonly __brand: "Address"};
 
 export const parseAdaToLovelace = (ada: string) =>

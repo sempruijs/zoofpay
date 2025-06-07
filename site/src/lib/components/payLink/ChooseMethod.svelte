@@ -1,10 +1,8 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-  import { Option } from "effect";
-  import { PayLinkStep } from "$lib/payLink";
-  import { type PaymentRequest } from "$lib/paymentRequest";
+  import { PayLinkStep } from "$lib/ts/payLink";
 
-  const { viewState, paymentRequest } = $props<{
+  const { viewState } = $props<{
     viewState: Writable<PayLinkStep>;
   }>();
 </script>

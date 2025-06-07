@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { CreateLinkStep } from "./createLink";
+  import { CreateLinkStep } from "$lib/ts/createLink";
   import { type Writable } from "svelte/store";
-  import { paymentRequestToUrl } from "$lib/paymentRequest";
+  import { paymentRequestToUrl } from "$lib/ts/paymentRequest";
 
   const { viewState, paymentRequest } = $props<{
     viewState: Writable<CreateLinkStep>;

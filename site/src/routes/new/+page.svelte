@@ -1,26 +1,25 @@
 <script lang="ts">
   import { Option } from "effect";
-  import { CreateLinkStep } from "$lib/createLink/createLink";
-  import ChooseMethod from "$lib/createLink/chooseMethod.svelte";
-  import AutomaticAddress from "$lib/createLink/AutomaticAddress.svelte";
-  import ComfirmAddress from "$lib/createLink/comfirmAddress.svelte";
-  import ShareLink from "$lib/createLink/shareLink.svelte";
-  import EnterAmount from "$lib/createLink/enterAmount.svelte";
-  import ManualAddress from "$lib/createLink/manualAddress.svelte";
-  import EnterDescription from "$lib/createLink/enterDescription.svelte";
-  import type { PaymentRequest } from "$lib/paymentRequest";
   import { writable } from "svelte/store";
   import { version } from "../../stores/config";
+  import { CreateLinkStep } from "$lib/ts/createLink";
+  import { type PaymentRequest, PaymentVariant, type Quantity, type Address, Asset } from "$lib/ts/paymentRequest";
+  import ChooseMethod from "$lib/components/createLink/ChooseMethod.svelte";
+  import AutomaticAddress from "$lib/components/createLink/AutomaticAddress.svelte";
+  import ManualAddress from "$lib/components/createLink/ManualAddress.svelte";
+  import ComfirmAddress from "$lib/components/createLink/ComfirmAddress.svelte";
+  import EnterQuantity from "$lib/components/createLink/EnterQuantity.svelte";
+  import EnterDescription from "$lib/components/createLink/enterDescription.svelte";
+  import ShareLink from "$lib/components/createLink/ShareLink.svelte";
 
   const viewState = writable<CreateLinkStep>(CreateLinkStep.ChooseMethod);
   const paymentRequest = writable<PaymentRequest>({
     version: version,
-    address: "",
-    amount: "",
+    address: "" as Address,
+    variant: PaymentVariant.closed("" as Quantity),
     description: Option.none(),
     handle: Option.none(),
-    cnt: "ada",
-    open: false
+    asset: Asset.Lovelace,
   });  
 </script>
 {#if $viewState === CreateLinkStep.ChooseMethod}
@@ -28,7 +27,7 @@
 {:else if $viewState === CreateLinkStep.AutomaticAddress}
   <AutomaticAddress {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.EnterAmount}
-  <EnterAmount {viewState} {paymentRequest}/>
+  <EnterQuantity {viewState} {paymentRequest}/>
 {:else if $viewState === CreateLinkStep.EnterDescription}
   <EnterDescription {viewState} {paymentRequest} />
 {:else if $viewState === CreateLinkStep.ShareLink}
