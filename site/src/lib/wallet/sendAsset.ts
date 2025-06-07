@@ -33,7 +33,7 @@ export const sendAssets = (
     const signedTx = yield* _(w.signTx(unsignedTx));
 
     const txHash = yield* _(w.submitTx(signedTx));
-    return txHash;
+    return txHash as TxHash;
   });
 
-const explorerLink = (txHash: string) => `https://cexplorer.io/tx/${txHash}`;
+export type TxHash = string & { readonly __brand: "TxHash"};

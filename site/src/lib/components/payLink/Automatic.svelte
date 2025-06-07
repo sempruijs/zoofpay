@@ -1,18 +1,27 @@
 <script lang="ts">
   import { Effect, Option } from "effect";
   import type { Writable } from "svelte/store";
+  import { writable } from "svelte/store";
   import { PayLinkStep } from "$lib/payLink";
   import { type PaymentRequest } from "$lib/paymentRequest";
   import ConnectWallet from "$lib/components/ConnectWallet.svelte";
   import { connectedWallet } from "../../../stores/wallet";
   import { provideWallet } from "$lib/wallet";
   import { sendAssets } from "$lib/wallet/sendAsset";
+  import { type TxHash } from "$lib/wallet/sendAsset"; 
+
+  const { viewState, paymentRequest, txHash } = $props<{
+    viewState: Writable<PayLinkStep>;
+    paymentRequest: PaymentRequest;
+    txHash: Writable<Option.Option<TxHash>>;
+  }>();
 
   function handlePayment(pr: PaymentRequest) {
     Option.match($connectedWallet, {
       onNone: () => console.error("Problem while finding connectedWallet"),
       onSome: (wallet) => {
-        Effect.runPromise(provideWallet(wallet)(sendAssets(pr.amount, "lovelace", pr.address))).then(() => {
+        Effect.runPromise(provideWallet(wallet)(sendAssets(pr.amount, "lovelace", pr.address))).then((hash) => {
+          txHash.set(Option.some(hash));
           viewState.set(PayLinkStep.ThankYou)
         }).catch((e) => {
           console.error("failed to send assets ", e);
@@ -20,11 +29,6 @@
       }
     })
   }
-
-  const { viewState, paymentRequest } = $props<{
-    viewState: Writable<PayLinkStep>;
-    paymentRequest: PaymentRequest;
-  }>();
 
   const amount = paymentRequest.amount;
 </script>

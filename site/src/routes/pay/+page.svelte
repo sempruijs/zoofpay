@@ -8,10 +8,13 @@
   import ChooseMethod from '$lib/createLink/chooseMethod.svelte';
   import Manual from '$lib/components/payLink/Manual.svelte';
   import Automatic from '$lib/components/payLink/Automatic.svelte';
+  import ThankYou from '$lib/components/payLink/ThankYou.svelte';
+  import { type TxHash } from '$lib/wallet/sendAsset';
 
   let paymentRequest = $state<Option.Option<PaymentRequest>>(Option.none());
   const base64 = Option.fromNullable($page.url.searchParams.get('pr'));
   const viewState = writable<PayLinkStep>(PayLinkStep.Summery);
+  const txHash = writable<Option.Option<TxHash>>(Option.none());
   
   $effect(() => {
     Option.map(base64, (data) => Effect.runPromise(paymentRequestFromBase64(data)).then((pr) => {
@@ -30,9 +33,13 @@
   {:else if $viewState == PayLinkStep.Manual}
     <Manual {viewState} paymentRequest={paymentRequest.value} />
   {:else if $viewState == PayLinkStep.Automatic}
-    <Automatic {viewState} paymentRequest={paymentRequest.value}/>
+    <Automatic
+      {viewState}
+      paymentRequest={paymentRequest.value}
+      txHash={txHash}
+    />
   {:else if $viewState == PayLinkStep.ThankYou}
-    <h1>Thank you</h1>
+    <ThankYou txHash={$txHash} paymentRequest={paymentRequest.value}/>
   {:else}
     <h1>Could not render viewState, {viewState}</h1>
   {/if}
