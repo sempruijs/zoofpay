@@ -1,12 +1,12 @@
 import { Effect } from "effect";
 import { MeshTxBuilder } from "@meshsdk/core";
 import { Wallet } from "$lib/wallet";
-import { type Amount } from "$lib/paymentRequest"; 
+import type { Amount, Address } from "$lib/paymentRequest"; 
 
 export const sendAssets = (
   amount: Amount,
   asset: string,
-  address: string
+  address: Address
 ) =>
   Effect.gen(function* (_) {
     const w = yield* _(Wallet);

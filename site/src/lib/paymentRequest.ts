@@ -2,7 +2,7 @@ import { Effect, Option } from "effect";
 
 export type PaymentRequest = {
   version: number,
-  address: string;
+  address: Address;
   amount: Amount;
   description: Option.Option<string>;
   open: boolean;
@@ -11,7 +11,8 @@ export type PaymentRequest = {
 }
 
 // You can read this as bigInt
-export type Amount = string & { readonly __brand: "Lovelace" };
+export type Amount = string & { readonly __brand: "Amount" };
+export type Address = string & { readonly __brand: "Address"};
 
 export const parseAdaToLovelace = (ada: string) =>
   Effect.gen(function* (_) {
