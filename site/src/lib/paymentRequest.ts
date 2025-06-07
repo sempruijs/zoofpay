@@ -3,14 +3,15 @@ import { Effect, Option } from "effect";
 export type PaymentRequest = {
   version: number,
   address: string;
-  amount: Lovelace;
+  amount: Amount;
   description: Option.Option<string>;
   open: boolean;
   handle: Option.Option<string>;
   cnt: string;
 }
 
-export type Lovelace = string & { readonly __brand: "Lovelace" };
+// You can read this as bigInt
+export type Amount = string & { readonly __brand: "Lovelace" };
 
 export const parseAdaToLovelace = (ada: string) =>
   Effect.gen(function* (_) {

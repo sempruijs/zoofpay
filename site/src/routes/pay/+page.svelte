@@ -4,6 +4,10 @@
   import  { type PaymentRequest, paymentRequestFromBase64 } from "$lib/paymentRequest";
   import { writable } from 'svelte/store';
   import { PayLinkStep } from '$lib/payLink';
+  import Summery from '$lib/components/payLink/Summery.svelte';
+  import ChooseMethod from '$lib/createLink/chooseMethod.svelte';
+  import Manual from '$lib/components/payLink/Manual.svelte';
+  import Automatic from '$lib/components/payLink/Automatic.svelte';
 
   let paymentRequest = $state<Option.Option<PaymentRequest>>(Option.none());
   const base64 = Option.fromNullable($page.url.searchParams.get('pr'));
@@ -20,13 +24,13 @@
 </script>
 {#if Option.isSome(paymentRequest)}
   {#if $viewState == PayLinkStep.Summery}
-    <h1>summery {paymentRequest.value.amount}</h1>
+    <Summery viewState={viewState} paymentRequest={paymentRequest.value} />
   {:else if $viewState == PayLinkStep.ChooseMethod}
-    <h1>Choose method</h1>
+    <ChooseMethod {viewState} />
   {:else if $viewState == PayLinkStep.Manual}
-    <h1>Manual</h1>
+    <Manual {viewState} paymentRequest={paymentRequest.value} />
   {:else if $viewState == PayLinkStep.Automatic}
-    <h1>Automatic</h1>
+    <Automatic {viewState} paymentRequest={paymentRequest.value}/>
   {:else if $viewState == PayLinkStep.ThankYou}
     <h1>Thank you</h1>
   {:else}
