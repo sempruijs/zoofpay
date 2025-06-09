@@ -6,6 +6,7 @@
   import { parseAdaToLovelace } from "$lib/ts/paymentRequest";
 
   let quantity = $state('');
+  let open = false;
 
   $effect(() => {
     // Run the Effect and handle the result
