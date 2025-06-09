@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { type Writable } from "svelte/store";
-  import { CreateLinkStep } from "$lib/ts/createLink";
-
-  export let viewState: Writable<PayLinkStep>;
+  const { onAutomatic, onManual } = $props<{
+    onAutomatic: () => void;
+    onManual: () => void;
+  }>();
 </script>
 <h1>Choose method</h1>
-<button onclick={() => viewState.set(CreateLinkStep.AutomaticAddress)}>automatic</button>
-<button onclick={() => viewState.set(CreateLinkStep.ManualAddress)}>manual</button>
+<button onclick={onAutomatic}>automatic</button>
+<button onclick={onManual}>manual</button>

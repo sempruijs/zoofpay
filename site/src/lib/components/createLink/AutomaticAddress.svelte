@@ -11,6 +11,7 @@
   const { viewState, paymentRequest } = $props<{
     viewState: Writable<CreateLinkStep>;
     paymentRequest: Writable<PaymentRequest>;
+    onConfirm: (address: String) => void);
   }>();
 
   $effect(() => {
@@ -35,4 +36,4 @@
 {#if Option.isSome($connectedWallet)}
   <button onclick={() => viewState.set(CreateLinkStep.EnterAmount)}>Next</button>
 {/if}
-<button onclick={() => viewState.set(CreateLinkStep.ChooseMethod)}>Previous</button>
+<button onclick={() => onConfirm(address);}>Previous</button>

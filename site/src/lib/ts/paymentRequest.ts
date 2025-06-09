@@ -1,4 +1,4 @@
-import { Effect, Option } from "effect";
+import { Data, Effect, Option } from "effect";
 
 export type PaymentRequest = {
   version: number,
@@ -9,27 +9,21 @@ export type PaymentRequest = {
   variant: PaymentVariant;
 }
 
-export const PaymentVariant = {
-  open: (suggestion: Option.Option<Quantity>): PaymentVariant => ({
-    type: "open",
-    suggestion,
-  }),
-  closed: (quantity: Quantity): PaymentVariant => ({
-    type: "closed",
-    quantity,
-  }),
-} as const;
+export type Payment = {
+  quantity: Quantity,
+  asset: Asset,
+  address: Address
+}
 
-export type PaymentVariant =
-  | { type: "open"; suggestion: Option.Option<Quantity> }
-  | { type: "closed"; quantity: Quantity };
+type Asset = Data.TaggedEnum<{
+  Lovelace: {}
+  //TODO add more tokens
+}>
 
-export const Asset = {
-  Lovelace: "lovelace",
-  //TODO: support more tokens
-} as const;
-
-export type Asset = typeof Asset[keyof typeof Asset];
+type PaymentVariant = Data.TaggedEnum<{
+  Open: { readonly suggestion: Option.Option<Quantity> }
+  Closed: { readonly quantity: Quantity }
+}>
 
 // You can read this as bigInt
 export type Quantity = string & { readonly __brand: "Quantity" };
