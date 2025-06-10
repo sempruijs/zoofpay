@@ -1,23 +1,24 @@
 <script lang="ts">
-  import { CreateLinkStep } from "$lib/ts/createLink";
   import { type Writable } from "svelte/store";
   import { Option } from "effect";
+  import { type PartialPaymentRequest } from "$lib/ts/paymentRequest";
 
   let description = $state('');
 
   $effect(() => {
     let parsed: string = description;
     if (parsed != "") {
-      (paymentRequest).update(pr => ({
+      (partialPaymentRequest).update(pr => ({
         ...pr,
         description: Option.some(parsed)
       }));
     }
   })
 
- const { viewState, paymentRequest } = $props<{
-    viewState: Writable<CreateLinkStep>;
-    paymentRequest: Writable<PaymentRequest>;
+  const { partialPaymentRequest, onNext, onPrevious } = $props<{
+    partialPaymentRequest: Writable<PartialPaymentRequest>;
+    onNext: () => void;
+    onPrevious: () => void;
   }>();
 </script>
 <h1>Enter description</h1>
@@ -26,5 +27,5 @@
   bind:value={description}
   placeholder="banana"
 />
-<button onclick={() => viewState.set(CreateLinkStep.ShareLink)}>Next</button>
-<button onclick={() => viewState.set(CreateLinkStep.EnterAmount)}>Previous</button>
+<button onclick={onNext}>Next</button>
+<button onclick={onPrevious}>Previous</button>

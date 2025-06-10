@@ -5,7 +5,7 @@ export type CreateLinkStep = Data.TaggedEnum<{
   ManualAddress: {},
   AutomaticAddress: {},
   ComfirmAddress: {},
-  EnterAmount: {},
+  EnterQuantity: {},
   EnterDescription: {},
   ShareLink: {},
 }>

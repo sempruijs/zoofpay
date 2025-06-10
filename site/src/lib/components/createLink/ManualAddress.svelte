@@ -1,19 +1,22 @@
 <script lang="ts">
-  import { CreateLinkStep } from "$lib/ts/createLink";
+  import { Option } from "effect";
   import { type Writable } from "svelte/store";
+  import { type PartialPaymentRequest, type Address } from "$lib/ts/paymentRequest";
 
   let address = $state('');
 
-  const { viewState, paymentRequest } = $props<{
-    viewState: Writable<CreateLinkStep>;
-    paymentRequest: Writable<PaymentRequest>;
+  const { partialPaymentRequest, onNext, onPrevious } = $props<{
+    partialPaymentRequest: Writable<PartialPaymentRequest>;
+    onNext: () => void;
+    onPrevious: () => void;
   }>();
 
+
   $effect(() => {
-    let parsed: string = address;
-    paymentRequest.update(pr => ({
+    let parsed: Address = address as Address;
+    partialPaymentRequest.update(pr => ({
       ...pr,
-      address: parsed
+      address: Option.some(parsed)
     }));
   })
 </script>
@@ -23,5 +26,5 @@
   bind:value={address}
   placeholder="addr"
 />
-<button onclick={() => viewState.set(CreateLinkStep.ComfirmAddress)}>next</button>
-<button onclick={() => viewState.set(CreateLinkStep.ChooseMethod)}>Back</button>
+<button onclick={onNext}>next</button>
+<button onclick={onPrevious}>Back</button>

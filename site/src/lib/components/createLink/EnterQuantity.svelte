@@ -1,28 +1,27 @@
 <script lang="ts">
   import { type Writable } from "svelte/store";
-  import { CreateLinkStep } from "$lib/ts/createLink";
-  import { PaymentVariant, type PaymentRequest, type Quantity } from "$lib/ts/paymentRequest";
-  import { Effect } from "effect";
+  import { type PartialPaymentRequest, type Quantity, Open, Closed } from "$lib/ts/paymentRequest";
+  import { Effect, Option } from "effect";
   import { parseAdaToLovelace } from "$lib/ts/paymentRequest";
 
   let quantity = $state('');
-  let open = false;
 
   $effect(() => {
     // Run the Effect and handle the result
     Effect.runPromise(parseAdaToLovelace(quantity)).then((quaentity) => {
-      paymentRequest.update((pr: PaymentRequest) => ({
+      partialPaymentRequest.update((pr: PartialPaymentRequest) => ({
         ...pr,
-        variant: PaymentVariant.closed(quaentity as Quantity)
+        variant: Option.some(Closed({quantity: quantity as Quantity}))
       }));
     }).catch((err) => {
       console.error("Invalid ADA input:", err.message);
     });
   });
 
-  const { viewState, paymentRequest } = $props<{
-    viewState: Writable<CreateLinkStep>;
-    paymentRequest: Writable<PaymentRequest>;
+  const { partialPaymentRequest, onNext, onPrevious } = $props<{
+    partialPaymentRequest: Writable<PartialPaymentRequest>;
+    onNext: () => void;
+    onPrevious: () => void;
   }>();
 </script>
 <h1>Enter amount</h1>
@@ -31,5 +30,5 @@
   bind:value={quantity}
   placeholder="0"
 />
-<button onclick={() => viewState.set(CreateLinkStep.EnterDescription)}>next</button>
-<button onclick={() => viewState.set(CreateLinkStep.EnterAmount)}>previous</button>
+<button onclick={onNext}>next</button>
+<button onclick={onPrevious}>previous</button>

@@ -15,15 +15,29 @@ export type Payment = {
   address: Address
 }
 
+export type PartialPaymentRequest = {
+  version: number,
+  address: Option.Option<Address>;
+  description: Option.Option<string>;
+  handle: Option.Option<string>;
+  asset: Asset;
+  quantity: Option.Option<Quantity>;
+  variant: Option.Option<PaymentVariant>;
+}
+
 type Asset = Data.TaggedEnum<{
   Lovelace: {}
   //TODO add more tokens
 }>
 
+export const { Lovelace } = Data.taggedEnum<Asset>();
+
 type PaymentVariant = Data.TaggedEnum<{
   Open: { readonly suggestion: Option.Option<Quantity> }
   Closed: { readonly quantity: Quantity }
 }>
+
+export const { Open, Closed } = Data.taggedEnum<PaymentVariant>();
 
 // You can read this as bigInt
 export type Quantity = string & { readonly __brand: "Quantity" };
@@ -38,6 +52,23 @@ export const quantityToAda = (quantity: Quantity): string => {
 
   return (lovelace / 1_000_000).toString(); // Removes trailing zeros automatically
 };
+
+export const parsePartialToPaymentRequest = (pr: PartialPaymentRequest) =>
+  Effect.gen(function* (_) {
+    const address = Option.getOrThrow(pr.address);
+    const variant = Option.getOrThrow(pr.variant);
+
+    const result: PaymentRequest = {
+      version: pr.version,
+      address: address,
+      description: pr.description,
+      handle: pr.handle,
+      asset: pr.asset,
+      variant: variant
+    };
+
+    return result;
+  })
 
 export const parseAdaToLovelace = (ada: string) =>
   Effect.gen(function* (_) {
